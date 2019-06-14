@@ -4,16 +4,16 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import java.awt.Font;
 import javax.swing.JTextField;
+import javax.swing.JPasswordField;
 import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class Login {
 
 	private JFrame frame;
 	private JTextField txtUsername;
-	private JTextField txtPwd;
+	private JPasswordField pwdField;
 
 	/**
 	 * Launch the application.
@@ -47,39 +47,40 @@ public class Login {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
+		JLabel lblPleaseLoginOr = new JLabel("Please Login or Sign up if you don't have an account");
+		lblPleaseLoginOr.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblPleaseLoginOr.setBounds(35, 28, 344, 23);
+		frame.getContentPane().add(lblPleaseLoginOr);
+		
 		JLabel lblUsername = new JLabel("Username:");
-		lblUsername.setBounds(62, 72, 62, 22);
+		lblUsername.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblUsername.setBounds(90, 75, 70, 23);
 		frame.getContentPane().add(lblUsername);
 		
-		JLabel lblPassword = new JLabel("Password:");
-		lblPassword.setBounds(62, 115, 62, 22);
-		frame.getContentPane().add(lblPassword);
+		JLabel lblPwd = new JLabel("Password:");
+		lblPwd.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblPwd.setBounds(90, 120, 70, 23);
+		frame.getContentPane().add(lblPwd);
 		
 		txtUsername = new JTextField();
-		txtUsername.setBounds(159, 73, 86, 20);
+		txtUsername.setBounds(158, 77, 106, 20);
 		frame.getContentPane().add(txtUsername);
 		txtUsername.setColumns(10);
 		
-		JButton btnLogin = new JButton("Login");
-		btnLogin.setBounds(216, 192, 89, 23);
-		frame.getContentPane().add(btnLogin);
-		
-		txtPwd = new JTextField();
-		txtPwd.setBounds(159, 116, 86, 20);
-		frame.getContentPane().add(txtPwd);
-		txtPwd.setColumns(10);
-		
-		JButton btnCancel = new JButton("Cancel");
-		btnCancel.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
-		btnCancel.setBounds(315, 192, 89, 23);
-		frame.getContentPane().add(btnCancel);
+		pwdField = new JPasswordField();
+		pwdField.setBounds(158, 122, 106, 21);
+		frame.getContentPane().add(pwdField);
 		
 		JButton btnSignUp = new JButton("Sign Up");
-		btnSignUp.setBounds(20, 192, 89, 23);
+		btnSignUp.setBounds(20, 184, 89, 23);
 		frame.getContentPane().add(btnSignUp);
+		
+		JButton btnCancel = new JButton("Cancel");
+		btnCancel.setBounds(320, 184, 89, 23);
+		frame.getContentPane().add(btnCancel);
+		
+		JButton btnLogin = new JButton("Login");
+		btnLogin.setBounds(221, 184, 89, 23);
+		frame.getContentPane().add(btnLogin);
 	}
-
 }
