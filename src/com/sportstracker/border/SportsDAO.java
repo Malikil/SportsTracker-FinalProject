@@ -1,6 +1,6 @@
 package com.sportstracker.border;
 
-import java.util.List;
+import java.util.ArrayList;
 import org.hibernate.*;
 import org.hibernate.boot.*;
 import org.hibernate.boot.registry.*;
@@ -27,20 +27,40 @@ public class SportsDAO implements ISportDatabase
 	}
 	
 	@Override
-	public List<Match> getAllMatches()
+	public ArrayList<Match> getAllMatches()
 	{
+		SessionFactory fact = null;
+		Session ss = null;
+		ArrayList<Match> matches = null;
+		
+		try
+		{
+			fact = getFactory();
+			ss = fact.openSession();
+			
+			matches = (ArrayList<Match>)ss.createQuery("select m from Match m").list();
+		}
+		catch (HibernateException hx)
+		{
+			
+		}
+		finally
+		{
+			ss.close();
+			fact.close();
+		}
+		
+		return matches;
+	}
+
+	@Override
+	public ArrayList<Player> getAllPlayers() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<Player> getAllPlayers() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Team> getAllTeams() {
+	public ArrayList<Team> getAllTeams() {
 		// TODO Auto-generated method stub
 		return null;
 	}

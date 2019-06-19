@@ -1,17 +1,17 @@
 package com.sportstracker.border;
 
-import java.util.List;
+import java.util.ArrayList;
 import com.sportstracker.entities.*;
 
 public interface ISportDatabase
 {
 	/**
 	 * Gets a list of all matches in the database
-	 * @return Returns a List<Match> containing all matches in the database
+	 * @return Returns an ArrayList<Match> containing all matches in the database
 	 */
-	public List<Match> getAllMatches();
-	public List<Player> getAllPlayers();
-	public List<Team> getAllTeams();
+	public ArrayList<Match> getAllMatches();
+	public ArrayList<Player> getAllPlayers();
+	public ArrayList<Team> getAllTeams();
 	/**
 	 * Adds a single match to the database
 	 * @param match The match to add

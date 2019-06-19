@@ -1,19 +1,28 @@
 package com.sportstracker.border;
 
 import java.awt.EventQueue;
+import java.io.*;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Login {
 
 	private JFrame frame;
 	private JTextField txtUsername;
 	private JPasswordField pwdField;
+	
+	private JButton btnSignUp;
+	private JButton btnLogin;
 
 	/**
 	 * Launch the application.
@@ -71,7 +80,7 @@ public class Login {
 		pwdField.setBounds(158, 122, 106, 21);
 		frame.getContentPane().add(pwdField);
 		
-		JButton btnSignUp = new JButton("Sign Up");
+		btnSignUp = new JButton("Sign Up");
 		btnSignUp.setBounds(20, 184, 89, 23);
 		frame.getContentPane().add(btnSignUp);
 		
@@ -79,8 +88,18 @@ public class Login {
 		btnCancel.setBounds(320, 184, 89, 23);
 		frame.getContentPane().add(btnCancel);
 		
-		JButton btnLogin = new JButton("Login");
+		btnLogin = new JButton("Login");
 		btnLogin.setBounds(221, 184, 89, 23);
 		frame.getContentPane().add(btnLogin);
+	}
+	
+	public void addLoginListener(ActionListener listener)
+	{
+		btnLogin.addActionListener(listener);
+	}
+	
+	public void addRegisterListener(ActionListener listener)
+	{
+		btnSignUp.addActionListener(listener);
 	}
 }
