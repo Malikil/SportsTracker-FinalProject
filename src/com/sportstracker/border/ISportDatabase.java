@@ -5,5 +5,7 @@ import com.sportstracker.entities.*;
 
 public interface ISportDatabase
 {
-	public List<Match> getGames();
+	public List<Match> getAllMatches();
+	public List<Player> getAllPlayers();
+	public List<Team> getAllTeams();
 }

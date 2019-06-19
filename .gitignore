@@ -1,3 +1,7 @@
+# Custom files
+lib/HibernateJars/
+
+# Eclipse files
 .metadata
 bin/
 tmp/
