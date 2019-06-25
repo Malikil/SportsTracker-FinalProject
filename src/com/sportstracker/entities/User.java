@@ -7,20 +7,28 @@ import javax.persistence.*;
 public class User
 {
 	@Id
-	private String uname;
-	private String pword;
+	private String username;
+	private String password;
 	private boolean admin;
-	public String getUname() {
-		return uname;
+	
+	public User() { this(null, null); }
+	public User(String username, String password)
+	{
+		this.username = username;
+		this.password = password;
 	}
-	public void setUname(String uname) {
-		this.uname = uname;
+	
+	public String getUsername() {
+		return username;
 	}
-	public String getPword() {
-		return pword;
+	public void setUsername(String uname) {
+		this.username = uname;
 	}
-	public void setPword(String pword) {
-		this.pword = pword;
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String pword) {
+		this.password = pword;
 	}
 	public boolean isAdmin() {
 		return admin;
