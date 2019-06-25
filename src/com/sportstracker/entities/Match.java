@@ -12,7 +12,9 @@ public class Match
 	@Id
 	@GeneratedValue
 	private int Id;
+	@ManyToOne
 	private Team winner;
+	@ManyToOne
 	private Team loser;
 	private int winnerScore;
 	private int loserScore;

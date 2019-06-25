@@ -5,11 +5,9 @@ import org.hibernate.*;
 import org.hibernate.boot.*;
 import org.hibernate.boot.registry.*;
 
-import com.sportstracker.entities.Match;
-import com.sportstracker.entities.Player;
-import com.sportstracker.entities.Team;
+import com.sportstracker.entities.*;
 
-public class SportsDAO implements ISportDatabase
+public class SportsDAO implements ISportDatabase, IUserDatabase
 {
 	public static SessionFactory getFactory()
 	{
@@ -42,7 +40,7 @@ public class SportsDAO implements ISportDatabase
 		}
 		catch (HibernateException hx)
 		{
-			
+			// TODO is this intentionally left blank?
 		}
 		finally
 		{
@@ -95,6 +93,41 @@ public class SportsDAO implements ISportDatabase
 		}
 		
 		return nid;
+	}
+
+	@Override
+	public User getLogin(String username, String password) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Integer createAccount(String username, String password)
+	{
+		SessionFactory fact = getFactory();
+		Session ss = fact.openSession();
+		Transaction tran = ss.beginTransaction();
+		
+		Integer inserted = null;
+		
+		try
+		{
+			User account = new User(username, password);
+			inserted = (Integer)ss.save(account);
+			tran.commit();
+		}
+		catch (HibernateException hx)
+		{
+			tran.rollback();
+			throw hx;
+		}
+		finally
+		{
+			ss.close();
+			fact.close();
+		}
+		
+		return inserted;
 	}
 
 }

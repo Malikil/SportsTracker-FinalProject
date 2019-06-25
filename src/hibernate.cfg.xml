@@ -15,5 +15,6 @@
             <mapping class="com.sportstracker.entities.Player"/>  
             <mapping class="com.sportstracker.entities.Match" />
             <mapping class="com.sportstracker.entities.Team" />
+            <mapping class="com.sportstracker.entities.User" />
         </session-factory>  
     </hibernate-configuration>

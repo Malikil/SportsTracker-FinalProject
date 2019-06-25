@@ -7,7 +7,7 @@ public interface ISportDatabase
 {
 	/**
 	 * Gets a list of all matches in the database
-	 * @return Returns an ArrayList<Match> containing all matches in the database
+	 * @return Returns an ArrayList&lt;Match&gt; containing all matches in the database
 	 */
 	public ArrayList<Match> getAllMatches();
 	public ArrayList<Player> getAllPlayers();
