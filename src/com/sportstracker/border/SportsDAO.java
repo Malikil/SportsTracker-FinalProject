@@ -102,18 +102,18 @@ public class SportsDAO implements ISportDatabase, IUserDatabase
 	}
 
 	@Override
-	public Integer createAccount(String username, String password)
+	public String createAccount(String username, String password)
 	{
 		SessionFactory fact = getFactory();
 		Session ss = fact.openSession();
 		Transaction tran = ss.beginTransaction();
 		
-		Integer inserted = null;
+		String inserted = null;
 		
 		try
 		{
 			User account = new User(username, password);
-			inserted = (Integer)ss.save(account);
+			inserted = (String)ss.save(account);
 			tran.commit();
 		}
 		catch (HibernateException hx)

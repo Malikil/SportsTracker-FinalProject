@@ -88,19 +88,19 @@ public class Login
 					else
 					{
 						// Try to create an account using LoginManager
-						int result = LoginManager.createAccount(getUsername(), getPassword()); 
-						if (result > -1)
+						Boolean result = LoginManager.createAccount(getUsername(), getPassword()); 
+						if (result)
 							JOptionPane.showMessageDialog(null,
 									"Account was created.", "Register",
 									JOptionPane.INFORMATION_MESSAGE);
-						else if (result == -1)
-							JOptionPane.showMessageDialog(null,
-									"That username is already in use.", "Register",
-									JOptionPane.WARNING_MESSAGE);
-						else
+						else if (result == null)
 							JOptionPane.showMessageDialog(null,
 									"An unknown error occured.", "Register",
 									JOptionPane.ERROR_MESSAGE);
+						else
+							JOptionPane.showMessageDialog(null,
+									"That username is already in use.", "Register",
+									JOptionPane.WARNING_MESSAGE);
 					}
 				}
 			}

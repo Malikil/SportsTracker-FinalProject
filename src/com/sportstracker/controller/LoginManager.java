@@ -40,27 +40,23 @@ public class LoginManager
 	 * relating to whether the account was created or not.
 	 * @param username The user's desired username
 	 * @param password The user's desired password
-	 * @return A status code from the following:
-	 * <ul>
-	 * <li>The row number of a successfully inserted entry</li>
-	 * <li>-1 for item already exists</li>
-	 * <li>-2 if there was some other form of database error</li>
-	 * </ul>
+	 * @return True or false depending on if insertion was completed<br>
+	 * Returns null if a hibernate exception was encountered
 	 */
-	public static int createAccount(String username, String password)
+	public static Boolean createAccount(String username, String password)
 	{
 		try
 		{
 			IUserDatabase db = new SportsDAO();
-			Integer inserted = db.createAccount(username, password);
+			String inserted = db.createAccount(username, password);
 			if (inserted == null)
-				return -1;
+				return false;
 			else
-				return inserted;
+				return true;
 		}
 		catch (HibernateException hx)
 		{
-			return -2;
+			return null;
 		}
 	}
 }

@@ -1,5 +1,6 @@
 package com.sportstracker.entities;
 
+import java.util.List;
 import java.util.ArrayList;
 
 import javax.persistence.*;
@@ -12,13 +13,13 @@ public class Team
 	private int id;
 	
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="team")
-	private ArrayList<Player> players;
+	private List<Player> players;
 	
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="homeTeam")
-	private ArrayList<Match> homeMatches;
+	private List<Match> homeMatches;
 	
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="awayTeam")
-	private ArrayList<Match> awayMatches;
+	private List<Match> awayMatches;
 	
 	@Transient
 	private ArrayList<Match> matches;
@@ -26,13 +27,13 @@ public class Team
 	public int getId() {
 		return id;
 	}
-	public ArrayList<Player> getPlayers() {
+	public List<Player> getPlayers() {
 		return players;
 	}
-	public ArrayList<Match> getHomeMatches() {
+	public List<Match> getHomeMatches() {
 		return homeMatches;
 	}
-	public ArrayList<Match> getAwayMatches() {
+	public List<Match> getAwayMatches() {
 		return awayMatches;
 	}
 	
@@ -54,7 +55,7 @@ public class Team
 	{
 		if (matches == null)
 		{
-			matches = new ArrayList<>(homeMatches.size() + awayMatches.size());
+			matches = new ArrayList<>(homeMatches.size() );//+ awayMatches.size());
 			matches.addAll(homeMatches);
 			matches.addAll(awayMatches);
 		}
