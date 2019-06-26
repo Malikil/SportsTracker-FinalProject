@@ -11,7 +11,7 @@ public class Match
 {
 	@Id
 	@GeneratedValue
-	private int Id;
+	private int id;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
 	private Team homeTeam;
