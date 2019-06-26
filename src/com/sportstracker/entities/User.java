@@ -3,7 +3,7 @@ package com.sportstracker.entities;
 import javax.persistence.*;
 
 @Entity
-@Table(name="Users")
+//@Table(name="Users")
 public class User
 {
 	@Id

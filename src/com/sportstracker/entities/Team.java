@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import javax.persistence.*;
 
+@Entity
 public class Team
 {
 	@Id
