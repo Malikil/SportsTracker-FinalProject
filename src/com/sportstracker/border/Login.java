@@ -98,14 +98,14 @@ public class Login
 					{
 						// Try to create an account using LoginManager
 						Boolean result = LoginManager.createAccount(getUsername(), getPassword()); 
-						if (result)
-							JOptionPane.showMessageDialog(null,
-									"Account was created.", "Register",
-									JOptionPane.INFORMATION_MESSAGE);
-						else if (result == null)
+						if (result == null)
 							JOptionPane.showMessageDialog(null,
 									"An unknown error occured.", "Register",
 									JOptionPane.ERROR_MESSAGE);
+						else if (result)
+							JOptionPane.showMessageDialog(null,
+									"Account was created.", "Register",
+									JOptionPane.INFORMATION_MESSAGE);
 						else
 							JOptionPane.showMessageDialog(null,
 									"That username is already in use.", "Register",

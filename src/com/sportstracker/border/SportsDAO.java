@@ -1,7 +1,9 @@
 package com.sportstracker.border;
 
 import java.util.ArrayList;
+import java.util.List;
 import org.hibernate.*;
+import org.hibernate.query.Query;
 import org.hibernate.boot.*;
 import org.hibernate.boot.registry.*;
 
@@ -96,9 +98,27 @@ public class SportsDAO implements ISportDatabase, IUserDatabase
 	}
 
 	@Override
-	public User getLogin(String username, String password) {
-		// TODO Auto-generated method stub
-		return null;
+	public User getLogin(String username, String password)
+	{
+		SessionFactory fact = getFactory();
+		Session ss = fact.openSession();
+		
+		Query<User> query = ss.createQuery("FROM User u WHERE u.username = :uname AND u.password = :pword", User.class);
+		query.setParameter("uname", username);
+		query.setParameter("pword", password);
+		List<User> results = query.list();
+		User user;
+		if (results.isEmpty())
+			user = null;
+		else if (results.size() > 1)
+			throw new RuntimeException("This should never, ever happen");
+		else
+			user = results.get(0);
+		
+		ss.close();
+		fact.close();
+		
+		return user;
 	}
 
 	@Override
