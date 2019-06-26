@@ -1,12 +1,14 @@
 package com.sportstracker.entities;
 
+import javax.persistence.*;
+
 @Entity
 @Table(name="Player")
 public class Player
 {
 
 	@Id
-	@generatedValue
+	@GeneratedValue
 	
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="teamId")
