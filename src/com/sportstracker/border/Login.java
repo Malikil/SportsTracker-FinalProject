@@ -35,6 +35,9 @@ public class Login
 	public String getPassword()
 	{ return String.valueOf(pwdField.getPassword()); }
 
+	/**
+	 * calls initialize to begin login process
+	 */
 	public Login()
 	{
 		initialize();
@@ -72,6 +75,9 @@ public class Login
 		pwdField.setBounds(114, 116, 106, 21);
 		frame.add(pwdField);
 		
+		/**
+		 * Creates button used to create new accounts
+		 */
 		JButton btnSignUp = new JButton("Create Account");
 		btnSignUp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -79,6 +85,9 @@ public class Login
 						"Please re-enter password",
 						"Confirm",
 						JOptionPane.OK_CANCEL_OPTION);
+				/**
+				 * confirms user has entered a password matching the previous entry
+				 */
 				if (passConfirm != null)
 				{
 					if (!passConfirm.equals(String.valueOf(pwdField.getPassword())))
