@@ -62,7 +62,7 @@ public class Match
 		this.time = time;
 	}
 	public int getId() {
-		return Id;
+		return id;
 	}
 	public boolean isDraw()	{
 		return homeScore == awayScore;
