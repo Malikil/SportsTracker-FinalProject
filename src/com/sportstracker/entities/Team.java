@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import javax.persistence.*;
 
 @Entity
+@Table(name="Teams")
 public class Team
 {
 	@Id

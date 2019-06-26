@@ -3,7 +3,7 @@ package com.sportstracker.entities;
 import javax.persistence.*;
 
 @Entity
-//@Table(name="Player")
+@Table(name="Players")
 public class Player
 {
 
