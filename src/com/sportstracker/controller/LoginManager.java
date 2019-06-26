@@ -1,8 +1,10 @@
 package com.sportstracker.controller;
 
+import javax.persistence.PersistenceException;
 import javax.swing.JOptionPane;
 
 import org.hibernate.HibernateException;
+import org.hibernate.exception.ConstraintViolationException;
 
 import com.sportstracker.border.*;
 
@@ -55,8 +57,13 @@ public class LoginManager
 				return true;
 		}
 		catch (HibernateException hx)
+		{ return null; }
+		catch (PersistenceException px)
 		{
-			return null;
+			if (px.getCause() instanceof ConstraintViolationException)
+				return null;
+			else
+				throw px;
 		}
 	}
 }
