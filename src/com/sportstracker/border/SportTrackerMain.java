@@ -11,27 +11,19 @@ import javax.swing.JLabel;
 public class SportTrackerMain {
 
 	private JFrame frame;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					SportTrackerMain window = new SportTrackerMain();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+	
+	public void setVisible(boolean visible)
+	{
+		frame.setVisible(visible);
 	}
 
 	/**
 	 * Create the application.
+	 * @wbp.parser.constructor
 	 */
-	public SportTrackerMain() {
+	public SportTrackerMain() { this(false); }
+	public SportTrackerMain(boolean isAdmin)
+	{
 		initialize();
 	}
 
