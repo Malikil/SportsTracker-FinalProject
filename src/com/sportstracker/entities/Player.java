@@ -9,6 +9,7 @@ public class Player
 
 	@Id
 	@GeneratedValue
+	private int id;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="teamId")
