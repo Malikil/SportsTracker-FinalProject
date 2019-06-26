@@ -7,6 +7,8 @@ import javax.swing.JTabbedPane;
 import javax.swing.JPanel;
 import java.awt.FlowLayout;
 import javax.swing.JLabel;
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
 
 public class SportTrackerMain {
 
@@ -32,28 +34,25 @@ public class SportTrackerMain {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 879, 741);
+		frame.setBounds(100, 100, 720, 480);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
+		frame.getContentPane().setLayout(new BorderLayout(0, 0));
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setBounds(10, 11, 843, 680);
 		frame.getContentPane().add(tabbedPane);
 		
 		JPanel homePanel = new JPanel();
 		tabbedPane.addTab("Home", null, homePanel, null);
-		homePanel.setLayout(null);
+		homePanel.setLayout(new GridLayout(3, 1, 10, 10));
 		
 		JPanel gameSchedulePanel = new JPanel();
-		gameSchedulePanel.setBounds(10, 11, 818, 180);
 		homePanel.add(gameSchedulePanel);
+		gameSchedulePanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		JPanel resentGamesPanel = new JPanel();
-		resentGamesPanel.setBounds(10, 225, 818, 180);
 		homePanel.add(resentGamesPanel);
 		
 		JPanel FollowedGamesPanel = new JPanel();
-		FollowedGamesPanel.setBounds(10, 441, 818, 180);
 		homePanel.add(FollowedGamesPanel);
 		
 		JPanel teamPanel = new JPanel();

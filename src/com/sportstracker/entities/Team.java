@@ -56,7 +56,7 @@ public class Team
 	{
 		if (matches == null)
 		{
-			matches = new ArrayList<>(homeMatches.size() );//+ awayMatches.size());
+			matches = new ArrayList<>(homeMatches.size() + awayMatches.size());
 			matches.addAll(homeMatches);
 			matches.addAll(awayMatches);
 		}
