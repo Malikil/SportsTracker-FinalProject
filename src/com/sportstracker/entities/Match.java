@@ -14,11 +14,9 @@ public class Match
 	private int Id;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="matches")
 	private Team homeTeam;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="matches")
 	private Team awayTeam;
 	
 	private int homeScore;
@@ -30,26 +28,26 @@ public class Match
 	public Team getHomeTeam() {
 		return homeTeam;
 	}
-	public void setHomeTeam(Team winner) {
-		this.homeTeam = winner;
+	public void setHomeTeam(Team team) {
+		this.homeTeam = team;
 	}
 	public Team getAwayTeam() {
 		return awayTeam;
 	}
-	public void setAwayTeam(Team loser) {
-		this.awayTeam = loser;
+	public void setAwayTeam(Team team) {
+		this.awayTeam = team;
 	}
 	public int getHomeScore() {
 		return homeScore;
 	}
-	public void setHomeScore(int winnerScore) {
-		this.homeScore = winnerScore;
+	public void setHomeScore(int score) {
+		this.homeScore = score;
 	}
 	public int getAwayScore() {
 		return awayScore;
 	}
-	public void setAwayScore(int loserScore) {
-		this.awayScore = loserScore;
+	public void setAwayScore(int score) {
+		this.awayScore = score;
 	}
 	public String getLocation() {
 		return location;
