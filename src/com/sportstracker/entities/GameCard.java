@@ -6,11 +6,11 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-public class UpcomingGameCard extends JPanel {
+public class GameCard extends JPanel {
 	/**
 	 * Create the application.
 	 */
-	public UpcomingGameCard() {
+	public GameCard() {
 		initialize();
 	}
 
