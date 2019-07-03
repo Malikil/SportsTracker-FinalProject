@@ -29,7 +29,7 @@ public class LoginManager
 	{
 		// Create an instance of the panel to be used for login
 		Login login = new Login();
-		String[] buttons = { "Login", "Cancel" };
+		String[] buttons = {"Login", "Cancel" };
 		LoginStatus loginStatus = LoginStatus.NONE;
 		while (loginStatus == LoginStatus.NONE)
 		{

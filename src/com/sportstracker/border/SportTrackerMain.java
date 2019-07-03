@@ -45,6 +45,10 @@ public class SportTrackerMain {
 		tabbedPane.addTab("Home", null, homePanel, null);
 		homePanel.setLayout(new GridLayout(3, 1, 10, 10));
 		
+		JPanel teamPanel = new JPanel();
+		tabbedPane.addTab("Team", null, teamPanel, null);
+		teamPanel.setLayout(null);
+		
 		JPanel gameSchedulePanel = new JPanel();
 		homePanel.add(gameSchedulePanel);
 		gameSchedulePanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
@@ -54,10 +58,6 @@ public class SportTrackerMain {
 		
 		JPanel FollowedGamesPanel = new JPanel();
 		homePanel.add(FollowedGamesPanel);
-		
-		JPanel teamPanel = new JPanel();
-		tabbedPane.addTab("Team", null, teamPanel, null);
-		teamPanel.setLayout(null);
 		
 		JPanel Standing = new JPanel();
 		Standing.setBounds(26, 11, 787, 291);

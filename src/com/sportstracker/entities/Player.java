@@ -15,12 +15,12 @@ public class Player
 	@JoinColumn(name="teamId")
 	private Team team;
 	
-	private String playerName;
+	private String pFirstName;
+	private String pLastName;
 	private String position;
 	private int jerseyNumber;
 	private int minutesPlayed;
 	private int gamesPlayed;
-	private boolean activePlayer;
 	private int goals;
 	private int assists;
 	private int goalAttempts;
@@ -31,6 +31,7 @@ public class Player
 	private int redCards;
 	private int attemptedPenalties;
 	private int scoredPenalties;
+	private boolean activePlayer;
 	
 	public Team getTeam() {
 		return team;

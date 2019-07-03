@@ -67,4 +67,13 @@ public class GameCard extends JPanel {
 		awayScoreLbl.setBounds(201, 115, 30, 26);
 		add(awayScoreLbl);
 	}
+	
+	public Integer createCard(Match nMatch)
+	{
+		int newCarId = 0;
+		
+		
+		
+		return newCarId;
+	}
 }
