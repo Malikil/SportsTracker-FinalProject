@@ -50,8 +50,8 @@ public class LoginManager
 				IUserDatabase db = new SportsDAO();
 				// Get the user from the database, will be null if user/pass
 				// didn't match any account
-				User user = db.getLogin(uname, pword);
-				if (user != null)
+				User user = db.getUser(uname);
+				if (user != null && user.getPassword().equals(pword))
 					if (user.isAdmin())
 						loginStatus = LoginStatus.ADMIN_USER;
 					else
@@ -94,6 +94,9 @@ public class LoginManager
 		try
 		{
 			IUserDatabase db = new SportsDAO();
+			// First check if the user exists already
+			if (db.getUser(username) != null)
+				return false;
 			String inserted = db.createAccount(username, password);
 			if (inserted == null)
 				return false;
@@ -102,12 +105,5 @@ public class LoginManager
 		}
 		catch (HibernateException hx)
 		{ return null; }
-		catch (PersistenceException px)
-		{
-			if (px.getCause() instanceof ConstraintViolationException)
-				return false;
-			else
-				return null;
-		}
 	}
 }

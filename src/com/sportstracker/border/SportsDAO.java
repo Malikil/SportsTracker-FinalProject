@@ -98,14 +98,13 @@ public class SportsDAO implements ISportDatabase, IUserDatabase
 	}
 
 	@Override
-	public User getLogin(String username, String password)
+	public User getUser(String username)
 	{
 		SessionFactory fact = getFactory();
 		Session ss = fact.openSession();
 		
-		Query<User> query = ss.createQuery("FROM User u WHERE u.username = :uname AND u.password = :pword", User.class);
+		Query<User> query = ss.createQuery("FROM User u WHERE u.username = :uname", User.class);
 		query.setParameter("uname", username);
-		query.setParameter("pword", password);
 		List<User> results = query.list();
 		User user;
 		if (results.isEmpty())
@@ -149,5 +148,4 @@ public class SportsDAO implements ISportDatabase, IUserDatabase
 		
 		return inserted;
 	}
-
 }

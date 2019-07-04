@@ -4,6 +4,6 @@ import com.sportstracker.entities.User;
 
 public interface IUserDatabase
 {
-	public User getLogin(String username, String password);
+	public User getUser(String username);
 	public String createAccount(String username, String password);
 }
