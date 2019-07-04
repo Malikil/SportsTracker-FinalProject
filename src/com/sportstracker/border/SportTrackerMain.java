@@ -53,11 +53,11 @@ public class SportTrackerMain {
 		homePanel.add(gameSchedulePanel);
 		gameSchedulePanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
-		JPanel resentGamesPanel = new JPanel();
-		homePanel.add(resentGamesPanel);
+		JPanel recentGamesPanel = new JPanel();
+		homePanel.add(recentGamesPanel);
 		
-		JPanel FollowedGamesPanel = new JPanel();
-		homePanel.add(FollowedGamesPanel);
+		JPanel followedGamesPanel = new JPanel();
+		homePanel.add(followedGamesPanel);
 		
 		JPanel Standing = new JPanel();
 		Standing.setBounds(26, 11, 787, 291);
