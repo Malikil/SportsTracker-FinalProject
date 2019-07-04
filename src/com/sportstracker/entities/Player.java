@@ -39,11 +39,17 @@ public class Player
 	public void setTeam(Team team) {
 		this.team = team;
 	}
-	public String getPlayerName() {
-		return playerName;
+	public String getPFirstName() {
+		return pFirstName;
 	}
-	public void setPlayerName(String playerName) {
-		this.playerName = playerName;
+	public void setPFirstName(String pFirstName) {
+		this.pFirstName = pFirstName;
+	}
+	public String getPLastName() {
+		return pLastName;
+	}
+	public void setPLastName(String pLastName) {
+		this.pLastName = pLastName;
 	}
 	public String getPosition() {
 		return position;
