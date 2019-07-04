@@ -47,21 +47,30 @@ public class LoginManager
 				// Login here
 				String uname = login.getUsername();
 				String pword = login.getPassword();
-				IUserDatabase db = new SportsDAO();
-				// Get the user from the database, will be null if user/pass
-				// didn't match any account
-				User user = db.getUser(uname);
-				if (user != null && user.getPassword().equals(pword))
-					if (user.isAdmin())
-						loginStatus = LoginStatus.ADMIN_USER;
-					else
-						loginStatus = LoginStatus.BASIC_USER;
+				User user = null;
+				try
+				{
+					IUserDatabase db = new SportsDAO();
+					// Get the user from the database, will be null if user/pass
+					// didn't match any account
+					user = db.getUser(uname);
+					if (user != null && user.getPassword().equals(pword))
+						if (user.isAdmin())
+							loginStatus = LoginStatus.ADMIN_USER;
+						else
+							loginStatus = LoginStatus.BASIC_USER;
+					else // User is null or password is wrong
+						JOptionPane.showMessageDialog(null,
+								"Username or password is incorrect", "Login",
+								JOptionPane.WARNING_MESSAGE);
+				}
+				catch (HibernateException hx)
+				{
+					JOptionPane.showMessageDialog(null,
+							"There was a problem connecting to the server", "Error",
+							JOptionPane.ERROR_MESSAGE);
+				}
 			}
-			// None here means they tried to log in but failed
-			if (loginStatus == LoginStatus.NONE)
-				JOptionPane.showMessageDialog(null,
-						"Username or password is incorrect", "Login",
-						JOptionPane.PLAIN_MESSAGE);
 		}
 		// If they didn't cancel logging in by this point, they must *be*
 		// logged in. Show the main window, including admin tab if appropriate
