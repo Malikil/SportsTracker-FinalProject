@@ -6,7 +6,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.*;
 import javax.swing.plaf.LayerUI;
 
-class CloseableTabbedPaneLayerUI extends LayerUI<JTabbedPane> {
+class CloseableTabbedPane extends LayerUI<JTabbedPane> {
 	  private final JPanel p = new JPanel();
 	  private final Point pt = new Point(-100, -100);
 	  private final JButton button = new JButton("x") {
@@ -14,7 +14,7 @@ class CloseableTabbedPaneLayerUI extends LayerUI<JTabbedPane> {
 	      return new Dimension(16, 16);
 	    }
 	  };
-	  public CloseableTabbedPaneLayerUI() {
+	  public CloseableTabbedPane() {
 	    super();
 	    button.setBorder(BorderFactory.createEmptyBorder());
 	    button.setFocusPainted(false);
