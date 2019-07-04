@@ -25,6 +25,11 @@ public class Team
 	@Transient
 	private ArrayList<Match> matches;
 	
+	private String teamName;
+	private String teamCaptain;
+	private String teamMVP;
+	
+	
 	public int getId() {
 		return id;
 	}
@@ -38,6 +43,39 @@ public class Team
 		return awayMatches;
 	}
 	
+	public String getTeamName() {
+		return teamName;
+	}
+	public void setTeamName(String teamName) {
+		this.teamName = teamName;
+	}
+	public String getTeamCaptain() {
+		return teamCaptain;
+	}
+	public void setTeamCaptain(String teamCaptain) {
+		this.teamCaptain = teamCaptain;
+	}
+	public String getTeamMVP() {
+		return teamMVP;
+	}
+	public void setTeamMVP(String teamMVP) {
+		this.teamMVP = teamMVP;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public void setPlayers(List<Player> players) {
+		this.players = players;
+	}
+	public void setHomeMatches(List<Match> homeMatches) {
+		this.homeMatches = homeMatches;
+	}
+	public void setAwayMatches(List<Match> awayMatches) {
+		this.awayMatches = awayMatches;
+	}
+	public void setMatches(ArrayList<Match> matches) {
+		this.matches = matches;
+	}
 	public int getWinCount()
 	{
 		int wins = 0;
