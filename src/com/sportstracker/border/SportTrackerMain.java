@@ -1,19 +1,23 @@
 package com.sportstracker.border;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JTabbedPane;
 import javax.swing.JPanel;
 import java.awt.FlowLayout;
-import javax.swing.JLabel;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 
-public class SportTrackerMain {
-
+/**
+ * The main window the user will be interacting with
+ */
+public class SportTrackerMain
+{
 	private JFrame frame;
 	
+	/**
+	 * Sets visibility of the form
+	 * @param visible Whether the form should be visible
+	 */
 	public void setVisible(boolean visible)
 	{
 		frame.setVisible(visible);

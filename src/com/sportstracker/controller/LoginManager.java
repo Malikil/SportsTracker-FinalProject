@@ -2,19 +2,20 @@ package com.sportstracker.controller;
 
 import java.awt.EventQueue;
 
-import javax.persistence.PersistenceException;
 import javax.swing.JOptionPane;
 
 import org.hibernate.HibernateException;
-import org.hibernate.exception.ConstraintViolationException;
-
 import com.sportstracker.border.*;
 import com.sportstracker.entities.User;
 
+/**
+ * This class will handle user accounts and logging in.
+ * This is also the main entry point for the application.
+ */
 public class LoginManager
 {
 	/**
-	 * Used to show state of the current login attempt
+	 * Used to indicate state of the current login attempt
 	 */
 	private enum LoginStatus
 	{
