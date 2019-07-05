@@ -1,6 +1,9 @@
 package com.sportstracker.border;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 import com.sportstracker.entities.*;
 
 public interface ISportDatabase
@@ -18,4 +21,7 @@ public interface ISportDatabase
 	 * @return Returns the id of the match that was added
 	 */
 	public int addMatch(Match match);
+	
+	public List<Match> getMatchesBeforeDate(Date date);
+	public List<Match> getMatchesAfterDate(Date date);
 }
