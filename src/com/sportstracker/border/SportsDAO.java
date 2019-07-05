@@ -1,6 +1,7 @@
 package com.sportstracker.border;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import org.hibernate.*;
 import org.hibernate.query.Query;
@@ -63,6 +64,35 @@ public class SportsDAO implements ISportDatabase, IUserDatabase
 		}
 		
 		return matches;
+	}
+	
+	public List<Match> getMatchesBeforeDate(Date date)
+	{
+		SessionFactory fact = getFactory();
+		Session ss = fact.openSession();
+		
+		Query<Match> query = (Query<Match>)ss.createQuery("select m from Match m where m.time < :date", Match.class);
+		query.setParameter("date", date);
+		List<Match> results = query.list();
+		
+		ss.close();
+		fact.close();
+		
+		return results;
+	}
+	public List<Match> getMatchesAfterDate(Date date)
+	{
+		SessionFactory fact = getFactory();
+		Session ss = fact.openSession();
+		
+		Query<Match> query = (Query<Match>)ss.createQuery("select m from Match m where m.time > :date", Match.class);
+		query.setParameter("date", date);
+		List<Match> results = query.list();
+		
+		ss.close();
+		fact.close();
+		
+		return results;
 	}
 
 	/**

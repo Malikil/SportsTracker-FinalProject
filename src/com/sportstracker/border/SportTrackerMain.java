@@ -31,6 +31,10 @@ public class SportTrackerMain
 	public SportTrackerMain(boolean isAdmin)
 	{
 		initialize();
+		
+		// call Match Manager to get 20 games
+		// call GC to create a GC for each match
+		// place cards in scroll pane
 	}
 
 	/**
