@@ -15,6 +15,11 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+/**
+ * A container for a simple login screen, which can be used to display on
+ * something like a JOptionPane. It will store the entered username and
+ * password so they can be used later. (ie to log in with)
+ */
 public class Login
 {
 	private String passConfirm = null;
