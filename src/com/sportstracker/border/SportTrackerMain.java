@@ -6,6 +6,8 @@ import javax.swing.JPanel;
 import java.awt.FlowLayout;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import javax.swing.JTextField;
+import javax.swing.JTable;
 
 /**
  * The main window the user will be interacting with
@@ -13,6 +15,8 @@ import java.awt.GridLayout;
 public class SportTrackerMain
 {
 	private JFrame frame;
+	private JTextField txtSearch;
+	private JTable table;
 	
 	/**
 	 * Sets visibility of the form
@@ -31,10 +35,6 @@ public class SportTrackerMain
 	public SportTrackerMain(boolean isAdmin)
 	{
 		initialize();
-		
-		// call Match Manager to get 20 games
-		// call GC to create a GC for each match
-		// place cards in scroll pane
 	}
 
 	/**
@@ -57,6 +57,15 @@ public class SportTrackerMain
 		tabbedPane.addTab("Team", null, teamPanel, null);
 		teamPanel.setLayout(null);
 		
+		txtSearch = new JTextField();
+		txtSearch.setBounds(570, 11, 86, 20);
+		teamPanel.add(txtSearch);
+		txtSearch.setColumns(10);
+		
+		table = new JTable();
+		table.setBounds(10, 42, 679, 360);
+		teamPanel.add(table);
+		
 		JPanel gameSchedulePanel = new JPanel();
 		homePanel.add(gameSchedulePanel);
 		gameSchedulePanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
@@ -66,9 +75,5 @@ public class SportTrackerMain
 		
 		JPanel followedGamesPanel = new JPanel();
 		homePanel.add(followedGamesPanel);
-		
-		JPanel Standing = new JPanel();
-		Standing.setBounds(26, 11, 787, 291);
-		teamPanel.add(Standing);
 	}
 }
