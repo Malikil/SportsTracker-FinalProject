@@ -9,8 +9,16 @@ import org.hibernate.boot.registry.*;
 
 import com.sportstracker.entities.*;
 
+/**
+ * The main interaction point with the database. Implements interfaces for both
+ * regular match information and username/logging in.
+ */
 public class SportsDAO implements ISportDatabase, IUserDatabase
 {
+	/**
+	 * Gets a session factory for connecting to the database
+	 * @return A SessionFactory
+	 */
 	public static SessionFactory getFactory()
 	{
 		StandardServiceRegistry ssr = null;
@@ -26,6 +34,10 @@ public class SportsDAO implements ISportDatabase, IUserDatabase
 		return sf;
 	}
 	
+	/**
+	 * Gets all matches from the database
+	 * @return Returns an ArrayList with all matches in it
+	 */
 	@Override
 	public ArrayList<Match> getAllMatches()
 	{
@@ -53,18 +65,32 @@ public class SportsDAO implements ISportDatabase, IUserDatabase
 		return matches;
 	}
 
+	/**
+	 * Gets all players from the database
+	 * @return Returns an ArrayList with all players in it
+	 */
 	@Override
 	public ArrayList<Player> getAllPlayers() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+	/**
+	 * Gets all teams from the database
+	 * @return Returns an ArrayList with all teams in it
+	 */
 	@Override
 	public ArrayList<Team> getAllTeams() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+	/**
+	 * Adds the given match to the database. If adding the match fails for
+	 * whatever reason the database is reset to its state before the attempt.
+	 * @param match The match to add
+	 * @return Returns the id of the match that was added
+	 */
 	@Override
 	public int addMatch(Match match)
 	{
@@ -97,6 +123,13 @@ public class SportsDAO implements ISportDatabase, IUserDatabase
 		return nid;
 	}
 
+	/**
+	 * Gets a single user from the database. Throws an exception if more than
+	 * one user is found. Considering that username should be the primary key,
+	 * duplicates should be impossible.
+	 * @param username The username to get
+	 * @return The user with the given username, or null if the user doesn't exist
+	 */
 	@Override
 	public User getUser(String username)
 	{
@@ -120,6 +153,13 @@ public class SportsDAO implements ISportDatabase, IUserDatabase
 		return user;
 	}
 
+	/**
+	 * Creates an account with the given username and password. If the user
+	 * already exists the operation will fail. 
+	 * @param username The desired username
+	 * @param password The desired password
+	 * @return The username that got added. Should be the same as the 'username' parameter
+	 */
 	@Override
 	public String createAccount(String username, String password)
 	{
