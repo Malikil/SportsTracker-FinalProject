@@ -14,13 +14,13 @@ public class Team
 	@GeneratedValue
 	private int id;
 	
-	@OneToMany(fetch=FetchType.LAZY, mappedBy="team")
+	@OneToMany(mappedBy="team")
 	private List<Player> players;
 	
-	@OneToMany(fetch=FetchType.LAZY, mappedBy="homeTeam")
+	@OneToMany(mappedBy="homeTeam")
 	private List<Match> homeMatches;
 	
-	@OneToMany(fetch=FetchType.LAZY, mappedBy="awayTeam")
+	@OneToMany(mappedBy="awayTeam")
 	private List<Match> awayMatches;
 	
 	@Transient

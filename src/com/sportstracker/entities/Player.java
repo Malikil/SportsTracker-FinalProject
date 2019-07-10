@@ -11,7 +11,7 @@ public class Player
 	@GeneratedValue
 	private int id;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne//(fetch=FetchType.LAZY)
 	@JoinColumn(name="teamId")
 	private Team team;
 	

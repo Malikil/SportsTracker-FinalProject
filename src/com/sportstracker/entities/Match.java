@@ -13,10 +13,10 @@ public class Match
 	@GeneratedValue
 	private int id;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne//(fetch=FetchType.LAZY)
 	private Team homeTeam;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne//(fetch=FetchType.LAZY)
 	private Team awayTeam;
 	
 	private Integer homeScore;
