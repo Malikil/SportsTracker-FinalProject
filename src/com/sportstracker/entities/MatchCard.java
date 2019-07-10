@@ -7,7 +7,7 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-public class GameCard extends JPanel
+public class MatchCard extends JPanel
 {
 	private JLabel lblHomeTeam;
 	private JLabel lblAwayTeam;
@@ -23,7 +23,7 @@ public class GameCard extends JPanel
 	/**
 	 * Create the GameCard.
 	 */
-	public GameCard(Match nMatch) {
+	public MatchCard(Match nMatch) {
 		
 		initialize();
 		
