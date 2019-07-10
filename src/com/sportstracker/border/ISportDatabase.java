@@ -20,7 +20,7 @@ public interface ISportDatabase
 	 * @param match The match to add
 	 * @return Returns the id of the match that was added
 	 */
-	public int addMatch(Match match);
+	public int createMatch(Match match);
 	
 	public List<Match> getMatchesBeforeDate(Date date);
 	public List<Match> getMatchesAfterDate(Date date);
