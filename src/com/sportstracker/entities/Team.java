@@ -101,4 +101,13 @@ public class Team
 		}
 		return matches;
 	}
+	
+	@Override
+	public boolean equals(Object o)
+	{
+		if (o instanceof Team)
+			return this.teamName.equals(((Team)o).teamName);
+		else
+			return super.equals(o);
+	}
 }

@@ -269,6 +269,23 @@ public class SportTrackerMain
 		matchTimeText.setColumns(10);
 		
 		JButton btnAddMatch = new JButton("Add Match");
+		btnAddMatch.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if (new AdminController().addNewMatch(
+						homeTeamNameText.getText(),
+						awayTeamNameText.getText(),
+						homeTeamScoreText.getText(),
+						awayTeamScoreText.getText(),
+						matchTimeText.getText()))
+					JOptionPane.showMessageDialog(null,
+							"Match Added", "Create Match",
+							JOptionPane.INFORMATION_MESSAGE);
+				else
+					JOptionPane.showMessageDialog(null,
+							"Match wasn't added", "Create Match",
+							JOptionPane.WARNING_MESSAGE);
+			}
+		});
 		btnAddMatch.setBounds(484, 276, 119, 23);
 		adminPanel.add(btnAddMatch);
 		

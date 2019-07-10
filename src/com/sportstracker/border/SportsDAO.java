@@ -172,7 +172,7 @@ public class SportsDAO implements ISportDatabase, IUserDatabase
 	 * @return Returns the id of the match that was added
 	 */
 	@Override
-	public int addMatch(Match match)
+	public int createMatch(Match match)
 	{
 		SessionFactory fact = null;
 		Session ss = null;
