@@ -19,9 +19,9 @@ public class Match
 	@ManyToOne(fetch=FetchType.LAZY)
 	private Team awayTeam;
 	
-	private int homeScore;
-	private int awayScore;
-	private String location;
+	private Integer homeScore;
+	private Integer awayScore;
+	//private String location;
 	private Date time;
 	// Leaving yellow/red cards out for now
 	
@@ -37,24 +37,24 @@ public class Match
 	public void setAwayTeam(Team team) {
 		this.awayTeam = team;
 	}
-	public int getHomeScore() {
+	public Integer getHomeScore() {
 		return homeScore;
 	}
-	public void setHomeScore(int score) {
+	public void setHomeScore(Integer score) {
 		this.homeScore = score;
 	}
-	public int getAwayScore() {
+	public Integer getAwayScore() {
 		return awayScore;
 	}
-	public void setAwayScore(int score) {
+	public void setAwayScore(Integer score) {
 		this.awayScore = score;
 	}
-	public String getLocation() {
+	/*public String getLocation() {
 		return location;
 	}
 	public void setLocation(String location) {
 		this.location = location;
-	}
+	}*/
 	public Date getTime() {
 		return time;
 	}

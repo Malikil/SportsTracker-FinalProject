@@ -31,7 +31,7 @@ public class MatchCard extends JPanel
 		homeScoreLbl.setText(Integer.toString(nMatch.getHomeScore()));
 		lblAwayTeam.setText(nMatch.getAwayTeam().getTeamName());
 		awayScoreLbl.setText(Integer.toString(nMatch.getAwayScore()));
-		locationLbl.setText(nMatch.getLocation());
+		//locationLbl.setText(nMatch.getLocation());
 		locationLbl.setText(nMatch.getTime().toString());
 	}
 
