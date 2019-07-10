@@ -20,7 +20,7 @@ public class MatchManager
 		{
 			// gets list of matches (up coming, past, followed)
 			ISportDatabase db = new SportsDAO();
-			matches = (ArrayList<Match>) db.getMatchesBeforeDate(new Date()).subList(0, 10);
+			matches = (ArrayList<Match>) db.getMatchesBeforeDate(new Date());
 			// Get the user from the database, will be null if user/pass
 			// didn't match any account
 			
@@ -42,7 +42,7 @@ public class MatchManager
 		{
 			// gets list of matches (up coming, past, followed)
 			ISportDatabase db = new SportsDAO();
-			matches = (ArrayList<Match>) db.getMatchesAfterDate(new Date()).subList(0, 10);
+			matches = (ArrayList<Match>) db.getMatchesAfterDate(new Date());
 			
 			// Get the user from the database, will be null if user/pass
 			// didn't match any account

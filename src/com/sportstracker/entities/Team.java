@@ -27,8 +27,8 @@ public class Team
 	private ArrayList<Match> matches;
 	
 	private String teamName;
-	private String teamCaptain;
-	private String teamMVP;
+	//private String teamCaptain;
+	//private String teamMVP;
 	
 	
 	public int getId() {
@@ -50,7 +50,7 @@ public class Team
 	public void setTeamName(String teamName) {
 		this.teamName = teamName;
 	}
-	public String getTeamCaptain() {
+	/*public String getTeamCaptain() {
 		return teamCaptain;
 	}
 	public void setTeamCaptain(String teamCaptain) {
@@ -61,7 +61,7 @@ public class Team
 	}
 	public void setTeamMVP(String teamMVP) {
 		this.teamMVP = teamMVP;
-	}
+	}*/
 	public void setId(int id) {
 		this.id = id;
 	}
