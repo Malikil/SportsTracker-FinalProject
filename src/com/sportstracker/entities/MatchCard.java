@@ -5,7 +5,7 @@ import java.util.Date;
 
 import javax.swing.JPanel;
 import javax.swing.JLabel;
-import javax.swing.JTextField;
+import javax.swing.JOptionPane;
 
 public class MatchCard extends JPanel
 {
@@ -28,9 +28,13 @@ public class MatchCard extends JPanel
 		initialize();
 		
 		lblHomeTeam.setText(nMatch.getHomeTeam().getTeamName());
-		homeScoreLbl.setText(Integer.toString(nMatch.getHomeScore()));
 		lblAwayTeam.setText(nMatch.getAwayTeam().getTeamName());
-		awayScoreLbl.setText(Integer.toString(nMatch.getAwayScore()));
+		if (new Date().after(nMatch.getTime()))
+		{
+			// If the match hasn't happened yet, don't show scores
+			homeScoreLbl.setText(Integer.toString(nMatch.getHomeScore()));
+			awayScoreLbl.setText(Integer.toString(nMatch.getAwayScore()));
+		}
 		//locationLbl.setText(nMatch.getLocation());
 		locationLbl.setText(nMatch.getTime().toString());
 	}
