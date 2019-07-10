@@ -18,6 +18,8 @@ import javax.swing.JTable;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 /**
  * The main window the user will be interacting with
@@ -30,18 +32,18 @@ public class SportTrackerMain
 	private JTable table_1;
 	private JTextField txtPlayerFName;
 	private JTextField txtTeam;
-	private JTextField txtMatches;
+	private JTextField homeTeamNameText;
 	private JTextField txtPlayLName;
 	private JTextField txtPosition;
 	private JTextField txtJerseyNumber;
 	private JTextField txtAge;
 	private JTextField txtWeight;
 	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
+	private JTextField awayTeamNameText;
+	private JTextField homeTeamScoreText;
+	private JTextField awayTeamScoreText;
 	private JTextField txtLocation;
-	private JTextField textField_4;
+	private JTextField matchTimeText;
 	
 	// Flow layout panel for upcoming games
 	JPanel gameSchedulePanel;
@@ -148,10 +150,10 @@ public class SportTrackerMain
 		adminPanel.add(txtTeam);
 		txtTeam.setColumns(10);
 		
-		txtMatches = new JTextField();
-		txtMatches.setBounds(553, 63, 86, 20);
-		adminPanel.add(txtMatches);
-		txtMatches.setColumns(10);
+		homeTeamNameText = new JTextField();
+		homeTeamNameText.setBounds(553, 63, 86, 20);
+		adminPanel.add(homeTeamNameText);
+		homeTeamNameText.setColumns(10);
 		
 		JLabel lblFirstName = new JLabel("First Name:");
 		lblFirstName.setBounds(29, 63, 66, 14);
@@ -212,7 +214,7 @@ public class SportTrackerMain
 		adminPanel.add(lblHeight);
 		
 		JComboBox comboBoxAddPlayer = new JComboBox();
-		comboBoxAddPlayer.setBounds(118, 35, 28, 20);
+		comboBoxAddPlayer.setBounds(107, 35, 75, 20);
 		adminPanel.add(comboBoxAddPlayer);
 		
 		JLabel lblHomeTeam = new JLabel("Home Team:");
@@ -223,28 +225,28 @@ public class SportTrackerMain
 		lblAwayTeam.setBounds(454, 91, 66, 14);
 		adminPanel.add(lblAwayTeam);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(553, 88, 86, 20);
-		adminPanel.add(textField_1);
-		textField_1.setColumns(10);
+		awayTeamNameText = new JTextField();
+		awayTeamNameText.setBounds(553, 88, 86, 20);
+		adminPanel.add(awayTeamNameText);
+		awayTeamNameText.setColumns(10);
 		
 		JLabel lblHomeTeamScore = new JLabel("Home Team Score:");
 		lblHomeTeamScore.setBounds(438, 122, 98, 14);
 		adminPanel.add(lblHomeTeamScore);
 		
-		textField_2 = new JTextField();
-		textField_2.setBounds(553, 119, 86, 20);
-		adminPanel.add(textField_2);
-		textField_2.setColumns(10);
+		homeTeamScoreText = new JTextField();
+		homeTeamScoreText.setBounds(553, 119, 86, 20);
+		adminPanel.add(homeTeamScoreText);
+		homeTeamScoreText.setColumns(10);
 		
 		JLabel lblAwayTeamScore = new JLabel("Away Team Score:");
 		lblAwayTeamScore.setBounds(438, 153, 98, 14);
 		adminPanel.add(lblAwayTeamScore);
 		
-		textField_3 = new JTextField();
-		textField_3.setBounds(553, 150, 86, 20);
-		adminPanel.add(textField_3);
-		textField_3.setColumns(10);
+		awayTeamScoreText = new JTextField();
+		awayTeamScoreText.setBounds(553, 150, 86, 20);
+		adminPanel.add(awayTeamScoreText);
+		awayTeamScoreText.setColumns(10);
 		
 		JLabel lblLocation = new JLabel("Location:");
 		lblLocation.setBounds(474, 184, 46, 14);
@@ -259,10 +261,10 @@ public class SportTrackerMain
 		lblTime.setBounds(438, 219, 98, 14);
 		adminPanel.add(lblTime);
 		
-		textField_4 = new JTextField();
-		textField_4.setBounds(553, 216, 86, 20);
-		adminPanel.add(textField_4);
-		textField_4.setColumns(10);
+		matchTimeText = new JTextField();
+		matchTimeText.setBounds(553, 216, 86, 20);
+		adminPanel.add(matchTimeText);
+		matchTimeText.setColumns(10);
 		
 		JButton btnAddMatch = new JButton("Add Match");
 		btnAddMatch.setBounds(484, 276, 119, 23);
@@ -273,6 +275,12 @@ public class SportTrackerMain
 		adminPanel.add(btnTeam);
 		
 		JButton btnAddTeam = new JButton("Add Team");
+		btnAddTeam.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				// Collect the player information and use the controller to add it
+				
+			}
+		});
 		btnAddTeam.setBounds(57, 297, 89, 23);
 		adminPanel.add(btnAddTeam);
 	}

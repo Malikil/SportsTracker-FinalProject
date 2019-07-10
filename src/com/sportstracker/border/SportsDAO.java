@@ -7,6 +7,7 @@ import org.hibernate.*;
 import org.hibernate.query.Query;
 import org.hibernate.boot.*;
 import org.hibernate.boot.registry.*;
+import org.hibernate.cfg.NotYetImplementedException;
 
 import com.sportstracker.entities.*;
 
@@ -113,6 +114,30 @@ public class SportsDAO implements ISportDatabase, IUserDatabase
 	public ArrayList<Team> getAllTeams() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	public Team getTeamByName(String teamName)
+	{
+		SessionFactory fact = getFactory();
+		Session ss = fact.openSession();
+		
+		Query<Team> query = (Query<Team>)ss.createQuery("select t from team t where t.teamName = :name", Team.class);
+		query.setParameter("name", teamName);
+		List<Team> results = query.list();
+		
+		ss.close();
+		fact.close();
+		
+		if (results.size() > 0)
+			return results.get(0);
+		else
+			return null;
+	}
+	
+	public Integer createTeam(Team team)
+	{
+		// TODO add a team to the database
+		throw new NotYetImplementedException("Not yet implemented");
 	}
 
 	/**
