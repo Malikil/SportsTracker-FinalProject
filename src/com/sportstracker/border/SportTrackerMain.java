@@ -6,7 +6,14 @@ import javax.swing.JPanel;
 import java.awt.FlowLayout;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.util.List;
+
 import javax.swing.JTextField;
+
+import com.sportstracker.controller.MatchManager;
+import com.sportstracker.entities.Match;
+import com.sportstracker.entities.MatchCard;
+
 import javax.swing.JTable;
 
 /**
@@ -17,6 +24,10 @@ public class SportTrackerMain
 	private JFrame frame;
 	private JTextField txtSearch;
 	private JTable table;
+	
+	// Flow layout panel for upcoming games
+	JPanel gameSchedulePanel;
+	JPanel recentGamesPanel;
 	
 	/**
 	 * Sets visibility of the form
@@ -35,6 +46,13 @@ public class SportTrackerMain
 	public SportTrackerMain(boolean isAdmin)
 	{
 		initialize();
+		MatchManager mm = new MatchManager();
+		List<Match> upcoming = mm.getUpcomingMatches();
+		for (int i = 0; i < 10 && i < upcoming.size(); i++)
+			gameSchedulePanel.add(new MatchCard(upcoming.get(i)));
+		List<Match> past = mm.getPastMatches();
+		for (int i = 0; i < 10 && i < past.size(); i++)
+			recentGamesPanel.add(new MatchCard(past.get(i)));
 	}
 
 	/**
@@ -66,11 +84,11 @@ public class SportTrackerMain
 		table.setBounds(10, 42, 679, 360);
 		teamPanel.add(table);
 		
-		JPanel gameSchedulePanel = new JPanel();
+		gameSchedulePanel = new JPanel();
 		homePanel.add(gameSchedulePanel);
 		gameSchedulePanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
-		JPanel recentGamesPanel = new JPanel();
+		recentGamesPanel = new JPanel();
 		homePanel.add(recentGamesPanel);
 		
 		JPanel followedGamesPanel = new JPanel();
