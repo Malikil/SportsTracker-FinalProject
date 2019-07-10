@@ -272,10 +272,6 @@ public class SportTrackerMain
 		btnAddMatch.setBounds(484, 276, 119, 23);
 		adminPanel.add(btnAddMatch);
 		
-		JButton btnTeam = new JButton("Add Team");
-		btnTeam.setBounds(266, 118, 107, 23);
-		adminPanel.add(btnTeam);
-		
 		JButton btnAddTeam = new JButton("Add Team");
 		btnAddTeam.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -290,7 +286,11 @@ public class SportTrackerMain
 							JOptionPane.WARNING_MESSAGE);
 			}
 		});
-		btnAddTeam.setBounds(57, 297, 89, 23);
+		btnAddTeam.setBounds(266, 118, 107, 23);
 		adminPanel.add(btnAddTeam);
+		
+		JButton btnAddPlayer = new JButton("Add Team");
+		btnAddPlayer.setBounds(57, 297, 89, 23);
+		adminPanel.add(btnAddPlayer);
 	}
 }

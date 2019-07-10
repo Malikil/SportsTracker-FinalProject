@@ -121,7 +121,7 @@ public class SportsDAO implements ISportDatabase, IUserDatabase
 		SessionFactory fact = getFactory();
 		Session ss = fact.openSession();
 		
-		Query<Team> query = (Query<Team>)ss.createQuery("select t from team t where t.teamName = :name", Team.class);
+		Query<Team> query = (Query<Team>)ss.createQuery("select t from Team t where t.teamName = :name", Team.class);
 		query.setParameter("name", teamName);
 		List<Team> results = query.list();
 		
@@ -136,8 +136,33 @@ public class SportsDAO implements ISportDatabase, IUserDatabase
 	
 	public Integer createTeam(Team team)
 	{
-		// TODO add a team to the database
-		throw new NotYetImplementedException("Not yet implemented");
+		SessionFactory fact = null;
+		Session ss = null;
+		Transaction tran = null;
+		int nid;
+		
+		try
+		{
+			fact = getFactory();
+			ss = fact.openSession();
+			tran = ss.beginTransaction();
+			
+			nid = (int)ss.save(team);
+			
+			tran.commit();
+		}
+		catch (HibernateException e)
+		{
+			tran.rollback();
+			throw e;
+		}
+		finally
+		{
+			ss.close();
+			fact.close();
+		}
+		
+		return nid;
 	}
 
 	/**
