@@ -10,12 +10,14 @@ import java.util.List;
 
 import javax.swing.JTextField;
 
+import com.sportstracker.controller.AdminController;
 import com.sportstracker.controller.MatchManager;
 import com.sportstracker.entities.Match;
 import com.sportstracker.entities.MatchCard;
 
 import javax.swing.JTable;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -278,7 +280,14 @@ public class SportTrackerMain
 		btnAddTeam.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				// Collect the player information and use the controller to add it
-				
+				if (new AdminController().addNewTeam(txtTeam.getText()))
+					JOptionPane.showMessageDialog(null,
+							"Team Created", "Create Team",
+							JOptionPane.INFORMATION_MESSAGE);
+				else
+					JOptionPane.showMessageDialog(null,
+							"Team wasn't created", "Create Team",
+							JOptionPane.WARNING_MESSAGE);
 			}
 		});
 		btnAddTeam.setBounds(57, 297, 89, 23);
