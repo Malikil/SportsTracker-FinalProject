@@ -4,6 +4,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import com.sportstracker.border.SportsDAO;
 import com.sportstracker.entities.Match;
@@ -16,6 +17,11 @@ public class AdminController
 	public AdminController()
 	{
 		db = new SportsDAO();
+	}
+	
+	public List<Team> getTeamList()
+	{
+		return db.getAllTeams();
 	}
 	
 	public boolean addNewPlayer(

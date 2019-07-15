@@ -9,8 +9,6 @@ import javax.swing.JOptionPane;
 
 public class MatchCard extends JPanel
 {
-	private JLabel lblHomeTeam;
-	private JLabel lblAwayTeam;
 	private Panel homeImg;
 	private Panel awayImg;
 	private JLabel homeTeamLbl;
@@ -21,21 +19,22 @@ public class MatchCard extends JPanel
 	private JLabel awayScoreLbl;
 	
 	/**
-	 * Create the GameCard.
+	 * Create the card with the given match information.
 	 */
 	public MatchCard(Match nMatch) {
 		
 		initialize();
 		
-		lblHomeTeam.setText(nMatch.getHomeTeam().getTeamName());
-		lblAwayTeam.setText(nMatch.getAwayTeam().getTeamName());
-		if (new Date().after(nMatch.getTime()))
+		homeTeamLbl.setText(nMatch.getHomeTeam().getTeamName());
+		awayTeamLbl.setText(nMatch.getAwayTeam().getTeamName());
+		if (new Date().after(nMatch.getTime())
+				&& nMatch.getHomeScore() != null // Check for null because the database
+				&& nMatch.getAwayScore() != null)// isn't always getting updated
 		{
 			// If the match hasn't happened yet, don't show scores
 			homeScoreLbl.setText(Integer.toString(nMatch.getHomeScore()));
 			awayScoreLbl.setText(Integer.toString(nMatch.getAwayScore()));
 		}
-		//locationLbl.setText(nMatch.getLocation());
 		locationLbl.setText(nMatch.getTime().toString());
 	}
 
@@ -46,12 +45,12 @@ public class MatchCard extends JPanel
 		setPreferredSize(new Dimension(289, 170));
 		setLayout(null);
 		
-		lblHomeTeam = new JLabel("Home Team");
+		JLabel lblHomeTeam = new JLabel("Home Team");
 		lblHomeTeam.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		lblHomeTeam.setBounds(21, 15, 92, 26);
 		add(lblHomeTeam);
 		
-		lblAwayTeam = new JLabel("Away Team");
+		JLabel lblAwayTeam = new JLabel("Away Team");
 		lblAwayTeam.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		lblAwayTeam.setBounds(176, 15, 92, 26);
 		add(lblAwayTeam);

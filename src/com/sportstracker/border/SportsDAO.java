@@ -111,9 +111,15 @@ public class SportsDAO implements ISportDatabase, IUserDatabase
 	 * @return Returns an ArrayList with all teams in it
 	 */
 	@Override
-	public ArrayList<Team> getAllTeams() {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<Team> getAllTeams()
+	{
+		SessionFactory fact = getFactory();
+		Session ss = fact.openSession();
+		ArrayList<Team> results = (ArrayList<Team>)ss.createQuery("select t from Team t", Team.class).list();
+		ss.close();
+		fact.close();
+		return results;
+		
 	}
 	
 	public Team getTeamByName(String teamName)
