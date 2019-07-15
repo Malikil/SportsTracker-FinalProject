@@ -36,20 +36,19 @@ public class SportTrackerMain
 	private JTable table_1;
 	private JTextField txtPlayerFName;
 	private JTextField txtTeam;
-	private JComboBox<String> homeTeamNameText;
 	private JTextField txtPlayLName;
 	private JTextField txtPosition;
 	private JTextField txtJerseyNumber;
 	private JTextField txtAge;
 	private JTextField txtWeight;
 	private JTextField textField;
-	private JComboBox<String> awayTeamNameText;
 	private JTextField homeTeamScoreText;
 	private JTextField awayTeamScoreText;
 	private JTextField txtLocation;
 	private JTextField matchTimeText;
-	private JComboBox<String> comboBoxAddPlayer;
-	private DefaultComboBoxModel<String> teamListModel;
+	private DefaultComboBoxModel<String> addPlayerTeamList;
+	private DefaultComboBoxModel<String> homeTeamNameSelection;
+	private DefaultComboBoxModel<String> awayTeamNameSelection;
 	
 	// Flow layout panel for upcoming games
 	JPanel gameSchedulePanel;
@@ -82,7 +81,11 @@ public class SportTrackerMain
 			recentGamesPanel.add(new MatchCard(past.get(i)));
 		// Load teams into admin lists
 		for (String s : new DatabaseController().getTeamnameList())
-			teamListModel.addElement(s);
+		{
+			addPlayerTeamList.addElement(s);
+			homeTeamNameSelection.addElement(s);
+			awayTeamNameSelection.addElement(s);
+		}
 	}
 
 	/**
@@ -160,11 +163,13 @@ public class SportTrackerMain
 		adminPanel.add(txtTeam);
 		txtTeam.setColumns(10);
 		
-		teamListModel = new DefaultComboBoxModel<>();
+		addPlayerTeamList = new DefaultComboBoxModel<>();
+		homeTeamNameSelection = new DefaultComboBoxModel<>();
+		awayTeamNameSelection = new DefaultComboBoxModel<>();
 		
-		homeTeamNameText = new JComboBox<>();
+		JComboBox<String> homeTeamNameText = new JComboBox<>();
 		homeTeamNameText.setBounds(553, 63, 86, 20);
-		homeTeamNameText.setModel(teamListModel);
+		homeTeamNameText.setModel(homeTeamNameSelection);
 		adminPanel.add(homeTeamNameText);
 		
 		JLabel lblFirstName = new JLabel("First Name:");
@@ -225,9 +230,9 @@ public class SportTrackerMain
 		lblHeight.setBounds(9, 250, 86, 14);
 		adminPanel.add(lblHeight);
 		
-		comboBoxAddPlayer = new JComboBox<>();
+		JComboBox<String> comboBoxAddPlayer = new JComboBox<>();
 		comboBoxAddPlayer.setBounds(107, 35, 75, 20);
-		comboBoxAddPlayer.setModel(teamListModel);
+		comboBoxAddPlayer.setModel(addPlayerTeamList);
 		adminPanel.add(comboBoxAddPlayer);
 		
 		JLabel lblHomeTeam = new JLabel("Home Team:");
@@ -238,9 +243,9 @@ public class SportTrackerMain
 		lblAwayTeam.setBounds(454, 91, 66, 14);
 		adminPanel.add(lblAwayTeam);
 		
-		awayTeamNameText = new JComboBox<>();
+		JComboBox<String> awayTeamNameText = new JComboBox<>();
 		awayTeamNameText.setBounds(553, 88, 86, 20);
-		awayTeamNameText.setModel(teamListModel);
+		awayTeamNameText.setModel(awayTeamNameSelection);
 		adminPanel.add(awayTeamNameText);
 		
 		JLabel lblHomeTeamScore = new JLabel("Home Team Score:");
