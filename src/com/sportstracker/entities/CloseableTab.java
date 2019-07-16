@@ -14,6 +14,7 @@ import java.awt.event.ActionListener;
 public abstract class CloseableTab extends JPanel
 {
 	private JButton closeButton;
+	private JLabel titleLabel;
 	
 	/**
 	 * Create an instance of a CloseableTab with the given title
@@ -23,12 +24,13 @@ public abstract class CloseableTab extends JPanel
 	{
 		setLayout(new GridBagLayout());
 		// Team name in the top left
+		titleLabel = new JLabel(title);
 		GridBagConstraints c = new GridBagConstraints();
 		c.anchor = GridBagConstraints.FIRST_LINE_START;
 		c.fill = GridBagConstraints.NONE;
 		//c.weightx = 0.5;
 		//c.weighty = 0.5;
-		add(new JLabel(title));
+		add(titleLabel, c);
 		// Close button in the top right
 		closeButton = new JButton("Close tab");
 		c = new GridBagConstraints();
@@ -37,6 +39,11 @@ public abstract class CloseableTab extends JPanel
 		//c.weightx = 0.5;
 		//c.weighty = 0.5;
 		add(closeButton, c);
+	}
+	
+	public String getTabTitle()
+	{
+		return titleLabel.getText();
 	}
 	
 	public void addCloseTabListener(ActionListener l)

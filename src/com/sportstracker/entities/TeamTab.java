@@ -2,9 +2,11 @@ package com.sportstracker.entities;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.text.SimpleDateFormat;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -15,6 +17,14 @@ public class TeamTab extends CloseableTab
 	JPanel panel;
 	DatabaseController dbcontrol;
 	
+	JTable upcomingTable;
+	JTable pastTable;
+	JTable playerTable;
+	
+	DefaultTableModel upcomingModel;
+	DefaultTableModel pastModel;
+	DefaultTableModel playerTableModel;
+	
 	/**
 	 * Create an instance of a closable team tab for the given team
 	 * @param team
@@ -24,6 +34,7 @@ public class TeamTab extends CloseableTab
 		super(team.getTeamName());
 		dbcontrol = new DatabaseController();
 		initialize(team);
+		refreshLists();
 		// Add the panel to the GridBagLayout
 		GridBagConstraints c = new GridBagConstraints();
 		c.gridx = 0;
@@ -60,38 +71,81 @@ public class TeamTab extends CloseableTab
 		panel.add(winloss, c);
 		
 		// Upcoming matches
-		DefaultTableModel upcomingModel = new DefaultTableModel(new String[] {
+		upcomingModel = new DefaultTableModel(new String[] {
 				"Opponent", "Location", "Date"
 		}, 0);
-		JTable upcomingTable = new JTable(upcomingModel);
+		upcomingTable = new JTable(upcomingModel);
 		c = new GridBagConstraints();
 		c.gridx = 0;
 		c.gridy = 1;
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;
 		c.weighty = 0.5;
-		panel.add(upcomingTable, c);
+		panel.add(new JScrollPane(upcomingTable), c);
 		
 		// Past matches
-		DefaultTableModel pastModel = new DefaultTableModel(new String[] {
+		pastModel = new DefaultTableModel(new String[] {
 				"Opponent", "Location", "Score", "Result"
 		}, 0);
-		JTable pastTable = new JTable(pastModel);
+		pastTable = new JTable(pastModel);
 		c = new GridBagConstraints();
 		c.gridx = 1;
 		c.gridy = 1;
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;
 		c.weighty = 0.5;
-		panel.add(pastTable, c);
+		panel.add(new JScrollPane(pastTable), c);
 		
 		// Player list
-		DefaultTableModel model = new DefaultTableModel(new String[] {
+		playerTableModel = new DefaultTableModel(new String[] {
 				"Player Name", "Jersy Number", "Position", "Minutes Played",
 				"Games Played", "Penalty Attempts", "Penalty Scores"
 		}, 0);
-		for (Player p : team.getPlayers())
-			model.addRow(new Object[] {
+		playerTable = new JTable(playerTableModel);
+		c = new GridBagConstraints();
+		c.gridx = 0;
+		c.gridy = 2;
+		c.gridwidth = 2;
+		c.weightx = 1.0;
+		c.weighty = 0.5;
+		panel.add(new JScrollPane(playerTable), c);
+	}
+	
+	public void refreshLists()
+	{
+		pastModel = new DefaultTableModel(new String[] {
+				"Opponent", "Location", "Score", "Result"
+		}, 0);
+		upcomingModel = new DefaultTableModel(new String[] {
+				"Opponent", "Location", "Date"
+		}, 0);
+		playerTableModel = new DefaultTableModel(new String[] {
+				"Player Name", "Jersy Number", "Position", "Minutes Played",
+				"Games Played", "Penalty Attempts", "Penalty Scores"
+		}, 0);
+		
+		for (Match m : dbcontrol.getPastTeamMatches(getTabTitle()))
+			pastModel.addRow(new String[] {
+					m.getHomeTeam().getTeamName().equals(getTabTitle()) ?
+							m.getAwayTeam().getTeamName() :
+							m.getHomeTeam().getTeamName(),
+					m.getHomeTeam().getTeamName(),
+					m.getHomeScore() + " - " + m.getAwayScore(),
+					m.getWinner().getTeamName() + " won"
+			});
+		
+		SimpleDateFormat date = new SimpleDateFormat("dd-MM-yyyy");
+		for (Match m : dbcontrol.getUpcomingTeamMatches(getTabTitle()))
+			upcomingModel.addRow(new String[] {
+					m.getHomeTeam().getTeamName().equals(getTabTitle()) ?
+							m.getAwayTeam().getTeamName() :
+							m.getHomeTeam().getTeamName(),
+					m.getHomeTeam().getTeamName(),
+					date.format(m.getTime())
+			});
+		
+		for (Player p : dbcontrol.getTeamPlayers(getTabTitle()))
+			playerTableModel.addRow(new Object[] {
 					p.getPLastName() + ", " + p.getPFirstName(),
 					p.getJerseyNumber(),
 					p.getPosition(),
@@ -100,18 +154,5 @@ public class TeamTab extends CloseableTab
 					p.getAttemptedPenalties(),
 					p.getScoredPenalties()
 			});
-		JTable table = new JTable(model);
-		c = new GridBagConstraints();
-		c.gridx = 0;
-		c.gridy = 2;
-		c.gridwidth = 2;
-		c.weightx = 1.0;
-		c.weighty = 0.5;
-		panel.add(table, c);
-	}
-	
-	public void refreshLists()
-	{
-		
 	}
 }
