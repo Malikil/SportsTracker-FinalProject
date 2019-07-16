@@ -6,8 +6,11 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import java.awt.FlowLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.awt.Insets;
 import java.util.List;
 
 import javax.swing.JTextField;
@@ -81,10 +84,24 @@ public class SportTrackerMain
 		MatchManager mm = new MatchManager();
 		List<Match> upcoming = mm.getUpcomingMatches();
 		for (int i = 0; i < 10 && i < upcoming.size(); i++)
-			gameSchedulePanel.add(new MatchCard(upcoming.get(i)));
+		{
+			GridBagConstraints c = new GridBagConstraints();
+			c.gridx = i;
+			c.gridy = 0;
+			c.fill = GridBagConstraints.VERTICAL;
+			c.insets = new Insets(10, 10, 10, 10);
+			gameSchedulePanel.add(new MatchCard(upcoming.get(i)), c);
+		}
 		List<Match> past = mm.getPastMatches();
 		for (int i = 0; i < 10 && i < past.size(); i++)
-			recentGamesPanel.add(new MatchCard(past.get(i)));
+		{
+			GridBagConstraints c = new GridBagConstraints();
+			c.gridx = i;
+			c.gridy = 0;
+			c.fill = GridBagConstraints.VERTICAL;
+			c.insets = new Insets(10, 10, 10, 10);
+			recentGamesPanel.add(new MatchCard(past.get(i)), c);
+		}
 		// Load teams
 		for (Team t : new DatabaseController().getAllTeams())
 		{
@@ -139,10 +156,11 @@ public class SportTrackerMain
 		teamPanel.add(tablePane);
 		
 		gameSchedulePanel = new JPanel();
+		gameSchedulePanel.setLayout(new GridBagLayout());
 		homePanel.add(new JScrollPane(gameSchedulePanel));
-		gameSchedulePanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		recentGamesPanel = new JPanel();
+		recentGamesPanel.setLayout(new GridBagLayout());
 		homePanel.add(new JScrollPane(recentGamesPanel));
 		
 		JPanel followedGamesPanel = new JPanel();

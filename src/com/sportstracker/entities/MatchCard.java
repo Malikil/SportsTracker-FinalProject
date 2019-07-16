@@ -1,6 +1,7 @@
 package com.sportstracker.entities;
 
 import java.awt.*;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.swing.JPanel;
@@ -35,7 +36,8 @@ public class MatchCard extends JPanel
 			homeScoreLbl.setText(Integer.toString(nMatch.getHomeScore()));
 			awayScoreLbl.setText(Integer.toString(nMatch.getAwayScore()));
 		}
-		timeLbl.setText(nMatch.getTime().toString());
+		SimpleDateFormat f = new SimpleDateFormat("dd-MM-yyy");
+		timeLbl.setText(f.format(nMatch.getTime()));
 	}
 
 	/**
@@ -46,7 +48,6 @@ public class MatchCard extends JPanel
 		
 		JLabel lblHomeTeam = new JLabel("Home Team");
 		lblHomeTeam.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		//lblHomeTeam.setBounds(12, 13, 92, 26);
 		GridBagConstraints c = new GridBagConstraints();
 		c.gridx = 0;
 		c.gridy = 0;
@@ -98,8 +99,10 @@ public class MatchCard extends JPanel
 		
 		timeLbl = new JLabel();
 		c = new GridBagConstraints();
-		c.gridx = 1;
-		c.gridy = 2;
+		c.gridx = 0;
+		c.gridy = 3;
+		c.gridwidth = 3;
+		c.anchor = GridBagConstraints.PAGE_START;
 		add(timeLbl, c);
 		
 		//setPreferredSize(new Dimension(289, 170));
