@@ -9,12 +9,12 @@ import javax.swing.JOptionPane;
 
 public class MatchCard extends JPanel
 {
-	private Panel homeImg;
-	private Panel awayImg;
+	//private Panel homeImg;
+	//private Panel awayImg;
 	private JLabel homeTeamLbl;
 	private JLabel awayTeamLbl;
 	private JLabel timeLbl;
-	private JLabel locationLbl;
+	//private JLabel locationLbl;
 	private JLabel homeScoreLbl;
 	private JLabel awayScoreLbl;
 	
@@ -35,60 +35,86 @@ public class MatchCard extends JPanel
 			homeScoreLbl.setText(Integer.toString(nMatch.getHomeScore()));
 			awayScoreLbl.setText(Integer.toString(nMatch.getAwayScore()));
 		}
-		locationLbl.setText(nMatch.getTime().toString());
+		timeLbl.setText(nMatch.getTime().toString());
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		setPreferredSize(new Dimension(289, 170));
-		setLayout(null);
+		setLayout(new GridBagLayout());
 		
 		JLabel lblHomeTeam = new JLabel("Home Team");
 		lblHomeTeam.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblHomeTeam.setBounds(21, 15, 92, 26);
-		add(lblHomeTeam);
+		//lblHomeTeam.setBounds(12, 13, 92, 26);
+		GridBagConstraints c = new GridBagConstraints();
+		c.gridx = 0;
+		c.gridy = 0;
+		c.anchor = GridBagConstraints.FIRST_LINE_START;
+		add(lblHomeTeam, c);
 		
 		JLabel lblAwayTeam = new JLabel("Away Team");
 		lblAwayTeam.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblAwayTeam.setBounds(176, 15, 92, 26);
-		add(lblAwayTeam);
+		//lblAwayTeam.setBounds(176, 15, 92, 26);
+		c = new GridBagConstraints();
+		c.gridx = 2;
+		c.gridy = 0;
+		c.anchor = GridBagConstraints.FIRST_LINE_END;
+		add(lblAwayTeam, c);
 		
-		JLabel lblVs = new JLabel("V.S.");
-		lblVs.setBounds(120, 75, 37, 26);
-		add(lblVs);
+		homeTeamLbl = new JLabel();
+		c = new GridBagConstraints();
+		c.gridx = 0;
+		c.gridy = 1;
+		c.anchor = GridBagConstraints.LINE_START;
+		add(homeTeamLbl, c);
 		
-		homeImg = new Panel();
+		JLabel lblVs = new JLabel("-VS-");
+		c = new GridBagConstraints();
+		c.gridx = 1;
+		c.gridy = 1;
+		add(lblVs, c);
+		
+		awayTeamLbl = new JLabel();
+		c = new GridBagConstraints();
+		c.gridx = 2;
+		c.gridy = 1;
+		c.anchor = GridBagConstraints.LINE_END;
+		add(awayTeamLbl, c);
+		
+		homeScoreLbl = new JLabel();
+		c = new GridBagConstraints();
+		c.gridx = 0;
+		c.gridy = 2;
+		c.anchor = GridBagConstraints.LINE_END;
+		add(homeScoreLbl, c);
+		
+		awayScoreLbl = new JLabel();
+		c = new GridBagConstraints();
+		c.gridx = 2;
+		c.gridy = 2;
+		c.anchor = GridBagConstraints.LINE_START;
+		add(awayScoreLbl, c);
+		
+		timeLbl = new JLabel();
+		c = new GridBagConstraints();
+		c.gridx = 1;
+		c.gridy = 2;
+		add(timeLbl, c);
+		
+		//setPreferredSize(new Dimension(289, 170));
+		//setLayout(null);
+		
+		/*homeImg = new Panel();
 		homeImg.setBounds(50, 90, 10, 10);
 		add(homeImg);
 		
 		awayImg = new Panel();
 		awayImg.setBounds(210, 90, 10, 10);
-		add(awayImg);
+		add(awayImg);*/
 		
-		homeTeamLbl = new JLabel("");
-		homeTeamLbl.setBounds(20, 50, 92, 26);
-		add(homeTeamLbl);
-		
-		awayTeamLbl = new JLabel("");
-		awayTeamLbl.setBounds(175, 50, 92, 26);
-		add(awayTeamLbl);
-		
-		timeLbl = new JLabel("");
-		timeLbl.setBounds(93, 110, 92, 26);
-		add(timeLbl);
-		
-		locationLbl = new JLabel("");
+		/*locationLbl = new JLabel("");
 		locationLbl.setBounds(93, 140, 92, 26);
-		add(locationLbl);
-		
-		homeScoreLbl = new JLabel("0");
-		homeScoreLbl.setBounds(42, 115, 30, 26);
-		add(homeScoreLbl);
-		
-		awayScoreLbl = new JLabel("0");
-		awayScoreLbl.setBounds(201, 115, 30, 26);
-		add(awayScoreLbl);
+		add(locationLbl);*/
 	}
 }

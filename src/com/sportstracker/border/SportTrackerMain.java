@@ -37,7 +37,6 @@ public class SportTrackerMain
 {
 	private JFrame frame;
 	private JTextField txtSearch;
-	private JTable teamTable;
 	private JTable table_1;
 	private JTextField txtPlayerFName;
 	private JTextField txtTeam;
@@ -58,8 +57,8 @@ public class SportTrackerMain
 	private JPanel adminPanel;
 	
 	// Flow layout panel for upcoming games
-	JPanel gameSchedulePanel;
-	JPanel recentGamesPanel;
+	private JPanel gameSchedulePanel;
+	private JPanel recentGamesPanel;
 	
 	/**
 	 * Sets visibility of the form
@@ -133,18 +132,18 @@ public class SportTrackerMain
 		teamsList = new DefaultTableModel(new Object[] {
 				"Team name", "Wins", "Losses"
 		}, 0);
-		teamTable = new JTable(teamsList);
+		JTable teamTable = new JTable(teamsList);
 		teamTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		JScrollPane tablePane = new JScrollPane(teamTable);
 		tablePane.setBounds(10, 42, 679, 360);
 		teamPanel.add(tablePane);
 		
 		gameSchedulePanel = new JPanel();
-		homePanel.add(gameSchedulePanel);
+		homePanel.add(new JScrollPane(gameSchedulePanel));
 		gameSchedulePanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		recentGamesPanel = new JPanel();
-		homePanel.add(recentGamesPanel);
+		homePanel.add(new JScrollPane(recentGamesPanel));
 		
 		JPanel followedGamesPanel = new JPanel();
 		homePanel.add(followedGamesPanel);
