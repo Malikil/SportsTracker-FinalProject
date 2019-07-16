@@ -3,12 +3,15 @@ package com.sportstracker.border;
 import javax.swing.JFrame;
 import javax.swing.JTabbedPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+
 import java.awt.FlowLayout;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.util.List;
 
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 
 import com.sportstracker.controller.AdminController;
@@ -131,8 +134,10 @@ public class SportTrackerMain
 				"Team name", "Wins", "Losses"
 		}, 0);
 		teamTable = new JTable(teamsList);
-		teamTable.setBounds(10, 42, 679, 360);
-		teamPanel.add(teamTable);
+		teamTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		JScrollPane tablePane = new JScrollPane(teamTable);
+		tablePane.setBounds(10, 42, 679, 360);
+		teamPanel.add(tablePane);
 		
 		gameSchedulePanel = new JPanel();
 		homePanel.add(gameSchedulePanel);
