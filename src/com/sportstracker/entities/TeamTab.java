@@ -73,6 +73,16 @@ public class TeamTab extends CloseableTab
 		model.addColumn("Games Played");
 		model.addColumn("Penalty Attempts");
 		model.addColumn("Penalty Scores");
+		for (Player p : team.getPlayers())
+			model.addRow(new Object[] {
+					p.getPLastName() + ", " + p.getPFirstName(),
+					p.getJerseyNumber(),
+					p.getPosition(),
+					p.getMinutesPlayed(),
+					p.getGamesPlayed(),
+					p.getAttemptedPenalties(),
+					p.getScoredPenalties()
+			});
 		JTable table = new JTable(model);
 		c = new GridBagConstraints();
 		c.gridx = 0;
