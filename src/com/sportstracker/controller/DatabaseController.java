@@ -22,4 +22,16 @@ public class DatabaseController
 			results.add(t.getTeamName());
 		return results;
 	}
+	
+	public int getTeamRank(Team team)
+	{
+		// Ordering isn't guaranteed, so just go through the list and count
+		// how many teams have more wins
+		ArrayList<Team> teams = db.getAllTeams();
+		int rank = 1;
+		for (Team t : teams)
+			if (t != team && t.getWinCount() > team.getWinCount())
+				rank++;
+		return rank;
+	}
 }

@@ -11,7 +11,7 @@ import java.awt.event.ActionListener;
 /**
  * Shows all the information for a given team. The tab can be closed later.
  */
-public class CloseableTab extends JPanel
+public abstract class CloseableTab extends JPanel
 {
 	private JButton closeButton;
 	

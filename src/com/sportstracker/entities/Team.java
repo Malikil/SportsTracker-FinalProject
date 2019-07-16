@@ -62,21 +62,7 @@ public class Team
 	public void setTeamMVP(String teamMVP) {
 		this.teamMVP = teamMVP;
 	}*/
-	public void setId(int id) {
-		this.id = id;
-	}
-	public void setPlayers(List<Player> players) {
-		this.players = players;
-	}
-	public void setHomeMatches(List<Match> homeMatches) {
-		this.homeMatches = homeMatches;
-	}
-	public void setAwayMatches(List<Match> awayMatches) {
-		this.awayMatches = awayMatches;
-	}
-	public void setMatches(ArrayList<Match> matches) {
-		this.matches = matches;
-	}
+	
 	public int getWinCount()
 	{
 		int wins = 0;
