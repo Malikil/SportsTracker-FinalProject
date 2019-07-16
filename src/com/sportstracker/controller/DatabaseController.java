@@ -3,6 +3,7 @@ package com.sportstracker.controller;
 import java.util.ArrayList;
 
 import com.sportstracker.border.SportsDAO;
+import com.sportstracker.entities.Match;
 import com.sportstracker.entities.Team;
 
 public class DatabaseController
@@ -38,5 +39,11 @@ public class DatabaseController
 			if (t != team && t.getWinCount() > team.getWinCount())
 				rank++;
 		return rank;
+	}
+	
+	public ArrayList<Match> getPastTeamMatches(Team team)
+	{
+		// TODO not implemented yet
+		return null;
 	}
 }

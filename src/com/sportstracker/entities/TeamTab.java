@@ -13,6 +13,7 @@ import com.sportstracker.controller.DatabaseController;
 public class TeamTab extends CloseableTab
 {
 	JPanel panel;
+	DatabaseController dbcontrol;
 	
 	/**
 	 * Create an instance of a closable team tab for the given team
@@ -21,6 +22,7 @@ public class TeamTab extends CloseableTab
 	public TeamTab(Team team)
 	{
 		super(team.getTeamName());
+		dbcontrol = new DatabaseController();
 		initialize(team);
 		// Add the panel to the GridBagLayout
 		GridBagConstraints c = new GridBagConstraints();
@@ -39,7 +41,6 @@ public class TeamTab extends CloseableTab
 	 */
 	public void initialize(Team team)
 	{
-		DatabaseController dbcontrol = new DatabaseController();
 		panel = new JPanel();
 		panel.setLayout(new GridBagLayout());
 		
@@ -109,7 +110,7 @@ public class TeamTab extends CloseableTab
 		panel.add(table, c);
 	}
 	
-	private void updateLists()
+	public void refreshLists()
 	{
 		
 	}
