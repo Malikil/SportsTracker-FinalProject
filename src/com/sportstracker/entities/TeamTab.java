@@ -29,6 +29,7 @@ public class TeamTab extends CloseableTab
 		c.weightx = 1.0;
 		c.weighty = 1.0;
 		c.gridwidth = 2;
+		c.fill = GridBagConstraints.BOTH;
 		add(panel, c);
 	}
 	
@@ -50,29 +51,44 @@ public class TeamTab extends CloseableTab
 		c.gridy = 0;
 		panel.add(rankLabel, c);
 		
-		// Dud column to fill space with
-		c = new GridBagConstraints();
-		c.gridx = 1;
-		c.gridy = 0;
-		c.weightx = 1.0;
-		panel.add(null, c);
-		
 		// Win/loss
 		JLabel winloss = new JLabel("Win/Loss: " + team.getWinCount() + "/" + (team.getMatchCount() - team.getWinCount()));
 		c = new GridBagConstraints();
-		c.gridx = 2;
+		c.gridx = 1;
 		c.gridy = 0;
 		panel.add(winloss, c);
 		
+		// Upcoming matches
+		DefaultTableModel upcomingModel = new DefaultTableModel(new String[] {
+				"Opponent", "Location", "Date"
+		}, 0);
+		JTable upcomingTable = new JTable(upcomingModel);
+		c = new GridBagConstraints();
+		c.gridx = 0;
+		c.gridy = 1;
+		c.fill = GridBagConstraints.BOTH;
+		c.weightx = 0.5;
+		c.weighty = 0.5;
+		panel.add(upcomingTable, c);
+		
+		// Past matches
+		DefaultTableModel pastModel = new DefaultTableModel(new String[] {
+				"Opponent", "Location", "Score", "Result"
+		}, 0);
+		JTable pastTable = new JTable(pastModel);
+		c = new GridBagConstraints();
+		c.gridx = 1;
+		c.gridy = 1;
+		c.fill = GridBagConstraints.BOTH;
+		c.weightx = 0.5;
+		c.weighty = 0.5;
+		panel.add(pastTable, c);
+		
 		// Player list
-		DefaultTableModel model = new DefaultTableModel();
-		model.addColumn("Player Name");
-		model.addColumn("Jersy Number");
-		model.addColumn("Position");
-		model.addColumn("Minutes Played");
-		model.addColumn("Games Played");
-		model.addColumn("Penalty Attempts");
-		model.addColumn("Penalty Scores");
+		DefaultTableModel model = new DefaultTableModel(new String[] {
+				"Player Name", "Jersy Number", "Position", "Minutes Played",
+				"Games Played", "Penalty Attempts", "Penalty Scores"
+		}, 0);
 		for (Player p : team.getPlayers())
 			model.addRow(new Object[] {
 					p.getPLastName() + ", " + p.getPFirstName(),
@@ -86,10 +102,15 @@ public class TeamTab extends CloseableTab
 		JTable table = new JTable(model);
 		c = new GridBagConstraints();
 		c.gridx = 0;
-		c.gridy = 1;
-		c.gridwidth = 3;
-		//c.weightx = 1.0;
-		c.weighty = 1.0;
+		c.gridy = 2;
+		c.gridwidth = 2;
+		c.weightx = 1.0;
+		c.weighty = 0.5;
 		panel.add(table, c);
+	}
+	
+	private void updateLists()
+	{
+		
 	}
 }

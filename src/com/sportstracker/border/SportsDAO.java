@@ -116,8 +116,8 @@ public class SportsDAO implements ISportDatabase, IUserDatabase
 		SessionFactory fact = getFactory();
 		Session ss = fact.openSession();
 		ArrayList<Team> results = (ArrayList<Team>)ss.createQuery("select t from Team t", Team.class).list();
-		ss.close();
-		fact.close();
+		//ss.close(); Don't close them here because of lazy fetching. Will this cause a major memory leak?
+		//fact.close(); I noticed there was a daemon thread called "abandoned connection cleanup", is it safe to rely on that?
 		return results;
 		
 	}

@@ -9,12 +9,14 @@ import java.awt.GridLayout;
 import java.util.List;
 
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 
 import com.sportstracker.controller.AdminController;
 import com.sportstracker.controller.DatabaseController;
 import com.sportstracker.controller.MatchManager;
 import com.sportstracker.entities.Match;
 import com.sportstracker.entities.MatchCard;
+import com.sportstracker.entities.Team;
 
 import javax.swing.JTable;
 import javax.swing.JLabel;
@@ -32,7 +34,7 @@ public class SportTrackerMain
 {
 	private JFrame frame;
 	private JTextField txtSearch;
-	private JTable table;
+	private JTable teamTable;
 	private JTable table_1;
 	private JTextField txtPlayerFName;
 	private JTextField txtTeam;
@@ -49,6 +51,8 @@ public class SportTrackerMain
 	private DefaultComboBoxModel<String> addPlayerTeamList;
 	private DefaultComboBoxModel<String> homeTeamNameSelection;
 	private DefaultComboBoxModel<String> awayTeamNameSelection;
+	private DefaultTableModel teamsList;
+	private JPanel adminPanel;
 	
 	// Flow layout panel for upcoming games
 	JPanel gameSchedulePanel;
@@ -79,13 +83,23 @@ public class SportTrackerMain
 		List<Match> past = mm.getPastMatches();
 		for (int i = 0; i < 10 && i < past.size(); i++)
 			recentGamesPanel.add(new MatchCard(past.get(i)));
-		// Load teams into admin lists
-		for (String s : new DatabaseController().getTeamnameList())
+		// Load teams
+		for (Team t : new DatabaseController().getAllTeams())
 		{
-			addPlayerTeamList.addElement(s);
-			homeTeamNameSelection.addElement(s);
-			awayTeamNameSelection.addElement(s);
+			addPlayerTeamList.addElement(t.getTeamName());
+			homeTeamNameSelection.addElement(t.getTeamName());
+			awayTeamNameSelection.addElement(t.getTeamName());
+			teamsList.addRow(new Object[] {
+					t.getTeamName(),
+					t.getWinCount(),
+					t.getMatchCount() - t.getWinCount()
+			});
 		}
+		// Load teams into admin lists
+		if (isAdmin)
+			adminPanel.setVisible(true);
+		else
+			adminPanel.setVisible(false);
 	}
 
 	/**
@@ -113,9 +127,12 @@ public class SportTrackerMain
 		teamPanel.add(txtSearch);
 		txtSearch.setColumns(10);
 		
-		table = new JTable();
-		table.setBounds(10, 42, 679, 360);
-		teamPanel.add(table);
+		teamsList = new DefaultTableModel(new Object[] {
+				"Team name", "Wins", "Losses"
+		}, 0);
+		teamTable = new JTable(teamsList);
+		teamTable.setBounds(10, 42, 679, 360);
+		teamPanel.add(teamTable);
 		
 		gameSchedulePanel = new JPanel();
 		homePanel.add(gameSchedulePanel);
@@ -137,7 +154,7 @@ public class SportTrackerMain
 		JPanel MatchesPanel = new JPanel();
 		tabbedPane.addTab("Matches", null, MatchesPanel, null);
 		
-		JPanel adminPanel = new JPanel();
+		adminPanel = new JPanel();
 		tabbedPane.addTab("Admin", null, adminPanel, null);
 		adminPanel.setLayout(null);
 		

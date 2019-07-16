@@ -17,10 +17,10 @@ public class Team
 	@OneToMany(mappedBy="team")
 	private List<Player> players;
 	
-	@OneToMany(mappedBy="homeTeam")
+	@OneToMany(mappedBy="homeTeam")//, fetch=FetchType.EAGER)
 	private List<Match> homeMatches;
 	
-	@OneToMany(mappedBy="awayTeam")
+	@OneToMany(mappedBy="awayTeam")//, fetch=FetchType.EAGER)
 	private List<Match> awayMatches;
 	
 	@Transient

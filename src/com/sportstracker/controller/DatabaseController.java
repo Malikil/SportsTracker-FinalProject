@@ -23,6 +23,11 @@ public class DatabaseController
 		return results;
 	}
 	
+	public ArrayList<Team> getAllTeams()
+	{
+		return db.getAllTeams();
+	}
+	
 	public int getTeamRank(Team team)
 	{
 		// Ordering isn't guaranteed, so just go through the list and count
