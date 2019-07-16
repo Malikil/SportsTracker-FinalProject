@@ -6,50 +6,55 @@ import java.util.Date;
 import javax.persistence.*;
 
 @Entity
-@Table(name="Match")
+@Table(name="Matches")
 public class Match
 {
 	@Id
 	@GeneratedValue
-	private int Id;
-	private Team winner;
-	private Team loser;
-	private int winnerScore;
-	private int loserScore;
-	private String location;
+	private int id;
+	
+	@ManyToOne//(fetch=FetchType.LAZY)
+	private Team homeTeam;
+	
+	@ManyToOne//(fetch=FetchType.LAZY)
+	private Team awayTeam;
+	
+	private Integer homeScore;
+	private Integer awayScore;
+	//private String location;
 	private Date time;
 	// Leaving yellow/red cards out for now
 	
-	public Team getWinner() {
-		return winner;
+	public Team getHomeTeam() {
+		return homeTeam;
 	}
-	public void setWinner(Team winner) {
-		this.winner = winner;
+	public void setHomeTeam(Team team) {
+		this.homeTeam = team;
 	}
-	public Team getLoser() {
-		return loser;
+	public Team getAwayTeam() {
+		return awayTeam;
 	}
-	public void setLoser(Team loser) {
-		this.loser = loser;
+	public void setAwayTeam(Team team) {
+		this.awayTeam = team;
 	}
-	public int getWinnerScore() {
-		return winnerScore;
+	public Integer getHomeScore() {
+		return homeScore;
 	}
-	public void setWinnerScore(int winnerScore) {
-		this.winnerScore = winnerScore;
+	public void setHomeScore(Integer score) {
+		this.homeScore = score;
 	}
-	public int getLoserScore() {
-		return loserScore;
+	public Integer getAwayScore() {
+		return awayScore;
 	}
-	public void setLoserScore(int loserScore) {
-		this.loserScore = loserScore;
+	public void setAwayScore(Integer score) {
+		this.awayScore = score;
 	}
-	public String getLocation() {
+	/*public String getLocation() {
 		return location;
 	}
 	public void setLocation(String location) {
 		this.location = location;
-	}
+	}*/
 	public Date getTime() {
 		return time;
 	}
@@ -57,9 +62,42 @@ public class Match
 		this.time = time;
 	}
 	public int getId() {
-		return Id;
+		return id;
 	}
 	public boolean isDraw()	{
-		return winnerScore == loserScore;
+		return homeScore == awayScore;
+	}
+
+	public Team getWinner()
+	{
+		if (homeScore > awayScore)
+			return homeTeam;
+		else if (awayScore > homeScore)
+			return awayTeam;
+		else
+			return null;
+	}
+	public Team getLoser()
+	{
+		if (homeScore < awayScore)
+			return homeTeam;
+		else if (awayScore < homeScore)
+			return awayTeam;
+		else
+			return null;
+	}
+	public int getWinnerScore()
+	{
+		if (homeScore > awayScore)
+			return homeScore;
+		else
+			return awayScore;
+	}
+	public int getLoserScore()
+	{
+		if (homeScore < awayScore)
+			return homeScore;
+		else
+			return awayScore;
 	}
 }
