@@ -29,9 +29,11 @@ import com.sportstracker.entities.TeamTab;
 
 import javax.swing.JTable;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -67,11 +69,15 @@ public class SportTrackerMain
 	private DefaultComboBoxModel<String> homeTeamNameSelection;
 	private DefaultComboBoxModel<String> awayTeamNameSelection;
 	private DefaultTableModel teamsListModel;
+	private DefaultListModel<String> unfollowedModel;
+	private DefaultListModel<String> followedModel;
 	// Lists/tables
 	private JTable teamTable;
-	JComboBox<String> homeTeamNameText;
-	JComboBox<String> awayTeamNameText;
-	JComboBox<String> comboBoxAddPlayer;
+	private JComboBox<String> homeTeamNameText;
+	private JComboBox<String> awayTeamNameText;
+	private JComboBox<String> comboBoxAddPlayer;
+	private JList<String> unfollowed;
+	private JList<String> followed;
 	
 	// Flow layout panel for upcoming games
 	private JPanel gameSchedulePanel;
@@ -240,8 +246,16 @@ public class SportTrackerMain
 		table_1 = new JTable();
 		playerPanel.add(table_1, BorderLayout.CENTER);
 		
-		JPanel MatchesPanel = new JPanel();
-		tabbedPane.addTab("Matches", null, MatchesPanel, null);
+		// ============================== User Settings Panel ==============================
+		JPanel userPanel = new JPanel();
+		userPanel.setLayout(new GridBagLayout());
+		tabbedPane.addTab("Settings", userPanel);
+		
+		// Change password
+		
+		// Change followed teams
+		unfollowed = new JList<>();
+		followed = new JList<>();
 		
 		adminPanel = new JPanel();
 		adminPanel.setLayout(null);
