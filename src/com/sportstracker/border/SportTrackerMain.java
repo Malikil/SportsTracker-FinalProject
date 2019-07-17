@@ -34,6 +34,8 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.border.LineBorder;
+import java.awt.Color;
 
 /**
  * The main window the user will be interacting with
@@ -122,22 +124,26 @@ public class SportTrackerMain
 		List<Match> upcoming = mm.getUpcomingMatches();
 		for (int i = 0; i < 10 && i < upcoming.size(); i++)
 		{
+			MatchCard card = new MatchCard(upcoming.get(i));
+			card.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
 			GridBagConstraints c = new GridBagConstraints();
 			c.gridx = i;
 			c.gridy = 0;
 			c.fill = GridBagConstraints.VERTICAL;
 			c.insets = new Insets(10, 10, 10, 10);
-			gameSchedulePanel.add(new MatchCard(upcoming.get(i)), c);
+			gameSchedulePanel.add(card, c);
 		}
 		List<Match> past = mm.getPastMatches();
 		for (int i = 0; i < 10 && i < past.size(); i++)
 		{
+			MatchCard card = new MatchCard(past.get(i));
+			card.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
 			GridBagConstraints c = new GridBagConstraints();
 			c.gridx = i;
 			c.gridy = 0;
 			c.fill = GridBagConstraints.VERTICAL;
 			c.insets = new Insets(10, 10, 10, 10);
-			recentGamesPanel.add(new MatchCard(past.get(i)), c);
+			recentGamesPanel.add(card, c);
 		}
 		
 		// Load teams into admin lists

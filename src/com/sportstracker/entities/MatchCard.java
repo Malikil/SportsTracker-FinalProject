@@ -52,6 +52,7 @@ public class MatchCard extends JPanel
 		c.gridx = 0;
 		c.gridy = 0;
 		c.anchor = GridBagConstraints.FIRST_LINE_START;
+		c.insets = new Insets(10, 10, 0, 0);
 		add(lblHomeTeam, c);
 		
 		JLabel lblAwayTeam = new JLabel("Away Team");
@@ -61,6 +62,7 @@ public class MatchCard extends JPanel
 		c.gridx = 2;
 		c.gridy = 0;
 		c.anchor = GridBagConstraints.FIRST_LINE_END;
+		c.insets = new Insets(10, 0, 0, 10);
 		add(lblAwayTeam, c);
 		
 		homeTeamLbl = new JLabel();
@@ -68,12 +70,14 @@ public class MatchCard extends JPanel
 		c.gridx = 0;
 		c.gridy = 1;
 		c.anchor = GridBagConstraints.LINE_START;
+		c.insets = new Insets(0, 10, 0, 0);
 		add(homeTeamLbl, c);
 		
 		JLabel lblVs = new JLabel("-VS-");
 		c = new GridBagConstraints();
 		c.gridx = 1;
 		c.gridy = 1;
+		c.insets = new Insets(0, 5, 0, 5);
 		add(lblVs, c);
 		
 		awayTeamLbl = new JLabel();
@@ -81,6 +85,7 @@ public class MatchCard extends JPanel
 		c.gridx = 2;
 		c.gridy = 1;
 		c.anchor = GridBagConstraints.LINE_END;
+		c.insets = new Insets(0, 0, 0, 10);
 		add(awayTeamLbl, c);
 		
 		homeScoreLbl = new JLabel();
@@ -103,6 +108,7 @@ public class MatchCard extends JPanel
 		c.gridy = 3;
 		c.gridwidth = 3;
 		c.anchor = GridBagConstraints.PAGE_START;
+		c.insets = new Insets(0, 0, 10, 0);
 		add(timeLbl, c);
 		
 		//setPreferredSize(new Dimension(289, 170));
