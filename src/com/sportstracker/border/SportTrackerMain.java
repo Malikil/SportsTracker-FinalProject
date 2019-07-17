@@ -439,7 +439,7 @@ public class SportTrackerMain
 		});
 		adminPanel.add(btnAddTeam);
 		
-		JButton btnAddPlayer = new JButton("Add Team");
+		JButton btnAddPlayer = new JButton("Add Player");
 		btnAddPlayer.setBounds(58, 318, 89, 23);
 		btnAddPlayer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
