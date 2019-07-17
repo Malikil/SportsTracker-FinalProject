@@ -76,8 +76,8 @@ public class SportsDAO implements ISportDatabase, IUserDatabase
 		query.setParameter("date", date);
 		List<Match> results = query.list();
 		
-		ss.close();
-		fact.close();
+		// TODO ss.close();
+		// TODO fact.close();
 		
 		return results;
 	}
@@ -90,8 +90,8 @@ public class SportsDAO implements ISportDatabase, IUserDatabase
 		query.setParameter("date", date);
 		List<Match> results = query.list();
 		
-		ss.close();
-		fact.close();
+		// TODO ss.close();
+		// TODO fact.close();
 		
 		return results;
 	}
@@ -116,8 +116,8 @@ public class SportsDAO implements ISportDatabase, IUserDatabase
 		SessionFactory fact = getFactory();
 		Session ss = fact.openSession();
 		ArrayList<Team> results = (ArrayList<Team>)ss.createQuery("select t from Team t", Team.class).list();
-		//ss.close(); Don't close them here because of lazy fetching. Will this cause a major memory leak?
-		//fact.close(); I noticed there was a daemon thread called "abandoned connection cleanup", is it safe to rely on that?
+		// TODO ss.close(); Don't close them here because of lazy fetching. Will this cause a major memory leak?
+		// TODO fact.close(); I noticed there was a daemon thread called "abandoned connection cleanup", is it safe to rely on that?
 		return results;
 		
 	}
@@ -131,8 +131,8 @@ public class SportsDAO implements ISportDatabase, IUserDatabase
 		query.setParameter("name", teamName);
 		List<Team> results = query.list();
 		
-		ss.close();
-		fact.close();
+		// TODO ss.close();
+		// TODO fact.close();
 		
 		if (results.size() > 0)
 			return results.get(0);

@@ -23,7 +23,7 @@ public class TeamTab extends CloseableTab
 	
 	DefaultTableModel upcomingModel;
 	DefaultTableModel pastModel;
-	DefaultTableModel playerTableModel;
+	DefaultTableModel playerModel;
 	
 	/**
 	 * Create an instance of a closable team tab for the given team
@@ -97,20 +97,24 @@ public class TeamTab extends CloseableTab
 		panel.add(new JScrollPane(pastTable), c);
 		
 		// Player list
-		playerTableModel = new DefaultTableModel(new String[] {
+		playerModel = new DefaultTableModel(new String[] {
 				"Player Name", "Jersy Number", "Position", "Minutes Played",
 				"Games Played", "Penalty Attempts", "Penalty Scores"
 		}, 0);
-		playerTable = new JTable(playerTableModel);
+		playerTable = new JTable(playerModel);
 		c = new GridBagConstraints();
 		c.gridx = 0;
 		c.gridy = 2;
 		c.gridwidth = 2;
 		c.weightx = 1.0;
 		c.weighty = 0.5;
+		c.fill = GridBagConstraints.BOTH;
 		panel.add(new JScrollPane(playerTable), c);
 	}
 	
+	/**
+	 * Refresh the past and upcoming matches, and the player list
+	 */
 	public void refreshLists()
 	{
 		pastModel = new DefaultTableModel(new String[] {
@@ -119,7 +123,7 @@ public class TeamTab extends CloseableTab
 		upcomingModel = new DefaultTableModel(new String[] {
 				"Opponent", "Location", "Date"
 		}, 0);
-		playerTableModel = new DefaultTableModel(new String[] {
+		playerModel = new DefaultTableModel(new String[] {
 				"Player Name", "Jersy Number", "Position", "Minutes Played",
 				"Games Played", "Penalty Attempts", "Penalty Scores"
 		}, 0);
@@ -145,7 +149,7 @@ public class TeamTab extends CloseableTab
 			});
 		
 		for (Player p : dbcontrol.getTeamPlayers(getTabTitle()))
-			playerTableModel.addRow(new Object[] {
+			playerModel.addRow(new Object[] {
 					p.getPLastName() + ", " + p.getPFirstName(),
 					p.getJerseyNumber(),
 					p.getPosition(),
@@ -154,5 +158,9 @@ public class TeamTab extends CloseableTab
 					p.getAttemptedPenalties(),
 					p.getScoredPenalties()
 			});
+		
+		pastTable.setModel(pastModel);
+		upcomingTable.setModel(upcomingModel);
+		playerTable.setModel(playerModel);
 	}
 }

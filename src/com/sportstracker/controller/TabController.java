@@ -7,9 +7,16 @@ import com.sportstracker.entities.*;
  */
 public class TabController
 {
+	private SportsDAO db;
+	public TabController()
+	{
+		db = new SportsDAO();
+	}
+	
+	public TeamTab getNewTeamTab(String team)
+	{ return getNewTeamTab(db.getTeamByName(team)); }
 	public TeamTab getNewTeamTab(Team team)
 	{
-		
-		return null;
+		return new TeamTab(team);
 	}
 }

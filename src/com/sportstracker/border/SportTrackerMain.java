@@ -5,7 +5,6 @@ import javax.swing.JTabbedPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.BorderLayout;
@@ -15,11 +14,14 @@ import java.util.List;
 
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 import com.sportstracker.controller.AdminController;
 import com.sportstracker.controller.DatabaseController;
 import com.sportstracker.controller.MatchManager;
+import com.sportstracker.controller.TabController;
 import com.sportstracker.entities.Match;
 import com.sportstracker.entities.MatchCard;
 import com.sportstracker.entities.Team;
@@ -53,11 +55,19 @@ public class SportTrackerMain
 	private JTextField awayTeamScoreText;
 	private JTextField txtLocation;
 	private JTextField matchTimeText;
+	private ListSelectionListener teamSelector;
+	private JPanel adminPanel;
+	
+	// List/table models
 	private DefaultComboBoxModel<String> addPlayerTeamList;
 	private DefaultComboBoxModel<String> homeTeamNameSelection;
 	private DefaultComboBoxModel<String> awayTeamNameSelection;
-	private DefaultTableModel teamsList;
-	private JPanel adminPanel;
+	private DefaultTableModel teamsListModel;
+	// Lists/tables
+	private JTable teamTable;
+	JComboBox<String> homeTeamNameText;
+	JComboBox<String> awayTeamNameText;
+	JComboBox<String> comboBoxAddPlayer;
 	
 	// Flow layout panel for upcoming games
 	private JPanel gameSchedulePanel;
@@ -80,7 +90,33 @@ public class SportTrackerMain
 	public SportTrackerMain(boolean isAdmin)
 	{
 		initialize();
-		// Load matches onto panels
+		
+		if (isAdmin)
+			adminPanel.setVisible(true);
+		else
+			adminPanel.setVisible(false);
+		
+		refreshLists();
+	}
+	
+	/**
+	 * Refresh the JTables for teams and players, and update the team
+	 * dropdowns on the admin tab
+	 */
+	public void refreshLists()
+	{
+		// Set up new variables
+		gameSchedulePanel.removeAll();
+		recentGamesPanel.removeAll();
+		addPlayerTeamList = new DefaultComboBoxModel<>();
+		homeTeamNameSelection = new DefaultComboBoxModel<>();
+		awayTeamNameSelection = new DefaultComboBoxModel<>();
+		teamsListModel = new DefaultTableModel(new Object[] {
+				"Team name", "Wins", "Losses"
+		}, 0);
+		
+		
+		// Load matches into home page
 		MatchManager mm = new MatchManager();
 		List<Match> upcoming = mm.getUpcomingMatches();
 		for (int i = 0; i < 10 && i < upcoming.size(); i++)
@@ -102,23 +138,26 @@ public class SportTrackerMain
 			c.insets = new Insets(10, 10, 10, 10);
 			recentGamesPanel.add(new MatchCard(past.get(i)), c);
 		}
-		// Load teams
+		
+		// Load teams into admin lists
 		for (Team t : new DatabaseController().getAllTeams())
 		{
 			addPlayerTeamList.addElement(t.getTeamName());
 			homeTeamNameSelection.addElement(t.getTeamName());
 			awayTeamNameSelection.addElement(t.getTeamName());
-			teamsList.addRow(new Object[] {
+			teamsListModel.addRow(new Object[] {
 					t.getTeamName(),
 					t.getWinCount(),
-					t.getMatchCount() - t.getWinCount()
+					t.getLossCount()
 			});
 		}
-		// Load teams into admin lists
-		if (isAdmin)
-			adminPanel.setVisible(true);
-		else
-			adminPanel.setVisible(false);
+		
+		// Commit to new values
+		teamTable.setModel(teamsListModel);
+		teamTable.getSelectionModel().addListSelectionListener(teamSelector);
+		homeTeamNameText.setModel(homeTeamNameSelection);
+		awayTeamNameText.setModel(awayTeamNameSelection);
+		comboBoxAddPlayer.setModel(addPlayerTeamList);
 	}
 
 	/**
@@ -146,11 +185,19 @@ public class SportTrackerMain
 		teamPanel.add(txtSearch);
 		txtSearch.setColumns(10);
 		
-		teamsList = new DefaultTableModel(new Object[] {
+		teamSelector = new ListSelectionListener() {	
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				String teamName = (String)teamTable.getValueAt(teamTable.getSelectedRow(), 0);
+				tabbedPane.addTab(teamName, new TabController().getNewTeamTab(teamName));
+			}
+		};
+		teamsListModel = new DefaultTableModel(new Object[] {
 				"Team name", "Wins", "Losses"
 		}, 0);
-		JTable teamTable = new JTable(teamsList);
+		teamTable = new JTable(teamsListModel);
 		teamTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		teamTable.getSelectionModel().addListSelectionListener(teamSelector);
 		JScrollPane tablePane = new JScrollPane(teamTable);
 		tablePane.setBounds(10, 42, 679, 360);
 		teamPanel.add(tablePane);
@@ -206,7 +253,7 @@ public class SportTrackerMain
 		homeTeamNameSelection = new DefaultComboBoxModel<>();
 		awayTeamNameSelection = new DefaultComboBoxModel<>();
 		
-		JComboBox<String> homeTeamNameText = new JComboBox<>();
+		homeTeamNameText = new JComboBox<>();
 		homeTeamNameText.setBounds(553, 63, 86, 20);
 		homeTeamNameText.setModel(homeTeamNameSelection);
 		adminPanel.add(homeTeamNameText);
@@ -269,7 +316,7 @@ public class SportTrackerMain
 		lblHeight.setBounds(9, 250, 86, 14);
 		adminPanel.add(lblHeight);
 		
-		JComboBox<String> comboBoxAddPlayer = new JComboBox<>();
+		comboBoxAddPlayer = new JComboBox<>();
 		comboBoxAddPlayer.setBounds(107, 35, 75, 20);
 		comboBoxAddPlayer.setModel(addPlayerTeamList);
 		adminPanel.add(comboBoxAddPlayer);
@@ -282,7 +329,7 @@ public class SportTrackerMain
 		lblAwayTeam.setBounds(454, 91, 66, 14);
 		adminPanel.add(lblAwayTeam);
 		
-		JComboBox<String> awayTeamNameText = new JComboBox<>();
+		awayTeamNameText = new JComboBox<>();
 		awayTeamNameText.setBounds(553, 88, 86, 20);
 		awayTeamNameText.setModel(awayTeamNameSelection);
 		adminPanel.add(awayTeamNameText);

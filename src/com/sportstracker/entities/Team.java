@@ -72,6 +72,15 @@ public class Team
 		return wins;
 	}
 	
+	public int getLossCount()
+	{
+		int losses = 0;
+		for (Match match : getMatches())
+			if (match.getLoser() == this)
+				losses++;
+		return losses;
+	}
+	
 	public int getMatchCount()
 	{
 		return getMatches().size();
