@@ -39,6 +39,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
+import javax.swing.JCheckBox;
 
 /**
  * The main window the user will be interacting with
@@ -50,12 +51,13 @@ public class SportTrackerMain
 	private JTable table_1;
 	private JTextField txtPlayerFName;
 	private JTextField txtTeam;
-	private JTextField txtPlayLName;
+	private JTextField txtPlayerLName;
 	private JTextField txtPosition;
 	private JTextField txtJerseyNumber;
 	private JTextField txtAge;
 	private JTextField txtWeight;
-	private JTextField textField;
+	private JTextField txtHeight;
+	private JCheckBox chckbxActivePlayer;
 	private JTextField homeTeamScoreText;
 	private JTextField awayTeamScoreText;
 	private JTextField txtLocation;
@@ -299,10 +301,10 @@ public class SportTrackerMain
 		lblLastName.setBounds(29, 88, 61, 14);
 		adminPanel.add(lblLastName);
 		
-		txtPlayLName = new JTextField();
-		txtPlayLName.setBounds(96, 88, 86, 20);
-		adminPanel.add(txtPlayLName);
-		txtPlayLName.setColumns(10);
+		txtPlayerLName = new JTextField();
+		txtPlayerLName.setBounds(96, 88, 86, 20);
+		adminPanel.add(txtPlayerLName);
+		txtPlayerLName.setColumns(10);
 		
 		txtPosition = new JTextField();
 		txtPosition.setBounds(96, 119, 86, 20);
@@ -336,10 +338,10 @@ public class SportTrackerMain
 		lblAge.setBounds(22, 184, 66, 14);
 		adminPanel.add(lblAge);
 		
-		textField = new JTextField();
-		textField.setBounds(96, 247, 86, 20);
-		adminPanel.add(textField);
-		textField.setColumns(10);
+		txtHeight = new JTextField();
+		txtHeight.setBounds(96, 247, 86, 20);
+		adminPanel.add(txtHeight);
+		txtHeight.setColumns(10);
 		
 		JLabel lblWeight = new JLabel("Players Weight:");
 		lblWeight.setBounds(9, 219, 86, 14);
@@ -348,6 +350,10 @@ public class SportTrackerMain
 		JLabel lblHeight = new JLabel("Players Height:");
 		lblHeight.setBounds(9, 250, 86, 14);
 		adminPanel.add(lblHeight);
+		
+		JCheckBox chckbxActivePlayer = new JCheckBox("Active Player");
+		chckbxActivePlayer.setBounds(85, 274, 97, 23);
+		adminPanel.add(chckbxActivePlayer);
 		
 		comboBoxAddPlayer = new JComboBox<>();
 		comboBoxAddPlayer.setBounds(107, 35, 75, 20);
@@ -404,6 +410,7 @@ public class SportTrackerMain
 		matchTimeText.setColumns(10);
 		
 		JButton btnAddMatch = new JButton("Add Match");
+		btnAddMatch.setBounds(484, 276, 119, 23);
 		btnAddMatch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (new AdminController().addNewMatch(
@@ -412,37 +419,67 @@ public class SportTrackerMain
 						homeTeamScoreText.getText(),
 						awayTeamScoreText.getText(),
 						matchTimeText.getText()))
+				{
 					JOptionPane.showMessageDialog(null,
 							"Match Added", "Create Match",
 							JOptionPane.INFORMATION_MESSAGE);
+					refreshLists();
+				}
 				else
 					JOptionPane.showMessageDialog(null,
 							"Match wasn't added", "Create Match",
 							JOptionPane.WARNING_MESSAGE);
 			}
 		});
-		btnAddMatch.setBounds(484, 276, 119, 23);
 		adminPanel.add(btnAddMatch);
 		
 		JButton btnAddTeam = new JButton("Add Team");
+		btnAddTeam.setBounds(266, 118, 107, 23);
 		btnAddTeam.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				// Collect the player information and use the controller to add it
 				if (new AdminController().addNewTeam(txtTeam.getText()))
+				{
 					JOptionPane.showMessageDialog(null,
 							"Team Created", "Create Team",
 							JOptionPane.INFORMATION_MESSAGE);
+					refreshLists();
+				}
 				else
 					JOptionPane.showMessageDialog(null,
 							"Team wasn't created", "Create Team",
 							JOptionPane.WARNING_MESSAGE);
 			}
 		});
-		btnAddTeam.setBounds(266, 118, 107, 23);
 		adminPanel.add(btnAddTeam);
 		
-		JButton btnAddPlayer = new JButton("Add Team");
-		btnAddPlayer.setBounds(57, 297, 89, 23);
+		JButton btnAddPlayer = new JButton("Add Player");
+		btnAddPlayer.setBounds(58, 318, 89, 23);
+		btnAddPlayer.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				// Collect the player information and use the controller to add it
+				if (new AdminController().addNewPlayer(
+						txtPlayerFName.getText(), 
+						txtPlayerLName.getText(), 
+						txtPosition.getText(), 
+						txtTeam.getText(), 
+						Integer.parseInt(txtJerseyNumber.getText()),
+						Integer.parseInt(txtAge.getText()), 
+						Integer.parseInt(txtWeight.getText()), 
+						Integer.parseInt(txtHeight.getText()),
+						chckbxActivePlayer.isSelected()))
+				{
+					JOptionPane.showMessageDialog(null,
+							"Player Created", "Create Player",
+							JOptionPane.INFORMATION_MESSAGE);
+					refreshLists();
+				}
+				else
+					JOptionPane.showMessageDialog(null,
+							"Player wasn't created", "Create Player",
+							JOptionPane.WARNING_MESSAGE);
+			}
+		});
 		adminPanel.add(btnAddPlayer);
 	}
 }

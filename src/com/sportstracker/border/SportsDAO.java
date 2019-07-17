@@ -67,6 +67,9 @@ public class SportsDAO implements ISportDatabase, IUserDatabase
 		return matches;
 	}
 	
+	/**
+	 * Retrieves matches before current date
+	 */
 	public List<Match> getMatchesBeforeDate(Date date)
 	{
 		SessionFactory fact = getFactory();
@@ -81,6 +84,10 @@ public class SportsDAO implements ISportDatabase, IUserDatabase
 		
 		return results;
 	}
+	
+	/**
+	 * Retrieves matches after current date
+	 */
 	public List<Match> getMatchesAfterDate(Date date)
 	{
 		SessionFactory fact = getFactory();
@@ -105,6 +112,67 @@ public class SportsDAO implements ISportDatabase, IUserDatabase
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	/**
+	 * 
+	 * @param name Name of the player you are trying to add
+	 * @return returns name of existing player or null if no player by that name exists
+	 * 
+	 * TODO Test method
+	 */
+	public Player getPlayerByName(String name)
+	{
+		SessionFactory fact = getFactory();
+		Session ss = fact.openSession();
+		
+		Query<Player> query = (Query<Player>)ss.createQuery("select p from Player p where p.Name = :name", Player.class);
+		query.setParameter("name", name);
+		List<Player> results = query.list();
+		
+		// TODO ss.close();
+		// TODO fact.close();
+		
+		if (results.size() > 0)
+			return results.get(0);
+		else
+			return null;
+	}
+	
+	/**
+	 * 
+	 * @param player Creates player by player name
+	 * @return returns player id
+	 */
+	public Integer createPlayer(Player player)
+	{
+		SessionFactory fact = null;
+		Session ss = null;
+		Transaction tran = null;
+		int nid;
+		
+		try
+		{
+			fact = getFactory();
+			ss = fact.openSession();
+			tran = ss.beginTransaction();
+			
+			nid = (int)ss.save(player);
+			
+			tran.commit();
+		}
+		catch (HibernateException e)
+		{
+			tran.rollback();
+			throw e;
+		}
+		finally
+		{
+			ss.close();
+			fact.close();
+		}
+		
+		return nid;
+	}
 
 	/**
 	 * Gets all teams from the database
@@ -122,6 +190,11 @@ public class SportsDAO implements ISportDatabase, IUserDatabase
 		
 	}
 	
+	/**
+	 * 
+	 * @param teamName Name of the team you are trying to add
+	 * @return returns name of existing team or null if no team exists
+	 */
 	public Team getTeamByName(String teamName)
 	{
 		SessionFactory fact = getFactory();
@@ -140,6 +213,11 @@ public class SportsDAO implements ISportDatabase, IUserDatabase
 			return null;
 	}
 	
+	/**
+	 * 
+	 * @param team Creates team by team name
+	 * @return Returns team id
+	 */
 	public Integer createTeam(Team team)
 	{
 		SessionFactory fact = null;
