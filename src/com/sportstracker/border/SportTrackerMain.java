@@ -111,6 +111,7 @@ public class SportTrackerMain
 		addPlayerTeamList = new DefaultComboBoxModel<>();
 		homeTeamNameSelection = new DefaultComboBoxModel<>();
 		awayTeamNameSelection = new DefaultComboBoxModel<>();
+		teamTable.getSelectionModel().removeListSelectionListener(teamSelector);
 		teamsListModel = new DefaultTableModel(new Object[] {
 				"Team name", "Wins", "Losses"
 		}, 0);
@@ -188,8 +189,11 @@ public class SportTrackerMain
 		teamSelector = new ListSelectionListener() {	
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
-				String teamName = (String)teamTable.getValueAt(teamTable.getSelectedRow(), 0);
-				tabbedPane.addTab(teamName, new TabController().getNewTeamTab(teamName));
+				if (e.getValueIsAdjusting())
+				{
+					String teamName = (String)teamTable.getValueAt(teamTable.getSelectedRow(), 0);
+					tabbedPane.addTab(teamName, new TabController().getNewTeamTab(teamName));
+				}
 			}
 		};
 		teamsListModel = new DefaultTableModel(new Object[] {

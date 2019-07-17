@@ -135,7 +135,8 @@ public class TeamTab extends CloseableTab
 							m.getHomeTeam().getTeamName(),
 					m.getHomeTeam().getTeamName(),
 					m.getHomeScore() + " - " + m.getAwayScore(),
-					m.getWinner().getTeamName() + " won"
+					m.getWinner().getTeamName().equals(getTabTitle()) ?
+							"Won" : "Lost"
 			});
 		
 		SimpleDateFormat date = new SimpleDateFormat("dd-MM-yyyy");
