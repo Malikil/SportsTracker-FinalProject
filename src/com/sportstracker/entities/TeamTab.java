@@ -64,7 +64,7 @@ public class TeamTab extends CloseableTab
 		panel.add(rankLabel, c);
 		
 		// Win/loss
-		JLabel winloss = new JLabel("Win/Loss: " + team.getWinCount() + "/" + (team.getMatchCount() - team.getWinCount()));
+		JLabel winloss = new JLabel("Win/Loss: " + team.getWinCount() + "/" + team.getLossCount());
 		c = new GridBagConstraints();
 		c.gridx = 1;
 		c.gridy = 0;
@@ -135,7 +135,8 @@ public class TeamTab extends CloseableTab
 							m.getHomeTeam().getTeamName(),
 					m.getHomeTeam().getTeamName(),
 					m.getHomeScore() + " - " + m.getAwayScore(),
-					m.getWinner().getTeamName().equals(getTabTitle()) ?
+					m.getWinner() == null ? "Tied" :
+						m.getWinner().getTeamName().equals(getTabTitle()) ?
 							"Won" : "Lost"
 			});
 		
