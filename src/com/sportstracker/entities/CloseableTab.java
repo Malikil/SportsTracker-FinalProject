@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionListener;
+import java.awt.Font;
 
 /**
  * Shows all the information for a given team. The tab can be closed later.
@@ -25,6 +26,7 @@ public abstract class CloseableTab extends JPanel
 		setLayout(new GridBagLayout());
 		// Team name in the top left
 		titleLabel = new JLabel(title);
+		titleLabel.setFont(new Font("Arial", Font.BOLD, 18));
 		GridBagConstraints c = new GridBagConstraints();
 		c.anchor = GridBagConstraints.FIRST_LINE_START;
 		c.fill = GridBagConstraints.NONE;

@@ -9,10 +9,16 @@ import com.sportstracker.controller.AdminController;
 class DatabaseTests
 {
 	@Test
-	void addTeams()
+	void addDatabaseItems()
+	{
+		assertTrue(addTeams() &&
+				addMatches());
+	}
+	
+	private boolean addTeams()
 	{
 		AdminController db = new AdminController();
-		assertTrue(db.addNewTeam("Liverpool") &&
+		return (db.addNewTeam("Liverpool") &&
 				db.addNewTeam("Man. City") &&
 				db.addNewTeam("Real Madrid") &&
 				db.addNewTeam("Chelsea") &&
@@ -20,8 +26,8 @@ class DatabaseTests
 				db.addNewTeam("Juventus"));
 	}
 	
-	@Test
-	void addMatches()
+	
+	private boolean addMatches()
 	{
 		AdminController db = new AdminController();
 		// Matches on the 15th
@@ -49,7 +55,7 @@ class DatabaseTests
 				db.addNewMatch("Chelsea", "Man. City", "", "", "19/07/2019") &&
 				db.addNewMatch("Juventus", "Real Madrid", "", "", "19/07/2019") &&
 				db.addNewMatch("Barcelona", "Liverpool", "", "", "19/07/2019"));
-		assertTrue(fifteenth && sixteenth
+		return (fifteenth && sixteenth
 				&& seventeenth && eighteenth
 				&& ninteenth);
 	}
