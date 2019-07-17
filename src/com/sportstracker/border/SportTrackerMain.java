@@ -25,6 +25,7 @@ import com.sportstracker.controller.TabController;
 import com.sportstracker.entities.Match;
 import com.sportstracker.entities.MatchCard;
 import com.sportstracker.entities.Team;
+import com.sportstracker.entities.TeamTab;
 
 import javax.swing.JTable;
 import javax.swing.JLabel;
@@ -61,6 +62,7 @@ public class SportTrackerMain
 	private JTextField matchTimeText;
 	private ListSelectionListener teamSelector;
 	private JPanel adminPanel;
+	private JTabbedPane tabbedPane;
 	
 	// List/table models
 	private DefaultComboBoxModel<String> addPlayerTeamList;
@@ -96,9 +98,7 @@ public class SportTrackerMain
 		initialize();
 		
 		if (isAdmin)
-			adminPanel.setVisible(true);
-		else
-			adminPanel.setVisible(false);
+			tabbedPane.addTab("Admin", adminPanel);
 		
 		refreshLists();
 	}
@@ -178,7 +178,7 @@ public class SportTrackerMain
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(new BorderLayout(0, 0));
 		
-		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		frame.getContentPane().add(tabbedPane);
 		
 		JPanel homePanel = new JPanel();
@@ -200,7 +200,17 @@ public class SportTrackerMain
 				if (e.getValueIsAdjusting())
 				{
 					String teamName = (String)teamTable.getValueAt(teamTable.getSelectedRow(), 0);
-					tabbedPane.addTab(teamName, new TabController().getNewTeamTab(teamName));
+					TeamTab info = new TabController().getNewTeamTab(teamName);
+					info.addCloseTabListener(new ActionListener() {
+						@Override
+						public void actionPerformed(ActionEvent e) {
+							// Remove the tab from the pane
+							tabbedPane.remove(info);
+							tabbedPane.setSelectedIndex(0);
+						}
+					});
+					tabbedPane.addTab(teamName, info);
+					tabbedPane.setSelectedComponent(info);
 				}
 			}
 		};
@@ -236,7 +246,6 @@ public class SportTrackerMain
 		tabbedPane.addTab("Matches", null, MatchesPanel, null);
 		
 		adminPanel = new JPanel();
-		tabbedPane.addTab("Admin", null, adminPanel, null);
 		adminPanel.setLayout(null);
 		
 		JLabel lblPlayer = new JLabel("Add a Player to a Team:");
