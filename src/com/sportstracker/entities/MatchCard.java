@@ -36,7 +36,7 @@ public class MatchCard extends JPanel
 			homeScoreLbl.setText(Integer.toString(nMatch.getHomeScore()));
 			awayScoreLbl.setText(Integer.toString(nMatch.getAwayScore()));
 		}
-		SimpleDateFormat f = new SimpleDateFormat("dd-MM-yyy");
+		SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyy");
 		timeLbl.setText(f.format(nMatch.getTime()));
 	}
 
