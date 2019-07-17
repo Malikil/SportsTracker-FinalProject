@@ -253,12 +253,49 @@ public class SportTrackerMain
 		userPanel.setLayout(new GridBagLayout());
 		tabbedPane.addTab("Settings", userPanel);
 		
-		// Change password
-		
 		// Change followed teams
-		unfollowed = new JList<>();
-		followed = new JList<>();
+		JLabel unfollowedLabel = new JLabel("Add teams to followed");
+		GridBagConstraints c = new GridBagConstraints();
+		c.gridx = 0; c.gridy = 0; c.weightx = 0.25;
+		userPanel.add(unfollowedLabel, c);
 		
+		unfollowedModel = new DefaultListModel<>();
+		unfollowed = new JList<>(unfollowedModel);
+		c = new GridBagConstraints();
+		c.gridx = 0; c.gridy = 1; c.weightx = 0.25; c.weighty = 1.0;
+		c.gridheight = 4; c.fill = GridBagConstraints.VERTICAL;
+		userPanel.add(new JScrollPane(unfollowed), c);
+		
+		c = new GridBagConstraints();
+		c.gridx = 1; c.gridy = 1; c.weighty = 0.5;
+		userPanel.add(new JLabel(), c);
+		
+		JButton rightArrow = new JButton("-->");
+		c = new GridBagConstraints();
+		c.gridx = 1; c.gridy = 2; c.anchor = GridBagConstraints.PAGE_END;
+		userPanel.add(rightArrow, c);
+		
+		JLabel leftArrow = new JLabel("<--");
+		c = new GridBagConstraints();
+		c.gridx = 1; c.gridy = 3;
+		userPanel.add(leftArrow, c);
+		
+		JLabel followedLabel = new JLabel("Followed teams");
+		c = new GridBagConstraints();
+		c.gridx = 2; c.gridy = 0; c.weightx = 0.25;
+		userPanel.add(followedLabel, c);
+		
+		followedModel = new DefaultListModel<>();
+		followed = new JList<>(followedModel);
+		c = new GridBagConstraints();
+		c.gridx = 2; c.gridy = 1; c.weightx = 0.25; c.weighty = 1.0;
+		c.gridheight = 4; c.fill = GridBagConstraints.VERTICAL;
+		userPanel.add(new JScrollPane(followed), c);
+		
+		// User passwords
+		
+		
+		// =========================== Admin Panel ===========================
 		adminPanel = new JPanel();
 		adminPanel.setLayout(null);
 		
