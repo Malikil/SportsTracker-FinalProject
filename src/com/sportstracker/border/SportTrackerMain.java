@@ -256,43 +256,62 @@ public class SportTrackerMain
 		// Change followed teams
 		JLabel unfollowedLabel = new JLabel("Add teams to followed");
 		GridBagConstraints c = new GridBagConstraints();
-		c.gridx = 0; c.gridy = 0; c.weightx = 0.25;
+		c.gridx = 0; c.gridy = 0; c.weightx = 0.3;
 		userPanel.add(unfollowedLabel, c);
 		
 		unfollowedModel = new DefaultListModel<>();
 		unfollowed = new JList<>(unfollowedModel);
 		c = new GridBagConstraints();
-		c.gridx = 0; c.gridy = 1; c.weightx = 0.25; c.weighty = 1.0;
-		c.gridheight = 4; c.fill = GridBagConstraints.VERTICAL;
+		c.gridx = 0; c.gridy = 1; c.weightx = 0.3; c.weighty = 1.0;
+		c.gridheight = 3; c.fill = GridBagConstraints.BOTH;
 		userPanel.add(new JScrollPane(unfollowed), c);
-		
-		c = new GridBagConstraints();
-		c.gridx = 1; c.gridy = 1; c.weighty = 0.5;
-		userPanel.add(new JLabel(), c);
 		
 		JButton rightArrow = new JButton("-->");
 		c = new GridBagConstraints();
-		c.gridx = 1; c.gridy = 2; c.anchor = GridBagConstraints.PAGE_END;
+		c.gridx = 1; c.gridy = 1; c.anchor = GridBagConstraints.PAGE_END; c.weighty = 0.5;
 		userPanel.add(rightArrow, c);
 		
-		JLabel leftArrow = new JLabel("<--");
+		JButton leftArrow = new JButton("<--");
 		c = new GridBagConstraints();
-		c.gridx = 1; c.gridy = 3;
+		c.gridx = 1; c.gridy = 2; c.gridheight= 2; c.anchor = GridBagConstraints.PAGE_START;c.weighty = 0.5;
 		userPanel.add(leftArrow, c);
+		
 		
 		JLabel followedLabel = new JLabel("Followed teams");
 		c = new GridBagConstraints();
-		c.gridx = 2; c.gridy = 0; c.weightx = 0.25;
+		c.gridx = 2; c.gridy = 0; c.weightx = 0.3;
 		userPanel.add(followedLabel, c);
 		
 		followedModel = new DefaultListModel<>();
 		followed = new JList<>(followedModel);
 		c = new GridBagConstraints();
-		c.gridx = 2; c.gridy = 1; c.weightx = 0.25; c.weighty = 1.0;
-		c.gridheight = 4; c.fill = GridBagConstraints.VERTICAL;
+		c.gridx = 2; c.gridy = 1; c.weightx = 0.3; c.weighty = 1.0;
+		c.gridheight = 3; c.fill = GridBagConstraints.BOTH;
 		userPanel.add(new JScrollPane(followed), c);
 		
 		// User passwords
+		
+		JButton changePassButton = new JButton("Change Password");
+		c= new GridBagConstraints();
+		c.gridx = 3 ; c.gridy= 1; c.weightx = 0.3; c.weighty = 0.5;
+		c.anchor= GridBagConstraints.LINE_END;
+		c.fill = GridBagConstraints.HORIZONTAL;
+		userPanel.add(changePassButton,c);
+		
+		JButton applyButton = new JButton("Apply Follow");
+		c = new GridBagConstraints();
+		c.gridx = 3; c.gridy = 2; c.weightx = 0.3; c.weighty = 0.25;
+		c.anchor = GridBagConstraints.PAGE_END;
+		c.fill = GridBagConstraints.HORIZONTAL;
+		userPanel.add(applyButton,c);
+		
+		JButton resetButton = new JButton("Reset Follow");
+		c = new GridBagConstraints();
+		c.gridx = 3; c.gridy = 3; c.weightx = 0.3; c.weighty = 0.25;
+		c.anchor = GridBagConstraints.PAGE_START;
+		c.fill = GridBagConstraints.HORIZONTAL;
+		userPanel.add(resetButton,c);
+		 
 		
 		
 		// =========================== Admin Panel ===========================
