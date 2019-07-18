@@ -1,5 +1,7 @@
 package com.sportstracker.entities;
 
+import java.util.ArrayList;
+
 import javax.persistence.*;
 
 @Entity
@@ -10,6 +12,7 @@ public class User
 	private String username;
 	private String password;
 	private boolean admin;
+	private ArrayList<String> favourites = new ArrayList<String>();
 	
 	public User() { this(null, null); }
 	public User(String username, String password)
@@ -37,4 +40,12 @@ public class User
 	public void setAdmin(boolean admin) {
 		this.admin = admin;
 	}
+	public ArrayList<String> getFavourites()
+	{
+		return favourites;
+	}
+	public void setFavourites(ArrayList<String> favourite) {
+		this.favourites = favourite;
+	}
+	
 }
