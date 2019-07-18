@@ -437,7 +437,7 @@ public class SportTrackerMain
 		adminPanel.add(txtLocation);
 		txtLocation.setColumns(10);
 		
-		JLabel lblTime = new JLabel("Time of the Game:");
+		JLabel lblTime = new JLabel("Date:");
 		lblTime.setBounds(438, 219, 98, 14);
 		adminPanel.add(lblTime);
 		

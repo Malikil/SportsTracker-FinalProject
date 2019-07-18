@@ -1,6 +1,5 @@
 package com.sportstracker.border;
 
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 
 import javax.swing.JLabel;
@@ -36,5 +35,15 @@ public class ChangePasswordPanel
 		frame.setLayout(new GridLayout(3, 2));
 		
 		frame.add(new JLabel("Old Password:"));
+		oldPass = new JTextField();
+		frame.add(oldPass);
+		
+		frame.add(new JLabel("New Password"));
+		newPass = new JTextField();
+		frame.add(newPass);
+		
+		frame.add(new JLabel("Confirm Password"));
+		confirm = new JTextField();
+		frame.add(confirm);
 	}
 }
