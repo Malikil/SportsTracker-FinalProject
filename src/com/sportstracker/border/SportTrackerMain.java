@@ -29,9 +29,11 @@ import com.sportstracker.entities.TeamTab;
 
 import javax.swing.JTable;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -69,11 +71,15 @@ public class SportTrackerMain
 	private DefaultComboBoxModel<String> homeTeamNameSelection;
 	private DefaultComboBoxModel<String> awayTeamNameSelection;
 	private DefaultTableModel teamsListModel;
+	private DefaultListModel<String> unfollowedModel;
+	private DefaultListModel<String> followedModel;
 	// Lists/tables
 	private JTable teamTable;
-	JComboBox<String> homeTeamNameText;
-	JComboBox<String> awayTeamNameText;
-	JComboBox<String> comboBoxAddPlayer;
+	private JComboBox<String> homeTeamNameText;
+	private JComboBox<String> awayTeamNameText;
+	private JComboBox<String> comboBoxAddPlayer;
+	private JList<String> unfollowed;
+	private JList<String> followed;
 	
 	// Flow layout panel for upcoming games
 	private JPanel gameSchedulePanel;
@@ -242,9 +248,54 @@ public class SportTrackerMain
 		table_1 = new JTable();
 		playerPanel.add(table_1, BorderLayout.CENTER);
 		
-		JPanel MatchesPanel = new JPanel();
-		tabbedPane.addTab("Matches", null, MatchesPanel, null);
+		// ============================== User Settings Panel ==============================
+		JPanel userPanel = new JPanel();
+		userPanel.setLayout(new GridBagLayout());
+		tabbedPane.addTab("Settings", userPanel);
 		
+		// Change followed teams
+		JLabel unfollowedLabel = new JLabel("Add teams to followed");
+		GridBagConstraints c = new GridBagConstraints();
+		c.gridx = 0; c.gridy = 0; c.weightx = 0.25;
+		userPanel.add(unfollowedLabel, c);
+		
+		unfollowedModel = new DefaultListModel<>();
+		unfollowed = new JList<>(unfollowedModel);
+		c = new GridBagConstraints();
+		c.gridx = 0; c.gridy = 1; c.weightx = 0.25; c.weighty = 1.0;
+		c.gridheight = 4; c.fill = GridBagConstraints.VERTICAL;
+		userPanel.add(new JScrollPane(unfollowed), c);
+		
+		c = new GridBagConstraints();
+		c.gridx = 1; c.gridy = 1; c.weighty = 0.5;
+		userPanel.add(new JLabel(), c);
+		
+		JButton rightArrow = new JButton("-->");
+		c = new GridBagConstraints();
+		c.gridx = 1; c.gridy = 2; c.anchor = GridBagConstraints.PAGE_END;
+		userPanel.add(rightArrow, c);
+		
+		JLabel leftArrow = new JLabel("<--");
+		c = new GridBagConstraints();
+		c.gridx = 1; c.gridy = 3;
+		userPanel.add(leftArrow, c);
+		
+		JLabel followedLabel = new JLabel("Followed teams");
+		c = new GridBagConstraints();
+		c.gridx = 2; c.gridy = 0; c.weightx = 0.25;
+		userPanel.add(followedLabel, c);
+		
+		followedModel = new DefaultListModel<>();
+		followed = new JList<>(followedModel);
+		c = new GridBagConstraints();
+		c.gridx = 2; c.gridy = 1; c.weightx = 0.25; c.weighty = 1.0;
+		c.gridheight = 4; c.fill = GridBagConstraints.VERTICAL;
+		userPanel.add(new JScrollPane(followed), c);
+		
+		// User passwords
+		
+		
+		// =========================== Admin Panel ===========================
 		adminPanel = new JPanel();
 		adminPanel.setLayout(null);
 		
@@ -386,7 +437,7 @@ public class SportTrackerMain
 		adminPanel.add(txtLocation);
 		txtLocation.setColumns(10);
 		
-		JLabel lblTime = new JLabel("Time of the Game:");
+		JLabel lblTime = new JLabel("Date:");
 		lblTime.setBounds(438, 219, 98, 14);
 		adminPanel.add(lblTime);
 		

@@ -51,11 +51,8 @@ public class LoginManager
 				User user = null;
 				try
 				{
-					IUserDatabase db = new SportsDAO();
-					// Get the user from the database, will be null if user/pass
-					// didn't match any account
-					user = db.getUser(uname);
-					if (user != null && user.getPassword().equals(pword))
+					user = tryLogin(uname, pword);
+					if (user != null)
 						if (user.isAdmin())
 							loginStatus = LoginStatus.ADMIN_USER;
 						else
@@ -89,6 +86,18 @@ public class LoginManager
 				}
 			});
 		}
+	}
+	
+	public static User tryLogin(String username, String password)
+	{
+		IUserDatabase userdb = new SportsDAO();
+		// Get the user from the database, will be null if user/pass
+		// didn't match any account
+		User user = userdb.getUser(username);
+		if (user != null && user.getPassword().equals(password))
+			return user;
+		else
+			return null;
 	}
 	
 	/**
