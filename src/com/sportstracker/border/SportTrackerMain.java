@@ -20,6 +20,7 @@ import javax.swing.table.DefaultTableModel;
 
 import com.sportstracker.controller.AdminController;
 import com.sportstracker.controller.DatabaseController;
+import com.sportstracker.controller.LoginManager;
 import com.sportstracker.controller.MatchManager;
 import com.sportstracker.controller.TabController;
 import com.sportstracker.entities.Match;
@@ -57,10 +58,8 @@ public class SportTrackerMain
 	private JTextField txtAge;
 	private JTextField txtWeight;
 	private JTextField txtHeight;
-	private JCheckBox chckbxActivePlayer;
 	private JTextField homeTeamScoreText;
 	private JTextField awayTeamScoreText;
-	private JTextField txtLocation;
 	private JTextField matchTimeText;
 	private ListSelectionListener teamSelector;
 	private JPanel adminPanel;
@@ -292,6 +291,18 @@ public class SportTrackerMain
 		// User passwords
 		
 		JButton changePassButton = new JButton("Change Password");
+		changePassButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				ChangePasswordPanel newpw = new ChangePasswordPanel();
+				String[] buttons = { "Okay", "Cancel" };
+				if (JOptionPane.showOptionDialog(null,
+						newpw.getFrame(), "Change Password",
+						JOptionPane.OK_CANCEL_OPTION,
+						JOptionPane.PLAIN_MESSAGE, null,
+						buttons, buttons[0]) == 0)
+					if (false);
+			}
+		});
 		c= new GridBagConstraints();
 		c.gridx = 3 ; c.gridy= 1; c.weightx = 0.3; c.weighty = 0.5;
 		c.anchor= GridBagConstraints.LINE_END;
@@ -446,15 +457,6 @@ public class SportTrackerMain
 		awayTeamScoreText.setBounds(553, 150, 86, 20);
 		adminPanel.add(awayTeamScoreText);
 		awayTeamScoreText.setColumns(10);
-		
-		JLabel lblLocation = new JLabel("Location:");
-		lblLocation.setBounds(474, 184, 46, 14);
-		adminPanel.add(lblLocation);
-		
-		txtLocation = new JTextField();
-		txtLocation.setBounds(553, 181, 86, 20);
-		adminPanel.add(txtLocation);
-		txtLocation.setColumns(10);
 		
 		JLabel lblTime = new JLabel("Date:");
 		lblTime.setBounds(438, 219, 98, 14);
