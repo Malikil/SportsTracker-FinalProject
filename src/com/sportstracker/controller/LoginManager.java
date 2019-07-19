@@ -125,4 +125,26 @@ public class LoginManager
 		catch (HibernateException hx)
 		{ return null; }
 	}
+	//change password
+	public Boolean changePassword(String username, String oldPassword, String newPassword)
+	{
+		try
+		{
+			SportsDAO db = new SportsDAO();
+			User user = db.getUser(username);
+			if(user != null && user.getPassword().equals(oldPassword))
+			{
+				return db.changePassword(username, newPassword);
+			}
+			else
+			{
+				return false;
+			}
+		}
+		catch (HibernateException hx)
+		{
+			return null;
+		}
+	}
+	
 }
