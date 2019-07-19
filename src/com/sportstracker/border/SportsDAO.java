@@ -311,9 +311,6 @@ public class SportsDAO implements ISportDatabase, IUserDatabase
 		else
 			user = results.get(0);
 		
-		ss.close();
-		fact.close();
-		
 		return user;
 	}
 
@@ -351,5 +348,38 @@ public class SportsDAO implements ISportDatabase, IUserDatabase
 		}
 		
 		return inserted;
+	}
+	
+	public Boolean changePassword(String username, String password)
+	{
+		SessionFactory fact = getFactory();
+		Session ss = fact.openSession();
+		Transaction tran = null;
+		
+		try
+		{
+			Query<User> query = ss.createQuery("FROM User u WHERE u.username = :uname", User.class);
+			query.setParameter("uname", username);
+			List<User> results = query.list();
+			if(results != null && results.size()> 0)
+			{
+				User user;
+			    tran = ss.beginTransaction();
+				user = results.get(0);
+				user.setPassword(password);
+				ss.update(user);
+				tran.commit();
+			}
+			 return true;
+			
+		} catch(HibernateException e)
+		{
+			if(tran != null)
+			{
+				tran.rollback();
+			}
+			
+			return false;
+		}
 	}
 }
