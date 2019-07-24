@@ -1,12 +1,16 @@
 package com.sportstracker.controller;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import com.sportstracker.border.SportsDAO;
+import com.sportstracker.border.adminwin.AdminPlayerDiag;
 import com.sportstracker.entities.Match;
 import com.sportstracker.entities.Player;
 import com.sportstracker.entities.Team;
@@ -14,6 +18,23 @@ import com.sportstracker.entities.Team;
 public class AdminController
 {
 	SportsDAO db;
+	
+	public ActionListener getPlayerListener() {
+		return new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//e.getActionCommand()
+				ArrayList<String> teamNames = new ArrayList<>();
+				for (Team t : db.getAllTeams())
+					teamNames.add(t.getTeamName());
+				AdminPlayerDiag diag = new AdminPlayerDiag(teamNames);
+				if (diag.showDialog())
+				{
+					// Update or add player
+				}
+			}
+		};
+	}
 	
 	/**
 	 * Defines DAO Object for use
@@ -62,9 +83,7 @@ public class AdminController
 			play.setTeam(db.getTeamByName(teamName));
 			play.setJerseyNumber(jerseyNumber);
 			play.setAge(age);
-			play.setWeight(weight);
 			play.setHeight(height);
-			play.setActivePlayer(activePlayer);
 			
 			if (db.createPlayer(play) != null)
 				return true;

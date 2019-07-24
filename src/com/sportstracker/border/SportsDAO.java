@@ -149,9 +149,6 @@ public class SportsDAO implements ISportDatabase, IUserDatabase
 		query.setParameter("name", name);
 		List<Player> results = query.list();
 		
-		// TODO ss.close();
-		// TODO fact.close();
-		
 		if (results.size() > 0)
 			return results.get(0);
 		else

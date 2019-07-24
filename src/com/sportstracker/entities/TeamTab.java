@@ -155,10 +155,7 @@ public class TeamTab extends CloseableTab
 					p.getPLastName() + ", " + p.getPFirstName(),
 					p.getJerseyNumber(),
 					p.getPosition(),
-					p.getMinutesPlayed(),
-					p.getGamesPlayed(),
-					p.getAttemptedPenalties(),
-					p.getScoredPenalties()
+					"", "", "", ""
 			});
 		
 		pastTable.setModel(pastModel);

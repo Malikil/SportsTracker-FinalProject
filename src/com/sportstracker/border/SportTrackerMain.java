@@ -346,6 +346,13 @@ public class SportTrackerMain
 		userPanel.add(new JScrollPane(unfollowed), c);
 		
 		JButton rightArrow = new JButton("-->");
+		rightArrow.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// If a team is selected in the left list,
+				// move it to the right list
+				// TODO
+			}
+		});
 		c = new GridBagConstraints();
 		c.gridx = 1; c.gridy = 1; c.anchor = GridBagConstraints.PAGE_END; c.weighty = 0.5;
 		userPanel.add(rightArrow, c);
