@@ -109,8 +109,28 @@ public class SportsDAO implements ISportDatabase, IUserDatabase
 	 */
 	@Override
 	public ArrayList<Player> getAllPlayers() {
-		// TODO Auto-generated method stub
-		return null;
+		SessionFactory fact = null;
+		Session ss = null;
+		ArrayList<Player> players = null;
+		
+		try
+		{
+			fact = getFactory();
+			ss = fact.openSession();
+			
+			players = (ArrayList<Player>)ss.createQuery("select p from Player p").list();
+		}
+		catch (HibernateException hx)
+		{
+			// TODO is this intentionally left blank?
+		}
+		finally
+		{
+			ss.close();
+			fact.close();
+		}
+		
+		return players;
 	}
 	
 	/**
@@ -157,6 +177,7 @@ public class SportsDAO implements ISportDatabase, IUserDatabase
 			tran = ss.beginTransaction();
 			
 			nid = (int)ss.save(player);
+			
 			
 			tran.commit();
 		}
@@ -358,21 +379,15 @@ public class SportsDAO implements ISportDatabase, IUserDatabase
 		
 		try
 		{
-			Query<User> query = ss.createQuery("FROM User u WHERE u.username = :uname", User.class);
-			query.setParameter("uname", username);
-			List<User> results = query.list();
-			if(results != null && results.size()> 0)
-			{
-				User user;
-			    tran = ss.beginTransaction();
-				user = results.get(0);
-				user.setPassword(password);
-				ss.update(user);
-				tran.commit();
-			}
-			 return true;
+			User user = getUser(username);
+			tran = ss.beginTransaction();
 			
-		} catch(HibernateException e)
+			user.setPassword(password);
+			ss.update(user);
+			tran.commit();
+			return true;
+		}
+		catch(HibernateException e)
 		{
 			if(tran != null)
 			{
@@ -391,21 +406,15 @@ public class SportsDAO implements ISportDatabase, IUserDatabase
 		
 		try
 		{
-			Query<User> query = ss.createQuery("FROM User u WHERE u.username = :uname", User.class);
-			query.setParameter("uname", username);
-			List<User> results = query.list();
-			if(results != null && results.size()> 0)
-			{
-				User user;
-			    tran = ss.beginTransaction();
-				user = results.get(0);
+			User user = getUser(username);
+			
+			tran = ss.beginTransaction();
+			
+			user.addFavourite(team);
 				
-				user.addFavourite(team);
-				
-				ss.update(user);
-				tran.commit();
-			}
-			 return true;
+			ss.update(user);
+			tran.commit();
+			return true;
 			
 		} catch(HibernateException e)
 		{
@@ -425,23 +434,16 @@ public class SportsDAO implements ISportDatabase, IUserDatabase
 		
 		try
 		{
-			Query<User> query = ss.createQuery("FROM User u WHERE u.username = :uname", User.class);
-			query.setParameter("uname", username);
-			List<User> results = query.list();
-			if(results != null && results.size()> 0)
-			{
-				User user;
-			    tran = ss.beginTransaction();
-				user = results.get(0);
-				
-				user.removeFavourite(team);
-				
-				ss.update(user);
-				tran.commit();
-			}
-			 return true;
+			User user = getUser(username);
+			tran = ss.beginTransaction();
 			
-		} catch(HibernateException e)
+			user.removeFavourite(team);
+				
+			ss.update(user);
+			tran.commit();
+			return true;
+		}
+		catch(HibernateException e)
 		{
 			if(tran != null)
 			{
