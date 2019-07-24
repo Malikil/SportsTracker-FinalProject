@@ -11,8 +11,8 @@ class DatabaseTests
 	@Test
 	void addDatabaseItems()
 	{
-		assertTrue(addTeams() &&
-				addMatches());
+		assertTrue(addTeams());
+		assertTrue(addMatches());
 	}
 	
 	private boolean addTeams()

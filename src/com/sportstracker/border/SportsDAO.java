@@ -75,7 +75,7 @@ public class SportsDAO implements ISportDatabase, IUserDatabase
 		SessionFactory fact = getFactory();
 		Session ss = fact.openSession();
 		
-		Query<Match> query = (Query<Match>)ss.createQuery("select m from Match m where m.time < :date", Match.class);
+		Query<Match> query = (Query<Match>)ss.createQuery("select m from Match m where m.time < :date order by m.time desc", Match.class);
 		query.setParameter("date", date);
 		List<Match> results = query.list();
 		
@@ -93,7 +93,7 @@ public class SportsDAO implements ISportDatabase, IUserDatabase
 		SessionFactory fact = getFactory();
 		Session ss = fact.openSession();
 		
-		Query<Match> query = (Query<Match>)ss.createQuery("select m from Match m where m.time > :date", Match.class);
+		Query<Match> query = (Query<Match>)ss.createQuery("select m from Match m where m.time > :date order by m.time asc", Match.class);
 		query.setParameter("date", date);
 		List<Match> results = query.list();
 		

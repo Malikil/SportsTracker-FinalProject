@@ -11,6 +11,7 @@ public class MatchTab extends CloseableTab
 		super(match.getHomeTeam().getTeamName()+ " VS " + match.getAwayTeam().getTeamName());
 		
 	}
+	
 	public void initialize(Match match)
 	{
 		

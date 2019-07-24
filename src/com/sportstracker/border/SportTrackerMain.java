@@ -84,6 +84,7 @@ public class SportTrackerMain
 	// Flow layout panel for upcoming games
 	private JPanel gameSchedulePanel;
 	private JPanel recentGamesPanel;
+	private JPanel followedGamesPanel;
 	
 	/**
 	 * Sets visibility of the form
@@ -117,19 +118,49 @@ public class SportTrackerMain
 	public void refreshLists()
 	{
 		// Set up new variables
+		DatabaseController dbcon = new DatabaseController();
+		MatchManager mm = new MatchManager();
+		// Home page
 		gameSchedulePanel.removeAll();
 		recentGamesPanel.removeAll();
+		followedGamesPanel.removeAll();
+		// Admin team list
 		addPlayerTeamList = new DefaultComboBoxModel<>();
 		homeTeamNameSelection = new DefaultComboBoxModel<>();
 		awayTeamNameSelection = new DefaultComboBoxModel<>();
+		// Special list tabs
 		teamTable.getSelectionModel().removeListSelectionListener(teamSelector);
 		teamsListModel = new DefaultTableModel(new Object[] {
 				"Team name", "Wins", "Losses"
 		}, 0);
+		// User page lists
+		followedModel = new DefaultListModel<>();
+		unfollowedModel = new DefaultListModel<>();
 		
+		// Load followed and unfollowed teams for userpage and load
+		// teams into admin lists
+		List<String> followed = dbcon.getFollowedTeams(currentUser);
+		for (Team t : dbcon.getAllTeams())
+		{
+			addPlayerTeamList.addElement(t.getTeamName());
+			homeTeamNameSelection.addElement(t.getTeamName());
+			awayTeamNameSelection.addElement(t.getTeamName());
+			teamsListModel.addRow(new Object[] {
+					t.getTeamName(),
+					t.getWinCount(),
+					t.getLossCount()
+			});
+			// Not sure if it's better to remove from the list (so there's
+			// less to search through later) or keep the list as-is (because
+			// removing takes extra time than just lookup)
+			if (followed.remove(t.getTeamName()))
+				followedModel.addElement(t.getTeamName());
+			else
+				unfollowedModel.addElement(t.getTeamName());
+		}
+		// TODO Update players
 		
 		// Load matches into home page
-		MatchManager mm = new MatchManager();
 		List<Match> upcoming = mm.getUpcomingMatches();
 		for (int i = 0; i < 10 && i < upcoming.size(); i++)
 		{
@@ -154,19 +185,8 @@ public class SportTrackerMain
 			c.insets = new Insets(5, 5, 5, 5);
 			recentGamesPanel.add(card, c);
 		}
+		// Followed teams
 		
-		// Load teams into admin lists
-		for (Team t : new DatabaseController().getAllTeams())
-		{
-			addPlayerTeamList.addElement(t.getTeamName());
-			homeTeamNameSelection.addElement(t.getTeamName());
-			awayTeamNameSelection.addElement(t.getTeamName());
-			teamsListModel.addRow(new Object[] {
-					t.getTeamName(),
-					t.getWinCount(),
-					t.getLossCount()
-			});
-		}
 		
 		// Commit to new values
 		teamTable.setModel(teamsListModel);
@@ -268,7 +288,7 @@ public class SportTrackerMain
 		c.insets = new Insets(3, 10, 0, 10);
 		homePanel.add(new JLabel("Followed Games"), c);
 		
-		JPanel followedGamesPanel = new JPanel();
+		followedGamesPanel = new JPanel();
 		followedGamesPanel.setLayout(new GridBagLayout());
 		c = new GridBagConstraints();
 		c.gridy = 5; c.fill = GridBagConstraints.BOTH;
