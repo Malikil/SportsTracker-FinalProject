@@ -26,7 +26,6 @@ class DatabaseTests
 				db.addNewTeam("Juventus"));
 	}
 	
-	
 	private boolean addMatches()
 	{
 		AdminController db = new AdminController();
@@ -47,14 +46,14 @@ class DatabaseTests
 				db.addNewMatch("Juventus", "Man. City", "0", "2", "31/07/2019"));
 		// Matches on the 1st
 		boolean eighteenth = (
-				db.addNewMatch("Man. City", "Real Madrid", "5", "6", "1/07/2019") &&
-				db.addNewMatch("Liverpool", "Chelsea", "1", "1", "1/07/2019") &&
-				db.addNewMatch("Barcelona", "Juventus", "2", "3", "1/07/2019"));
+				db.addNewMatch("Man. City", "Real Madrid", "5", "6", "1/08/2019") &&
+				db.addNewMatch("Liverpool", "Chelsea", "1", "1", "1/08/2019") &&
+				db.addNewMatch("Barcelona", "Juventus", "2", "3", "1/08/2019"));
 		// Matches on the 2nd
 		boolean ninteenth = (
-				db.addNewMatch("Chelsea", "Man. City", "1", "5", "2/07/2019") &&
-				db.addNewMatch("Juventus", "Real Madrid", "0", "0", "2/07/2019") &&
-				db.addNewMatch("Barcelona", "Liverpool", "2", "4", "2/07/2019"));
+				db.addNewMatch("Chelsea", "Man. City", "1", "5", "2/08/2019") &&
+				db.addNewMatch("Juventus", "Real Madrid", "0", "0", "2/08/2019") &&
+				db.addNewMatch("Barcelona", "Liverpool", "2", "4", "2/08/2019"));
 		return (fifteenth && sixteenth
 				&& seventeenth && eighteenth
 				&& ninteenth);

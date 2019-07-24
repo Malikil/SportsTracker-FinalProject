@@ -151,7 +151,7 @@ public class SportTrackerMain
 			c.gridx = i;
 			c.gridy = 0;
 			c.fill = GridBagConstraints.VERTICAL;
-			c.insets = new Insets(10, 10, 10, 10);
+			c.insets = new Insets(5, 5, 5, 5);
 			recentGamesPanel.add(card, c);
 		}
 		
@@ -190,7 +190,7 @@ public class SportTrackerMain
 		
 		JPanel homePanel = new JPanel();
 		tabbedPane.addTab("Home", null, homePanel, null);
-		homePanel.setLayout(new GridLayout(3, 1, 10, 10));
+		homePanel.setLayout(new GridBagLayout());
 		
 		JPanel teamPanel = new JPanel();
 		tabbedPane.addTab("Team", null, teamPanel, null);
@@ -231,16 +231,50 @@ public class SportTrackerMain
 		tablePane.setBounds(10, 42, 679, 360);
 		teamPanel.add(tablePane);
 		
+		GridBagConstraints c = new GridBagConstraints();
+		c.anchor = GridBagConstraints.FIRST_LINE_START;
+		c.fill = GridBagConstraints.NONE; c.gridy = 0;
+		c.gridx = 0; c.weightx = 1.0;
+		c.insets = new Insets(5, 10, 0, 10);
+		homePanel.add(new JLabel("Upcoming Games"), c);
+		
 		gameSchedulePanel = new JPanel();
 		gameSchedulePanel.setLayout(new GridBagLayout());
-		homePanel.add(new JScrollPane(gameSchedulePanel));
+		c = new GridBagConstraints();
+		c.gridy = 1; c.fill = GridBagConstraints.BOTH;
+		c.weighty = 0.33; c.gridx = 0; c.weightx = 1.0;
+		c.insets = new Insets(0, 5, 3, 5);
+		homePanel.add(new JScrollPane(gameSchedulePanel), c);
+		
+		c = new GridBagConstraints();
+		c.anchor = GridBagConstraints.FIRST_LINE_START;
+		c.fill = GridBagConstraints.NONE; c.gridy = 2;
+		c.gridx = 0; c.weightx = 1.0;
+		c.insets = new Insets(3, 10, 0, 10);
+		homePanel.add(new JLabel("Recent Games"), c);
 		
 		recentGamesPanel = new JPanel();
 		recentGamesPanel.setLayout(new GridBagLayout());
-		homePanel.add(new JScrollPane(recentGamesPanel));
+		c = new GridBagConstraints();
+		c.insets = new Insets(0, 5, 3, 5);
+		c.gridy = 3; c.fill = GridBagConstraints.BOTH;
+		c.weighty = 0.33; c.gridx = 0; c.weightx = 1.0;
+		homePanel.add(new JScrollPane(recentGamesPanel), c);
+		
+		c = new GridBagConstraints();
+		c.anchor = GridBagConstraints.FIRST_LINE_START;
+		c.fill = GridBagConstraints.NONE; c.gridy = 4;
+		c.gridx = 0; c.weightx = 1.0;
+		c.insets = new Insets(3, 10, 0, 10);
+		homePanel.add(new JLabel("Followed Games"), c);
 		
 		JPanel followedGamesPanel = new JPanel();
-		homePanel.add(followedGamesPanel);
+		followedGamesPanel.setLayout(new GridBagLayout());
+		c = new GridBagConstraints();
+		c.gridy = 5; c.fill = GridBagConstraints.BOTH;
+		c.weighty = 0.33; c.gridx = 0; c.weightx = 1.0;
+		c.insets = new Insets(0, 5, 5, 5);
+		homePanel.add(new JScrollPane(followedGamesPanel), c);
 		
 		JPanel playerPanel = new JPanel();
 		tabbedPane.addTab("Player", null, playerPanel, null);
@@ -256,7 +290,7 @@ public class SportTrackerMain
 		
 		// Change followed teams
 		JLabel unfollowedLabel = new JLabel("Add teams to followed");
-		GridBagConstraints c = new GridBagConstraints();
+		c = new GridBagConstraints();
 		c.gridx = 0; c.gridy = 0; c.weightx = 0.3;
 		userPanel.add(unfollowedLabel, c);
 		
