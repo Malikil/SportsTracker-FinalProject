@@ -78,7 +78,7 @@ public class LoginManager
 			EventQueue.invokeLater(new Runnable() {
 				public void run() {
 					try {
-						SportTrackerMain window = new SportTrackerMain(isAdmin);
+						SportTrackerMain window = new SportTrackerMain(login.getUsername(), isAdmin);
 						window.setVisible(true);
 					} catch (Exception e) {
 						e.printStackTrace();
