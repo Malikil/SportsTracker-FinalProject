@@ -8,6 +8,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 import com.sportstracker.controller.DatabaseController;
@@ -24,6 +25,8 @@ public class TeamTab extends CloseableTab
 	DefaultTableModel upcomingModel;
 	DefaultTableModel pastModel;
 	DefaultTableModel playerModel;
+	
+	private ListSelectionListener teamSelector;
 	
 	/**
 	 * Create an instance of a closable team tab for the given team
@@ -72,7 +75,7 @@ public class TeamTab extends CloseableTab
 		
 		// Upcoming matches
 		upcomingModel = new DefaultTableModel(new String[] {
-				"Opponent", "Location", "Date"
+				"id", "Opponent", "Location", "Date"
 		}, 0);
 		upcomingTable = new JTable(upcomingModel);
 		c = new GridBagConstraints();
@@ -81,11 +84,16 @@ public class TeamTab extends CloseableTab
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;
 		c.weighty = 0.5;
+		upcomingTable.getColumn("id").setPreferredWidth(0);
+		upcomingTable.getColumn("id").setWidth(0);
+		upcomingTable.getColumn("id").setMinWidth(0);
+		upcomingTable.getColumn("id").setMaxWidth(0);
+		upcomingTable.getSelectionModel().removeListSelectionListener(teamSelector);
 		panel.add(new JScrollPane(upcomingTable), c);
 		
 		// Past matches
 		pastModel = new DefaultTableModel(new String[] {
-				"Opponent", "Location", "Score", "Result"
+				"id", "Opponent", "Location", "Score", "Result"
 		}, 0);
 		pastTable = new JTable(pastModel);
 		c = new GridBagConstraints();
@@ -94,6 +102,11 @@ public class TeamTab extends CloseableTab
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.5;
 		c.weighty = 0.5;
+		pastTable.getColumn("id").setPreferredWidth(0);
+		pastTable.getColumn("id").setWidth(0);
+		pastTable.getColumn("id").setMinWidth(0);
+		pastTable.getColumn("id").setMaxWidth(0);
+		pastTable.getSelectionModel().removeListSelectionListener(teamSelector);
 		panel.add(new JScrollPane(pastTable), c);
 		
 		// Player list
@@ -109,6 +122,7 @@ public class TeamTab extends CloseableTab
 		c.weightx = 1.0;
 		c.weighty = 0.5;
 		c.fill = GridBagConstraints.BOTH;
+		playerTable.getSelectionModel().removeListSelectionListener(teamSelector);
 		panel.add(new JScrollPane(playerTable), c);
 	}
 	
@@ -157,6 +171,7 @@ public class TeamTab extends CloseableTab
 					p.getPosition(),
 					"", "", "", ""
 			});
+		
 		
 		pastTable.setModel(pastModel);
 		upcomingTable.setModel(upcomingModel);
