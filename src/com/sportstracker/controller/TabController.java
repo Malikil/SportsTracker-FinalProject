@@ -19,4 +19,12 @@ public class TabController
 	{
 		return new TeamTab(team);
 	}
+	
+	public MatchTab getNewMatchTab(String match)
+	{ return getNewMatchTab(db.getMatchByID(match)); }
+	public MatchTab getNewMatchTab(Team match)
+	{
+		return new MatchTab(match);
+	}
 }
+

@@ -2,21 +2,28 @@ package com.sportstracker.entities;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
 import javax.swing.JTable;
+import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 import com.sportstracker.controller.DatabaseController;
+import com.sportstracker.controller.TabController;
 
 public class TeamTab extends CloseableTab
 {
 	JPanel panel;
 	DatabaseController dbcontrol;
+	
+	private JTabbedPane tabbedPane;
 	
 	JTable upcomingTable;
 	JTable pastTable;
@@ -26,7 +33,9 @@ public class TeamTab extends CloseableTab
 	DefaultTableModel pastModel;
 	DefaultTableModel playerModel;
 	
-	private ListSelectionListener teamSelector;
+	private ListSelectionListener upcomingSelector;
+	private ListSelectionListener pastSelector;
+	private ListSelectionListener playerSelector;
 	
 	/**
 	 * Create an instance of a closable team tab for the given team
@@ -88,7 +97,7 @@ public class TeamTab extends CloseableTab
 		upcomingTable.getColumn("id").setWidth(0);
 		upcomingTable.getColumn("id").setMinWidth(0);
 		upcomingTable.getColumn("id").setMaxWidth(0);
-		upcomingTable.getSelectionModel().removeListSelectionListener(teamSelector);
+		upcomingTable.getSelectionModel().removeListSelectionListener(upcomingSelector);
 		panel.add(new JScrollPane(upcomingTable), c);
 		
 		// Past matches
@@ -106,7 +115,7 @@ public class TeamTab extends CloseableTab
 		pastTable.getColumn("id").setWidth(0);
 		pastTable.getColumn("id").setMinWidth(0);
 		pastTable.getColumn("id").setMaxWidth(0);
-		pastTable.getSelectionModel().removeListSelectionListener(teamSelector);
+		pastTable.getSelectionModel().removeListSelectionListener(pastSelector);
 		panel.add(new JScrollPane(pastTable), c);
 		
 		// Player list
@@ -122,8 +131,64 @@ public class TeamTab extends CloseableTab
 		c.weightx = 1.0;
 		c.weighty = 0.5;
 		c.fill = GridBagConstraints.BOTH;
-		playerTable.getSelectionModel().removeListSelectionListener(teamSelector);
+		playerTable.getSelectionModel().removeListSelectionListener(playerSelector);
 		panel.add(new JScrollPane(playerTable), c);
+		
+		upcomingSelector = new ListSelectionListener() {
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				if (e.getValueIsAdjusting())
+				{
+					String matchName = (String)upcomingTable.getValueAt(upcomingTable.getSelectedRow(), 0);
+					MatchTab info = new TabController().getNewMatchTab(matchName);
+					info.addCloseTabListener(new ActionListener() {
+						@Override
+						public void actionPerformed(ActionEvent e) {
+							// Remove the tab from the pane
+							tabbedPane.remove(info);
+							tabbedPane.setSelectedIndex(0);
+						}
+					});
+				}
+			}
+		};
+		upcomingSelector = new ListSelectionListener() {
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				if (e.getValueIsAdjusting())
+				{
+					String matchName = (String)upcomingTable.getValueAt(upcomingTable.getSelectedRow(), 0);
+					MatchTab info = new TabController().getNewMatchTab(matchName);
+					info.addCloseTabListener(new ActionListener() {
+						@Override
+						public void actionPerformed(ActionEvent e) {
+							// Remove the tab from the pane
+							tabbedPane.remove(info);
+							tabbedPane.setSelectedIndex(0);
+						}
+					});
+				}
+			}
+		};
+		pastSelector = new ListSelectionListener() {
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				if (e.getValueIsAdjusting())
+				{
+					String matchName = (String)pastTable.getValueAt(pastTable.getSelectedRow(), 0);
+					MatchTab info = new TabController().getNewMatchTab(matchName);
+					info.addCloseTabListener(new ActionListener() {
+						@Override
+						public void actionPerformed(ActionEvent e) {
+							// Remove the tab from the pane
+							tabbedPane.remove(info);
+							tabbedPane.setSelectedIndex(0);
+						}
+					});
+				}
+			}
+		};
+		
 	}
 	
 	/**

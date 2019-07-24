@@ -477,4 +477,22 @@ public class SportsDAO implements ISportDatabase, IUserDatabase
 			return false;
 		}
 	}
+
+	public Match getMatchByID(String match) 
+	{
+		SessionFactory fact = getFactory();
+		Session ss = fact.openSession();
+		
+		Query<Match> query = (Query<Match>)ss.createQuery("select m from Match m where m.id = :id", Match.class);
+		query.setParameter("match", match);
+		List<Match> results = query.list();
+		
+		// TODO ss.close();
+		// TODO fact.close();
+		
+		if (results.size() > 0)
+			return results.get(0);
+		else
+			return null;
+	}
 }
