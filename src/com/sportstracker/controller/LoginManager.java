@@ -108,7 +108,7 @@ public class LoginManager
 	 * @return True or false depending on if insertion was completed<br>
 	 * Returns null if a hibernate exception was encountered
 	 */
-	public static Boolean createAccount(String username, String password)
+	public Boolean createAccount(String username, String password)
 	{
 		try
 		{
