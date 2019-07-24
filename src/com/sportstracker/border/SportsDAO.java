@@ -451,13 +451,13 @@ public class SportsDAO implements ISportDatabase, IUserDatabase
 		}
 	}
 
-	public Match getMatchByID(String match) 
+	public Match getMatchByID(int matchid)
 	{
 		SessionFactory fact = getFactory();
 		Session ss = fact.openSession();
 		
 		Query<Match> query = (Query<Match>)ss.createQuery("select m from Match m where m.id = :id", Match.class);
-		query.setParameter("match", match);
+		query.setParameter("id", matchid);
 		List<Match> results = query.list();
 		
 		// TODO ss.close();
