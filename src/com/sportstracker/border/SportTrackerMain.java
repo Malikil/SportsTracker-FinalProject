@@ -48,6 +48,7 @@ import javax.swing.JCheckBox;
 public class SportTrackerMain
 {
 	private JFrame frame;
+	private String currentUser;
 	private JTextField txtSearch;
 	private JTable table_1;
 	private JTextField txtPlayerFName;
@@ -97,9 +98,10 @@ public class SportTrackerMain
 	 * Create the application.
 	 * @wbp.parser.constructor
 	 */
-	public SportTrackerMain() { this(false); }
-	public SportTrackerMain(boolean isAdmin)
+	public SportTrackerMain(String cUser) { this(cUser, false); }
+	public SportTrackerMain(String cUser, boolean isAdmin)
 	{
+		currentUser = cUser;
 		initialize();
 		
 		if (isAdmin)
@@ -300,7 +302,17 @@ public class SportTrackerMain
 						JOptionPane.OK_CANCEL_OPTION,
 						JOptionPane.PLAIN_MESSAGE, null,
 						buttons, buttons[0]) == 0)
-					if (false);
+					if (new LoginManager().changePassword(
+							currentUser,
+							newpw.getOldPassword(),
+							newpw.getOldPassword()))
+						JOptionPane.showMessageDialog(null,
+								"Password Updated", "Change Password",
+								JOptionPane.INFORMATION_MESSAGE);
+					else
+						JOptionPane.showMessageDialog(null,
+								"Password was not updated", "Change Password",
+								JOptionPane.WARNING_MESSAGE);
 			}
 		});
 		c= new GridBagConstraints();
