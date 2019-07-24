@@ -68,7 +68,6 @@ public class SportTrackerMain
 	private JTabbedPane tabbedPane;
 	
 	// List/table models
-	private DefaultComboBoxModel<String> addPlayerTeamList;
 	private DefaultComboBoxModel<String> homeTeamNameSelection;
 	private DefaultComboBoxModel<String> awayTeamNameSelection;
 	private DefaultTableModel teamsListModel;
@@ -78,7 +77,6 @@ public class SportTrackerMain
 	private JTable teamTable;
 	private JComboBox<String> homeTeamNameText;
 	private JComboBox<String> awayTeamNameText;
-	private JComboBox<String> comboBoxAddPlayer;
 	private JList<String> unfollowed;
 	private JList<String> followed;
 	
@@ -126,7 +124,6 @@ public class SportTrackerMain
 		recentGamesPanel.removeAll();
 		followedGamesPanel.removeAll();
 		// Admin team list
-		addPlayerTeamList = new DefaultComboBoxModel<>();
 		homeTeamNameSelection = new DefaultComboBoxModel<>();
 		awayTeamNameSelection = new DefaultComboBoxModel<>();
 		// Special list tabs
@@ -143,7 +140,6 @@ public class SportTrackerMain
 		List<String> followed = dbcon.getFollowedTeams(currentUser);
 		for (Team t : dbcon.getAllTeams())
 		{
-			addPlayerTeamList.addElement(t.getTeamName());
 			homeTeamNameSelection.addElement(t.getTeamName());
 			awayTeamNameSelection.addElement(t.getTeamName());
 			teamsListModel.addRow(new Object[] {
@@ -214,7 +210,6 @@ public class SportTrackerMain
 		// Admin
 		homeTeamNameText.setModel(homeTeamNameSelection);
 		awayTeamNameText.setModel(awayTeamNameSelection);
-		comboBoxAddPlayer.setModel(addPlayerTeamList);
 		// User
 		this.followed.setModel(followedModel);
 		unfollowed.setModel(unfollowedModel);
@@ -423,12 +418,9 @@ public class SportTrackerMain
 		
 		
 		// =========================== Admin Panel ===========================
+		AdminController adcont = new AdminController(); 
 		adminPanel = new JPanel();
 		adminPanel.setLayout(null);
-		
-		JLabel lblPlayer = new JLabel("Add a Player to a Team:");
-		lblPlayer.setBounds(22, 38, 73, 14);
-		adminPanel.add(lblPlayer);
 		
 		JLabel lblTeam = new JLabel("Add a Team:");
 		lblTeam.setBounds(231, 38, 61, 14);
@@ -438,17 +430,11 @@ public class SportTrackerMain
 		lblMatches.setBounds(484, 38, 73, 14);
 		adminPanel.add(lblMatches);
 		
-		txtPlayerFName = new JTextField();
-		txtPlayerFName.setBounds(96, 60, 86, 20);
-		adminPanel.add(txtPlayerFName);
-		txtPlayerFName.setColumns(10);
-		
 		txtTeam = new JTextField();
 		txtTeam.setBounds(302, 35, 86, 20);
 		adminPanel.add(txtTeam);
 		txtTeam.setColumns(10);
 		
-		addPlayerTeamList = new DefaultComboBoxModel<>();
 		homeTeamNameSelection = new DefaultComboBoxModel<>();
 		awayTeamNameSelection = new DefaultComboBoxModel<>();
 		
@@ -456,73 +442,6 @@ public class SportTrackerMain
 		homeTeamNameText.setBounds(553, 63, 86, 20);
 		homeTeamNameText.setModel(homeTeamNameSelection);
 		adminPanel.add(homeTeamNameText);
-		
-		JLabel lblFirstName = new JLabel("First Name:");
-		lblFirstName.setBounds(29, 63, 66, 14);
-		adminPanel.add(lblFirstName);
-		
-		JLabel lblLastName = new JLabel("Last Name:");
-		lblLastName.setBounds(29, 88, 61, 14);
-		adminPanel.add(lblLastName);
-		
-		txtPlayerLName = new JTextField();
-		txtPlayerLName.setBounds(96, 88, 86, 20);
-		adminPanel.add(txtPlayerLName);
-		txtPlayerLName.setColumns(10);
-		
-		txtPosition = new JTextField();
-		txtPosition.setBounds(96, 119, 86, 20);
-		adminPanel.add(txtPosition);
-		txtPosition.setColumns(10);
-		
-		txtJerseyNumber = new JTextField();
-		txtJerseyNumber.setBounds(96, 150, 86, 20);
-		adminPanel.add(txtJerseyNumber);
-		txtJerseyNumber.setColumns(10);
-		
-		txtAge = new JTextField();
-		txtAge.setBounds(96, 181, 86, 20);
-		adminPanel.add(txtAge);
-		txtAge.setColumns(10);
-		
-		txtWeight = new JTextField();
-		txtWeight.setBounds(96, 216, 86, 20);
-		adminPanel.add(txtWeight);
-		txtWeight.setColumns(10);
-		
-		JLabel lblPosition = new JLabel("Position:");
-		lblPosition.setBounds(39, 122, 46, 14);
-		adminPanel.add(lblPosition);
-		
-		JLabel lblJerseyNumber = new JLabel("Jersey Number:");
-		lblJerseyNumber.setBounds(9, 153, 86, 14);
-		adminPanel.add(lblJerseyNumber);
-		
-		JLabel lblAge = new JLabel("Players Age:");
-		lblAge.setBounds(22, 184, 66, 14);
-		adminPanel.add(lblAge);
-		
-		txtHeight = new JTextField();
-		txtHeight.setBounds(96, 247, 86, 20);
-		adminPanel.add(txtHeight);
-		txtHeight.setColumns(10);
-		
-		JLabel lblWeight = new JLabel("Players Weight:");
-		lblWeight.setBounds(9, 219, 86, 14);
-		adminPanel.add(lblWeight);
-		
-		JLabel lblHeight = new JLabel("Players Height:");
-		lblHeight.setBounds(9, 250, 86, 14);
-		adminPanel.add(lblHeight);
-		
-		JCheckBox chckbxActivePlayer = new JCheckBox("Active Player");
-		chckbxActivePlayer.setBounds(85, 274, 97, 23);
-		adminPanel.add(chckbxActivePlayer);
-		
-		comboBoxAddPlayer = new JComboBox<>();
-		comboBoxAddPlayer.setBounds(107, 35, 75, 20);
-		comboBoxAddPlayer.setModel(addPlayerTeamList);
-		adminPanel.add(comboBoxAddPlayer);
 		
 		JLabel lblHomeTeam = new JLabel("Home Team:");
 		lblHomeTeam.setBounds(454, 66, 66, 14);
@@ -568,7 +487,7 @@ public class SportTrackerMain
 		btnAddMatch.setBounds(484, 276, 119, 23);
 		btnAddMatch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if (new AdminController().addNewMatch(
+				if (adcont.addNewMatch(
 						(String)homeTeamNameText.getSelectedItem(),
 						(String)awayTeamNameText.getSelectedItem(),
 						homeTeamScoreText.getText(),
@@ -593,7 +512,7 @@ public class SportTrackerMain
 		btnAddTeam.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				// Collect the player information and use the controller to add it
-				if (new AdminController().addNewTeam(txtTeam.getText()))
+				if (adcont.addNewTeam(txtTeam.getText()))
 				{
 					JOptionPane.showMessageDialog(null,
 							"Team Created", "Create Team",
@@ -610,31 +529,13 @@ public class SportTrackerMain
 		
 		JButton btnAddPlayer = new JButton("Add Player");
 		btnAddPlayer.setBounds(58, 318, 89, 23);
-		btnAddPlayer.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				// Collect the player information and use the controller to add it
-				if (new AdminController().addNewPlayer(
-						txtPlayerFName.getText(), 
-						txtPlayerLName.getText(), 
-						txtPosition.getText(), 
-						txtTeam.getText(), 
-						Integer.parseInt(txtJerseyNumber.getText()),
-						Integer.parseInt(txtAge.getText()), 
-						Integer.parseInt(txtWeight.getText()), 
-						Integer.parseInt(txtHeight.getText()),
-						chckbxActivePlayer.isSelected()))
-				{
-					JOptionPane.showMessageDialog(null,
-							"Player Created", "Create Player",
-							JOptionPane.INFORMATION_MESSAGE);
-					refreshLists();
-				}
-				else
-					JOptionPane.showMessageDialog(null,
-							"Player wasn't created", "Create Player",
-							JOptionPane.WARNING_MESSAGE);
-			}
-		});
+		btnAddPlayer.addActionListener(adcont.getPlayerListener());
 		adminPanel.add(btnAddPlayer);
+		
+		// TODO add a combo box of players
+		
+		JButton btnUpdatePlayer = new JButton("Update Player");
+		btnUpdatePlayer.addActionListener(adcont.getPlayerListener());
+		// TODO add
 	}
 }

@@ -46,7 +46,7 @@ public class AdminPlayerDiag
 	
 	public boolean showDialog()
 	{
-		String[] buttons = { "Add", "Cancel" };
+		String[] buttons = { "Apply", "Cancel" };
 		return JOptionPane.showOptionDialog(null,
 				frame, "Update players",
 				JOptionPane.OK_CANCEL_OPTION,
