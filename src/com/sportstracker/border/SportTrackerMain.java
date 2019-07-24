@@ -10,6 +10,7 @@ import java.awt.GridBagLayout;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JTextField;
@@ -150,10 +151,8 @@ public class SportTrackerMain
 					t.getWinCount(),
 					t.getLossCount()
 			});
-			// Not sure if it's better to remove from the list (so there's
-			// less to search through later) or keep the list as-is (because
-			// removing takes extra time than just lookup)
-			if (followed.remove(t.getTeamName()))
+			
+			if (followed.contains(t.getTeamName()))
 				followedModel.addElement(t.getTeamName());
 			else
 				unfollowedModel.addElement(t.getTeamName());
@@ -186,14 +185,39 @@ public class SportTrackerMain
 			recentGamesPanel.add(card, c);
 		}
 		// Followed teams
-		
+		List<Match> followpast = dbcon.getPastMatchesForTeamList(followed);
+		for (int i = 0; i < followpast.size(); i++)
+		{
+			MatchCard card = new MatchCard(followpast.get(i));
+			GridBagConstraints c = new GridBagConstraints();
+			c.gridx = i;
+			c.gridy = 0;
+			c.fill = GridBagConstraints.VERTICAL;
+			c.insets = new Insets(5, 5, 5, 5);
+			followedGamesPanel.add(card, c);
+		}
+		List<Match> followup = dbcon.getUpcomingMatchesForTeamList(followed);
+		for (int i = 0; i < followpast.size(); i++)
+		{
+			MatchCard card = new MatchCard(followup.get(i));
+			GridBagConstraints c = new GridBagConstraints();
+			c.gridx = i;
+			c.gridy = 0;
+			c.fill = GridBagConstraints.VERTICAL;
+			c.insets = new Insets(5, 5, 5, 5);
+			followedGamesPanel.add(card, c);
+		}
 		
 		// Commit to new values
 		teamTable.setModel(teamsListModel);
 		teamTable.getSelectionModel().addListSelectionListener(teamSelector);
+		// Admin
 		homeTeamNameText.setModel(homeTeamNameSelection);
 		awayTeamNameText.setModel(awayTeamNameSelection);
 		comboBoxAddPlayer.setModel(addPlayerTeamList);
+		// User
+		this.followed.setModel(followedModel);
+		unfollowed.setModel(unfollowedModel);
 	}
 
 	/**
@@ -311,13 +335,13 @@ public class SportTrackerMain
 		// Change followed teams
 		JLabel unfollowedLabel = new JLabel("Add teams to followed");
 		c = new GridBagConstraints();
-		c.gridx = 0; c.gridy = 0; c.weightx = 0.3;
+		c.gridx = 0; c.gridy = 0; c.weightx = 0.33;
 		userPanel.add(unfollowedLabel, c);
 		
 		unfollowedModel = new DefaultListModel<>();
 		unfollowed = new JList<>(unfollowedModel);
 		c = new GridBagConstraints();
-		c.gridx = 0; c.gridy = 1; c.weightx = 0.3; c.weighty = 1.0;
+		c.gridx = 0; c.gridy = 1; c.weightx = 0.33; c.weighty = 1.0;
 		c.gridheight = 3; c.fill = GridBagConstraints.BOTH;
 		userPanel.add(new JScrollPane(unfollowed), c);
 		

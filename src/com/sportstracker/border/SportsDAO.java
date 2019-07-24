@@ -383,29 +383,8 @@ public class SportsDAO implements ISportDatabase, IUserDatabase
 		}
 	}
 	
-	public ArrayList<String> getFavourites(String username)
+	public boolean addFavourite(String username, String team)
 	{
-		SessionFactory fact = getFactory();
-		Session ss = fact.openSession();
-		
-		Query<User> query = ss.createQuery("FROM User u WHERE u.username = :uname", User.class);
-		query.setParameter("uname", username);
-		List<User> results = query.list();
-		User user;
-		if (results.isEmpty())
-			user = null;
-		else if (results.size() > 1)
-			throw new RuntimeException("This should never, ever happen");
-		else
-			user = results.get(0);
-		
-		return user.getFavourites();
-	}
-	
-	public boolean addFavourites(String username, String team)
-	{
-		ArrayList<String> favourites = new ArrayList<String>();
-		
 		SessionFactory fact = getFactory();
 		Session ss = fact.openSession();
 		Transaction tran = null;
@@ -421,9 +400,7 @@ public class SportsDAO implements ISportDatabase, IUserDatabase
 			    tran = ss.beginTransaction();
 				user = results.get(0);
 				
-				favourites = user.getFavourites();
-				favourites.add(team);
-				user.setFavourites(favourites);
+				user.addFavourite(team);
 				
 				ss.update(user);
 				tran.commit();
@@ -440,11 +417,8 @@ public class SportsDAO implements ISportDatabase, IUserDatabase
 			return false;
 		}
 	}
-	
-	public boolean removeFavourites(String username, String nteam)
+	public boolean removeFavourite(String username, String team)
 	{
-		ArrayList<String> favourites = new ArrayList<String>();
-		
 		SessionFactory fact = getFactory();
 		Session ss = fact.openSession();
 		Transaction tran = null;
@@ -459,18 +433,8 @@ public class SportsDAO implements ISportDatabase, IUserDatabase
 				User user;
 			    tran = ss.beginTransaction();
 				user = results.get(0);
-				int i = 0;
 				
-				favourites = user.getFavourites();
-				
-				for(String team : favourites)
-				{
-					i++;
-					if (team == nteam)
-						break;
-				}
-				favourites.remove(i);
-				user.setFavourites(favourites);
+				user.removeFavourite(team);
 				
 				ss.update(user);
 				tran.commit();
