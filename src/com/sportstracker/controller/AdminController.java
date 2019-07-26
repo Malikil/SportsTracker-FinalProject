@@ -48,9 +48,7 @@ public class AdminController
 			String teamName,
 			int jerseyNumber,
 			int age,
-			int weight,
-			int height,
-			boolean activePlayer)
+			int height)
 	{
 		if(db.getPlayerByName(pFirstName) == null)
 		{
@@ -62,9 +60,7 @@ public class AdminController
 			play.setTeam(db.getTeamByName(teamName));
 			play.setJerseyNumber(jerseyNumber);
 			play.setAge(age);
-			play.setWeight(weight);
 			play.setHeight(height);
-			play.setActivePlayer(activePlayer);
 			
 			if (db.createPlayer(play) != null)
 				return true;
@@ -146,4 +142,5 @@ public class AdminController
 		else
 			return false;
 	}
+
 }
