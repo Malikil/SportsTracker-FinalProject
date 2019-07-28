@@ -489,22 +489,19 @@ public class SportTrackerMain
 		btnAddMatch.setBounds(484, 276, 119, 23);
 		btnAddMatch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if (adcont.addNewMatch(
-						(String)homeTeamNameText.getSelectedItem(),
-						(String)awayTeamNameText.getSelectedItem(),
-						homeTeamScoreText.getText(),
-						awayTeamScoreText.getText(),
-						matchTimeText.getText()))
+				Boolean created = adcont.createNewMatch();
+				if (created != null)
 				{
-					JOptionPane.showMessageDialog(null,
-							"Match Added", "Create Match",
-							JOptionPane.INFORMATION_MESSAGE);
+					if (created)
+						JOptionPane.showMessageDialog(null,
+								"Match Added", "Create Match",
+								JOptionPane.INFORMATION_MESSAGE);
+					else
+						JOptionPane.showMessageDialog(null,
+								"Match wasn't added", "Create Match",
+								JOptionPane.WARNING_MESSAGE);
 					refreshLists();
 				}
-				else
-					JOptionPane.showMessageDialog(null,
-							"Match wasn't added", "Create Match",
-							JOptionPane.WARNING_MESSAGE);
 			}
 		});
 		adminPanel.add(btnAddMatch);

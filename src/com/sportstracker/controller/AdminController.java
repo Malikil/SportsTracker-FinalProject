@@ -9,7 +9,7 @@ import java.util.List;
 import org.hibernate.HibernateException;
 
 import com.sportstracker.border.SportsDAO;
-import com.sportstracker.border.adminwin.AdminPlayerDiag;
+import com.sportstracker.border.adminwin.*;
 import com.sportstracker.entities.Match;
 import com.sportstracker.entities.Player;
 import com.sportstracker.entities.Team;
@@ -58,7 +58,7 @@ public class AdminController
 		AdminPlayerDiag diag = new AdminPlayerDiag(teamNames, p);
 		if (diag.showDialog())
 		{
-			// Add player
+			// Update player
 			try
 			{
 				p.setTeam(db.getTeamByName(diag.getTeam()));
@@ -76,6 +76,19 @@ public class AdminController
 			{
 				return false;
 			}
+		}
+		return null;
+	}
+	
+	public Boolean createNewMatch()
+	{
+		ArrayList<String> teamNames = new ArrayList<>();
+		for (Team t : db.getAllTeams())
+			teamNames.add(t.getTeamName());
+		AdminMatchDiag diag = new AdminMatchDiag(teamNames);
+		if (diag.showDialog())
+		{
+			// Add match
 		}
 		return null;
 	}
@@ -105,6 +118,7 @@ public class AdminController
 	 * @param height player height
 	 * @param activePlayer Indicates if a player is still actively playing or not
 	 * @return reutrn's if add was successful or not
+	 * @deprecated Use createNewPlayer() instead to show a dialog box which will gather info
 	 */
 	public boolean addNewPlayer(
 			String pFirstName,
@@ -162,6 +176,7 @@ public class AdminController
 	 * @param away Score Score of away tea,
 	 * @param time Time of the game
 	 * @return reutrn's if add was successful or not
+	 * @deprecated Use createNewMatch() instead to show a dialog box which will gather info
 	 */
 	public boolean addNewMatch(
 			String homeTeamName,
