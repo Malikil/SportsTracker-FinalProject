@@ -71,7 +71,7 @@ public class AdminMatchDiag
 			return Integer.parseInt(awayScoreEntry.getText());
 		return null;
 	}
-	public Date getTime() throws ParseException
+	public Date getDate() throws ParseException
 	{
 		Date matchTime = null;
 		matchTime = new SimpleDateFormat("dd/MM/yyyy").parse(timeEntry.getText());
@@ -93,6 +93,7 @@ public class AdminMatchDiag
 		frame = new JPanel(new GridBagLayout());
 		GridBagConstraints c;
 		
+		// ========== Team labels ==========
 		JLabel lblHomeTeam = new JLabel("Home Team");
 		lblHomeTeam.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		c = new GridBagConstraints();
@@ -109,6 +110,7 @@ public class AdminMatchDiag
 		c.insets = new Insets(10, 0, 0, 10);
 		frame.add(lblAwayTeam, c);
 		
+		// ========== Home/away team ==========
 		homeTeamList = new JComboBox<>();
 		c = new GridBagConstraints();
 		c.gridx = 0; c.gridy = 1;
@@ -131,6 +133,13 @@ public class AdminMatchDiag
 		c.insets = new Insets(0, 0, 0, 10);
 		frame.add(awayTeamList, c);
 		
+		// ========== Score ===========
+		c = new GridBagConstraints();
+		c.gridx = 0; c.gridy = 2;
+		c.anchor = GridBagConstraints.LINE_END;
+		c.insets = new Insets(5, 0, 0, 5);
+		frame.add(new JLabel("Scores"), c);
+		
 		homeScoreEntry = new JTextField();
 		c = new GridBagConstraints();
 		c.gridx = 1; c.gridy = 2; c.weightx = 0.75;
@@ -148,13 +157,20 @@ public class AdminMatchDiag
 		c.insets = new Insets(5, 0, 0, 0);
 		frame.add(awayScoreEntry, c);
 		
+		// ========== Date ==========
+		c = new GridBagConstraints();
+		c.gridx = 0; c.gridy = 3;
+		c.anchor = GridBagConstraints.LINE_END;
+		c.insets = new Insets(5, 0, 0, 5);
+		frame.add(new JLabel("Date"), c);
+		
 		timeEntry = new JTextField();
 		c = new GridBagConstraints();
 		c.gridx = 1; c.gridy = 3;
 		c.gridwidth = 3; //c.weightx = 0.5;
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.anchor = GridBagConstraints.PAGE_START;
-		c.insets = new Insets(5, 0, 10, 0);
+		c.insets = new Insets(5, 0, 0, 0);
 		frame.add(timeEntry, c);
 	}
 }

@@ -108,13 +108,69 @@ public class AdminController
 				m.setAwayTeam(t);
 				m.setHomeScore(diag.getHomeScore());
 				m.setAwayScore(diag.getAwayScore());
-				m.setTime(diag.getTime());
+				m.setTime(diag.getDate());
 				
 				return db.createMatch(m) != null;
 			}
 			catch (ParseException
 					| NumberFormatException
 					| HibernateException ex)
+			{
+				return false;
+			}
+		}
+		return null;
+	}
+	
+	public Boolean updateMatch(String homeTeamName, String awayTeamName, String date)
+	{
+		// Get match
+		Match m;
+		try
+		{
+			m = db.findMatch(
+					homeTeamName,
+					awayTeamName,
+					new SimpleDateFormat("dd/MM/yyyy").parse(date));
+		}
+		catch (ParseException ex)
+		{
+			// Still show the dialog, just don't preload fields
+			m = new Match();
+		}
+		// Get team list
+		ArrayList<String> teamNames = new ArrayList<>();
+		ArrayList<Team> teams = db.getAllTeams();
+		for (Team t : teams)
+			teamNames.add(t.getTeamName());
+		
+		AdminMatchDiag diag = new AdminMatchDiag(teamNames, m);
+		if (diag.showDialog())
+		{
+			try
+			{
+				Team t = null;
+				for (Team search : teams)
+					if (search.getTeamName().equals(diag.getHomeTeam()))
+						{
+							t = search;
+							break;
+						}
+				m.setHomeTeam(t);
+				for (Team search : teams)
+					if (search.getTeamName().equals(diag.getAwayTeam()))
+						{
+							t = search;
+							break;
+						}
+				m.setAwayTeam(t);
+				m.setHomeScore(diag.getHomeScore());
+				m.setAwayScore(diag.getAwayScore());
+				m.setTime(diag.getDate());
+				
+				return db.updateMatch(m);
+			}
+			catch (ParseException ex)
 			{
 				return false;
 			}

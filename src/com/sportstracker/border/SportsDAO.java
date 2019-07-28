@@ -131,8 +131,6 @@ public class SportsDAO implements ISportDatabase, IUserDatabase
 	 * 
 	 * @param name Name of the player you are trying to find
 	 * @return returns existing player or null if no player by that name exists
-	 * 
-	 * TODO Test method
 	 */
 	public Player getPlayerByName(String name)
 	{
@@ -168,7 +166,6 @@ public class SportsDAO implements ISportDatabase, IUserDatabase
 			tran = ss.beginTransaction();
 			
 			nid = (int)ss.save(player);
-			
 			
 			tran.commit();
 		}
@@ -220,10 +217,7 @@ public class SportsDAO implements ISportDatabase, IUserDatabase
 		SessionFactory fact = getFactory();
 		Session ss = fact.openSession();
 		ArrayList<Team> results = (ArrayList<Team>)ss.createQuery("select t from Team t", Team.class).list();
-		// TODO ss.close(); Don't close them here because of lazy fetching. Will this cause a major memory leak?
-		// TODO fact.close(); I noticed there was a daemon thread called "abandoned connection cleanup", is it safe to rely on that?
 		return results;
-		
 	}
 	
 	/**
@@ -239,9 +233,6 @@ public class SportsDAO implements ISportDatabase, IUserDatabase
 		Query<Team> query = (Query<Team>)ss.createQuery("select t from Team t where t.teamName = :name", Team.class);
 		query.setParameter("name", teamName);
 		List<Team> results = query.list();
-		
-		// TODO ss.close();
-		// TODO fact.close();
 		
 		if (results.size() > 0)
 			return results.get(0);
@@ -321,6 +312,51 @@ public class SportsDAO implements ISportDatabase, IUserDatabase
 		}
 		
 		return nid;
+	}
+	
+	public Boolean updateMatch(Match match)
+	{
+		SessionFactory fact = null;
+		Session ss = null;
+		Transaction tran = null;
+		
+		try
+		{
+			fact = getFactory();
+			ss = fact.openSession();
+			tran = ss.beginTransaction();
+			
+			ss.saveOrUpdate(match);
+			
+			tran.commit();
+		}
+		catch (HibernateException ex)
+		{
+			tran.rollback();
+			return false;
+		}
+		return true;
+	}
+	
+	public Match findMatch(String homeTeam, String awayTeam, Date date)
+	{
+		SessionFactory fact = getFactory();
+		Session ss = fact.openSession();
+		
+		Query<Match> query = (Query<Match>)ss.createQuery(
+				"select m from Match m "
+				+ "where m.homeTeam.teamName = :homeTeam "
+				+ "and m.awayTeam.teamName = :awayTeam "
+				+ "and m.time = :date", Match.class);
+		query.setParameter("homeTeam", homeTeam);
+		query.setParameter("awayTeam", awayTeam);
+		query.setParameter("date", date);
+		List<Match> results = query.list();
+		
+		if (results.size() > 0)
+			return results.get(0);
+		else
+			return null;
 	}
 
 	/**

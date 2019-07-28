@@ -428,62 +428,10 @@ public class SportTrackerMain
 		lblTeam.setBounds(231, 38, 61, 14);
 		adminPanel.add(lblTeam);
 		
-		JLabel lblMatches = new JLabel("Add a Match:");
-		lblMatches.setBounds(484, 38, 73, 14);
-		adminPanel.add(lblMatches);
-		
 		txtTeam = new JTextField();
 		txtTeam.setBounds(302, 35, 86, 20);
 		adminPanel.add(txtTeam);
 		txtTeam.setColumns(10);
-		
-		homeTeamNameSelection = new DefaultComboBoxModel<>();
-		awayTeamNameSelection = new DefaultComboBoxModel<>();
-		
-		homeTeamNameText = new JComboBox<>();
-		homeTeamNameText.setBounds(553, 63, 86, 20);
-		homeTeamNameText.setModel(homeTeamNameSelection);
-		adminPanel.add(homeTeamNameText);
-		
-		JLabel lblHomeTeam = new JLabel("Home Team:");
-		lblHomeTeam.setBounds(454, 66, 66, 14);
-		adminPanel.add(lblHomeTeam);
-		
-		JLabel lblAwayTeam = new JLabel("Away Team:");
-		lblAwayTeam.setBounds(454, 91, 66, 14);
-		adminPanel.add(lblAwayTeam);
-		
-		awayTeamNameText = new JComboBox<>();
-		awayTeamNameText.setBounds(553, 88, 86, 20);
-		awayTeamNameText.setModel(awayTeamNameSelection);
-		adminPanel.add(awayTeamNameText);
-		
-		JLabel lblHomeTeamScore = new JLabel("Home Team Score:");
-		lblHomeTeamScore.setBounds(438, 122, 98, 14);
-		adminPanel.add(lblHomeTeamScore);
-		
-		homeTeamScoreText = new JTextField();
-		homeTeamScoreText.setBounds(553, 119, 86, 20);
-		adminPanel.add(homeTeamScoreText);
-		homeTeamScoreText.setColumns(10);
-		
-		JLabel lblAwayTeamScore = new JLabel("Away Team Score:");
-		lblAwayTeamScore.setBounds(438, 153, 98, 14);
-		adminPanel.add(lblAwayTeamScore);
-		
-		awayTeamScoreText = new JTextField();
-		awayTeamScoreText.setBounds(553, 150, 86, 20);
-		adminPanel.add(awayTeamScoreText);
-		awayTeamScoreText.setColumns(10);
-		
-		JLabel lblTime = new JLabel("Date:");
-		lblTime.setBounds(438, 219, 98, 14);
-		adminPanel.add(lblTime);
-		
-		matchTimeText = new JTextField();
-		matchTimeText.setBounds(553, 216, 86, 20);
-		adminPanel.add(matchTimeText);
-		matchTimeText.setColumns(10);
 		
 		JButton btnAddMatch = new JButton("Add Match");
 		btnAddMatch.setBounds(484, 276, 119, 23);
