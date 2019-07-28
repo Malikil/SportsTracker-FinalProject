@@ -208,7 +208,7 @@ public class TeamTab extends CloseableTab
 		
 		for (Player p : dbcontrol.getTeamPlayers(getTabTitle()))
 			playerModel.addRow(new Object[] {
-					p.getPLastName() + ", " + p.getPFirstName(),
+					p.getLastName() + ", " + p.getFirstName(),
 					p.getJerseyNumber(),
 					p.getPosition(),
 					"", "", "", ""

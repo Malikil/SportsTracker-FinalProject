@@ -79,9 +79,6 @@ public class SportsDAO implements ISportDatabase, IUserDatabase
 		query.setParameter("date", date);
 		List<Match> results = query.list();
 		
-		// TODO ss.close();
-		// TODO fact.close();
-		
 		return results;
 	}
 	
@@ -96,9 +93,6 @@ public class SportsDAO implements ISportDatabase, IUserDatabase
 		Query<Match> query = (Query<Match>)ss.createQuery("select m from Match m where m.time > :date order by m.time asc", Match.class);
 		query.setParameter("date", date);
 		List<Match> results = query.list();
-		
-		// TODO ss.close();
-		// TODO fact.close();
 		
 		return results;
 	}
@@ -135,8 +129,8 @@ public class SportsDAO implements ISportDatabase, IUserDatabase
 	
 	/**
 	 * 
-	 * @param name Name of the player you are trying to add
-	 * @return returns name of existing player or null if no player by that name exists
+	 * @param name Name of the player you are trying to find
+	 * @return returns existing player or null if no player by that name exists
 	 * 
 	 * TODO Test method
 	 */
@@ -145,7 +139,7 @@ public class SportsDAO implements ISportDatabase, IUserDatabase
 		SessionFactory fact = getFactory();
 		Session ss = fact.openSession();
 		
-		Query<Player> query = (Query<Player>)ss.createQuery("select p from Player p where p.Name = :name", Player.class);
+		Query<Player> query = (Query<Player>)ss.createQuery("select p from Player p where p.firstName||' '||p.lastName = :name", Player.class);
 		query.setParameter("name", name);
 		List<Player> results = query.list();
 		
@@ -190,6 +184,30 @@ public class SportsDAO implements ISportDatabase, IUserDatabase
 		}
 		
 		return nid;
+	}
+	
+	public Boolean updatePlayer(Player player)
+	{
+		SessionFactory fact = null;
+		Session ss = null;
+		Transaction tran = null;
+		
+		try
+		{
+			fact = getFactory();
+			ss = fact.openSession();
+			tran = ss.beginTransaction();
+			
+			ss.update(player);
+			
+			tran.commit();
+		}
+		catch (HibernateException ex)
+		{
+			tran.rollback();
+			return false;
+		}
+		return true;
 	}
 
 	/**

@@ -26,6 +26,7 @@ import com.sportstracker.controller.MatchManager;
 import com.sportstracker.controller.TabController;
 import com.sportstracker.entities.Match;
 import com.sportstracker.entities.MatchCard;
+import com.sportstracker.entities.Player;
 import com.sportstracker.entities.Team;
 import com.sportstracker.entities.TeamTab;
 
@@ -52,14 +53,7 @@ public class SportTrackerMain
 	private String currentUser;
 	private JTextField txtSearch;
 	private JTable table_1;
-	private JTextField txtPlayerFName;
 	private JTextField txtTeam;
-	private JTextField txtPlayerLName;
-	private JTextField txtPosition;
-	private JTextField txtJerseyNumber;
-	private JTextField txtAge;
-	private JTextField txtWeight;
-	private JTextField txtHeight;
 	private JTextField homeTeamScoreText;
 	private JTextField awayTeamScoreText;
 	private JTextField matchTimeText;
@@ -73,12 +67,15 @@ public class SportTrackerMain
 	private DefaultTableModel teamsListModel;
 	private DefaultListModel<String> unfollowedModel;
 	private DefaultListModel<String> followedModel;
+	private DefaultComboBoxModel<String> playerNamesModel;
+	
 	// Lists/tables
 	private JTable teamTable;
 	private JComboBox<String> homeTeamNameText;
 	private JComboBox<String> awayTeamNameText;
 	private JList<String> unfollowed;
 	private JList<String> followed;
+	private JComboBox<String> playerNamesList;
 	
 	// Flow layout panel for upcoming games
 	private JPanel gameSchedulePanel;
@@ -123,9 +120,10 @@ public class SportTrackerMain
 		gameSchedulePanel.removeAll();
 		recentGamesPanel.removeAll();
 		followedGamesPanel.removeAll();
-		// Admin team list
+		// Admin lists
 		homeTeamNameSelection = new DefaultComboBoxModel<>();
 		awayTeamNameSelection = new DefaultComboBoxModel<>();
+		playerNamesModel = new DefaultComboBoxModel<>();
 		// Special list tabs
 		teamTable.getSelectionModel().removeListSelectionListener(teamSelector);
 		teamsListModel = new DefaultTableModel(new Object[] {
@@ -153,7 +151,10 @@ public class SportTrackerMain
 			else
 				unfollowedModel.addElement(t.getTeamName());
 		}
-		// TODO Update players
+		
+		// Load players into admin list
+		for (Player p : dbcon.getAllPlayers())
+			playerNamesModel.addElement(p.getFirstName() + " " + p.getLastName());
 		
 		// Load matches into home page
 		List<Match> upcoming = mm.getUpcomingMatches();
@@ -210,6 +211,7 @@ public class SportTrackerMain
 		// Admin
 		homeTeamNameText.setModel(homeTeamNameSelection);
 		awayTeamNameText.setModel(awayTeamNameSelection);
+		playerNamesList.setModel(playerNamesModel);
 		// User
 		this.followed.setModel(followedModel);
 		unfollowed.setModel(unfollowedModel);
@@ -529,13 +531,42 @@ public class SportTrackerMain
 		
 		JButton btnAddPlayer = new JButton("Add Player");
 		btnAddPlayer.setBounds(58, 318, 89, 23);
-		btnAddPlayer.addActionListener(adcont.getPlayerListener());
+		btnAddPlayer.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Boolean created = adcont.createNewPlayer();
+				if (created != null)
+				{
+					if (created)
+						JOptionPane.showMessageDialog(null, "Player created successfully");
+					else
+						JOptionPane.showMessageDialog(null, "Player was not created");
+					refreshLists();
+				}
+			}
+		});
 		adminPanel.add(btnAddPlayer);
 		
-		// TODO add a combo box of players
+		playerNamesList = new JComboBox<>();
+		playerNamesList.setBounds(58, 200, 100, 25);
+		adminPanel.add(playerNamesList);
 		
 		JButton btnUpdatePlayer = new JButton("Update Player");
-		btnUpdatePlayer.addActionListener(adcont.getPlayerListener());
-		// TODO add
+		btnUpdatePlayer.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Boolean created = adcont.updatePlayer((String)playerNamesList.getSelectedItem());
+				if (created != null)
+				{
+					if (created)
+						JOptionPane.showMessageDialog(null, "Player updated successfully");
+					else
+						JOptionPane.showMessageDialog(null, "Player was not updated");
+					refreshLists();
+				}
+			}
+		});
+		btnUpdatePlayer.setBounds(58, 250, 89, 23);
+		adminPanel.add(btnUpdatePlayer);
 	}
 }

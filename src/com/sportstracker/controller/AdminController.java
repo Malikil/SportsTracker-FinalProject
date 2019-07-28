@@ -1,13 +1,12 @@
 package com.sportstracker.controller;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import org.hibernate.HibernateException;
 
 import com.sportstracker.border.SportsDAO;
 import com.sportstracker.border.adminwin.AdminPlayerDiag;
@@ -19,21 +18,66 @@ public class AdminController
 {
 	SportsDAO db;
 	
-	public ActionListener getPlayerListener() {
-		return new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				//e.getActionCommand()
-				ArrayList<String> teamNames = new ArrayList<>();
-				for (Team t : db.getAllTeams())
-					teamNames.add(t.getTeamName());
-				AdminPlayerDiag diag = new AdminPlayerDiag(teamNames);
-				if (diag.showDialog())
-				{
-					// Update or add player
-				}
+	public Boolean createNewPlayer()
+	{
+		ArrayList<String> teamNames = new ArrayList<>();
+		for (Team t : db.getAllTeams())
+			teamNames.add(t.getTeamName());
+		AdminPlayerDiag diag = new AdminPlayerDiag(teamNames);
+		if (diag.showDialog())
+		{
+			// Add player
+			try
+			{
+				Player p = new Player();
+				p.setTeam(db.getTeamByName(diag.getTeam()));
+				p.setAge(diag.getAge());
+				p.setHeight(diag.getHeight());
+				p.setJerseyNumber(diag.getJersey());
+				p.setFirstName(diag.getFirstName());
+				p.setLastName(diag.getLastName());
+				p.setPosition(diag.getPosition());
+				db.createPlayer(p);
+				return true;
 			}
-		};
+			catch (HibernateException |
+					NumberFormatException ex)
+			{
+				return false;
+			}
+		}
+		return null;
+	}
+	
+	public Boolean updatePlayer(String playerFirstLast)
+	{
+		ArrayList<String> teamNames = new ArrayList<>();
+		for (Team t : db.getAllTeams())
+			teamNames.add(t.getTeamName());
+		Player p = db.getPlayerByName(playerFirstLast);
+		AdminPlayerDiag diag = new AdminPlayerDiag(teamNames, p);
+		if (diag.showDialog())
+		{
+			// Add player
+			try
+			{
+				p.setTeam(db.getTeamByName(diag.getTeam()));
+				p.setAge(diag.getAge());
+				p.setHeight(diag.getHeight());
+				p.setJerseyNumber(diag.getJersey());
+				p.setFirstName(diag.getFirstName());
+				p.setLastName(diag.getLastName());
+				p.setPosition(diag.getPosition());
+				db.updatePlayer(p);
+				return true;
+			}
+			catch (HibernateException |
+					NumberFormatException ex)
+			{
+				return false;
+			}
+		}
+		return null;
 	}
 	
 	/**
@@ -73,12 +117,12 @@ public class AdminController
 			int height,
 			boolean activePlayer)
 	{
-		if(db.getPlayerByName(pFirstName) == null)
+		if(db.getPlayerByName(pFirstName + " " +pLastName) == null)
 		{
 			Player play = new Player();
 			
-			play.setPFirstName(pFirstName);
-			play.setPLastName(pLastName);
+			play.setFirstName(pFirstName);
+			play.setLastName(pLastName);
 			play.setPosition(position);
 			play.setTeam(db.getTeamByName(teamName));
 			play.setJerseyNumber(jerseyNumber);

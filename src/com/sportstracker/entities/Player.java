@@ -15,8 +15,8 @@ public class Player
 	@JoinColumn(name="teamId")
 	private Team team;
 	
-	private String pFirstName;
-	private String pLastName;
+	private String firstName;
+	private String lastName;
 	private String position;
 	private int jerseyNumber;
 	private int age;
@@ -28,17 +28,17 @@ public class Player
 	public void setTeam(Team team) {
 		this.team = team;
 	}
-	public String getPFirstName() {
-		return pFirstName;
+	public String getFirstName() {
+		return firstName;
 	}
-	public void setPFirstName(String pFirstName) {
-		this.pFirstName = pFirstName;
+	public void setFirstName(String pFirstName) {
+		this.firstName = pFirstName;
 	}
-	public String getPLastName() {
-		return pLastName;
+	public String getLastName() {
+		return lastName;
 	}
-	public void setPLastName(String pLastName) {
-		this.pLastName = pLastName;
+	public void setLastName(String pLastName) {
+		this.lastName = pLastName;
 	}
 	public String getPosition() {
 		return position;

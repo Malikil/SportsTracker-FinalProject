@@ -120,6 +120,8 @@ public class DatabaseController
 	{ return getTeamPlayers(db.getTeamByName(team)); }
 	public List<Player> getTeamPlayers(Team team)
 	{ return team.getPlayers(); }
+	public List<Player> getAllPlayers()
+	{ return db.getAllPlayers(); }
 	
 	// ============================== Users ==============================
 	public List<String> getFollowedTeams(String user)
