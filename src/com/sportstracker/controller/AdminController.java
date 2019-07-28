@@ -37,8 +37,7 @@ public class AdminController
 				p.setFirstName(diag.getFirstName());
 				p.setLastName(diag.getLastName());
 				p.setPosition(diag.getPosition());
-				db.createPlayer(p);
-				return true;
+				return db.createPlayer(p) != null;
 			}
 			catch (HibernateException |
 					NumberFormatException ex)
@@ -68,8 +67,7 @@ public class AdminController
 				p.setFirstName(diag.getFirstName());
 				p.setLastName(diag.getLastName());
 				p.setPosition(diag.getPosition());
-				db.updatePlayer(p);
-				return true;
+				return db.updatePlayer(p);
 			}
 			catch (HibernateException |
 					NumberFormatException ex)
@@ -83,12 +81,43 @@ public class AdminController
 	public Boolean createNewMatch()
 	{
 		ArrayList<String> teamNames = new ArrayList<>();
-		for (Team t : db.getAllTeams())
+		ArrayList<Team> teams = db.getAllTeams();
+		for (Team t : teams)
 			teamNames.add(t.getTeamName());
 		AdminMatchDiag diag = new AdminMatchDiag(teamNames);
 		if (diag.showDialog())
 		{
 			// Add match
+			try
+			{
+				Match m = new Match();
+				Team t = null;
+				for (Team search : teams)
+					if (search.getTeamName().equals(diag.getHomeTeam()))
+						{
+							t = search;
+							break;
+						}
+				m.setHomeTeam(t);
+				for (Team search : teams)
+					if (search.getTeamName().equals(diag.getAwayTeam()))
+						{
+							t = search;
+							break;
+						}
+				m.setAwayTeam(t);
+				m.setHomeScore(diag.getHomeScore());
+				m.setAwayScore(diag.getAwayScore());
+				m.setTime(diag.getTime());
+				
+				return db.createMatch(m) != null;
+			}
+			catch (ParseException
+					| NumberFormatException
+					| HibernateException ex)
+			{
+				return false;
+			}
 		}
 		return null;
 	}

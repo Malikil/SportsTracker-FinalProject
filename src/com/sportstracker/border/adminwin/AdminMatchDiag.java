@@ -71,13 +71,10 @@ public class AdminMatchDiag
 			return Integer.parseInt(awayScoreEntry.getText());
 		return null;
 	}
-	public Date getTime()
+	public Date getTime() throws ParseException
 	{
 		Date matchTime = null;
-		try
-		{ matchTime = new SimpleDateFormat("dd/MM/yyyy").parse(timeEntry.getText()); }
-		catch (ParseException ex)
-		{ /* Fail Silent */ }
+		matchTime = new SimpleDateFormat("dd/MM/yyyy").parse(timeEntry.getText());
 		return matchTime;
 	}
 	
@@ -136,7 +133,7 @@ public class AdminMatchDiag
 		
 		homeScoreEntry = new JTextField();
 		c = new GridBagConstraints();
-		c.gridx = 1; c.gridy = 2; c.weightx = 0.5;
+		c.gridx = 1; c.gridy = 2; c.weightx = 0.75;
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.anchor = GridBagConstraints.LINE_END;
 		c.insets = new Insets(5, 0, 0, 0);
@@ -145,7 +142,7 @@ public class AdminMatchDiag
 		awayScoreEntry = new JTextField();
 		awayScoreEntry.setMinimumSize(new Dimension(25, 20));
 		c = new GridBagConstraints();
-		c.gridx = 3; c.gridy = 2; c.weightx = 0.5;
+		c.gridx = 3; c.gridy = 2; c.weightx = 0.75;
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.anchor = GridBagConstraints.LINE_START;
 		c.insets = new Insets(5, 0, 0, 0);
