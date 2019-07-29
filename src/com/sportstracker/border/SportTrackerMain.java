@@ -534,10 +534,8 @@ public class SportTrackerMain
 						txtPosition.getText(), 
 						txtTeam.getText(), 
 						Integer.parseInt(txtJerseyNumber.getText()),
-						Integer.parseInt(txtAge.getText()), 
-						Integer.parseInt(txtWeight.getText()), 
-						Integer.parseInt(txtHeight.getText()),
-						chckbxActivePlayer.isSelected()))
+						Integer.parseInt(txtAge.getText()),  
+						Integer.parseInt(txtHeight.getText())))
 				{
 					JOptionPane.showMessageDialog(null,
 							"Player Created", "Create Player",
