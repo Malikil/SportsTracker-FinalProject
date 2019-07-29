@@ -58,10 +58,28 @@ class DatabaseTests
 			    db.addNewPlayer("Marc-Andre", "ter Stegen", "GF", "Barcelona", 1, 27, 187)&&
 			    db.addNewPlayer("Nelson", "Semedo", "DF", "Barcelona", 2, 25, 177)&&
 			    db.addNewPlayer("Gerard", "Pique", "DF", "Barcelona", 3, 32, 194)&&
+			    db.addNewPlayer("Ivan", "Rakitic", "MF", "Barcelona", 4, 31, 184)&&
+			    db.addNewPlayer("Sergio", "Busquets", "MF", "Barcelona", 5, 31, 189)&&
+			    db.addNewPlayer("Jean-Clair", "Todibo", "DF", "Barcelona" , 6, 19, 190)&&
+			    db.addNewPlayer("Philippe", "Coutinho", "MF", "Barcelona", 7, 27, 172)&&
+			    db.addNewPlayer("Luis", "Suarez", "FW", "Barcelona", 9, 32, 182)&&
+			    db.addNewPlayer("Antoine", "Griezmann", "FW", "Barcelona", 17, 28, 176)&&
+			    db.addNewPlayer("Norberto","Neto","GK", "Barcelona", 13, 30, 190)&&
+			    db.addNewPlayer("Malcom", "de Oliveira", "FW", "Barcelona", 14, 22, 172)&&
 			    db.addNewPlayer("Cristiano", "Ronaldo", "FW", "Juventus", 7, 33, 187)&&
 			    db.addNewPlayer("Wojciech", "Szczesny", "Gk", "Juventus", 1, 29, 195)&&
 			    db.addNewPlayer("Giorgio", "Chiellini", "DF", "Juventus", 3, 34, 187)&&
 			    db.addNewPlayer("Aaron", "Ramsey", "MF", "Juventus", 8, 28, 178)&&
+			    db.addNewPlayer("Matthija", "de Ligt", "DF", "Juventus", 4, 19, 189)&&
+			    db.addNewPlayer("Miralem", "Pjanic", "MF", "Juventus", 5, 29, 180)&&
+			    db.addNewPlayer("Sami", "Khedira", "MF", "Juventus", 6, 32, 189)&&
+			    db.addNewPlayer("Paulo", "Dybala", "FW", "Juventus", 10, 25, 177)&&
+			    db.addNewPlayer("Douglas", "Costa", "FW", "Juventus", 11, 28, 172)&&
+			    db.addNewPlayer("Alex", "Sandro", "DF", "Juventus", 12, 28, 177)&&
+			    db.addNewPlayer("Blaise", "Matuidi", "MF", "Juventus", 14, 32, 180)&&
+			    db.addNewPlayer("Juan", "Cuadrado", "MF", "Juventus", 16, 31, 176)&&
+			    db.addNewPlayer("Mattia", "Perin", "GK", "Juventus", 22, 26, 188)&&
+			    db.addNewPlayer("Carlo", "Pinsoglio", "GK", "Juventus", 31, 29, 194)&&
 			    db.addNewPlayer("Alisson", "Becker", "GK", "Liverpool", 1, 26, 193)&&
 			    db.addNewPlayer("Nathaniel", "Clyne", "DF", "Liverpool", 2, 28, 175)&&
 			    db.addNewPlayer("Fabinho", "Tavares", "MF", "Liverpool", 3,25,188)&&
