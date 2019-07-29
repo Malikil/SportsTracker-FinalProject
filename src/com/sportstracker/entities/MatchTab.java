@@ -22,14 +22,7 @@ public class MatchTab extends CloseableTab
 		initialize(match);
 		refreshLists();
 		// Add the panel to the GridBagLayout
-		GridBagConstraints c = new GridBagConstraints();
-		c.gridx = 0;
-		c.gridy = 1;
-		c.weightx = 1.0;
-		c.weighty = 1.0;
-		c.gridwidth = 2;
-		c.fill = GridBagConstraints.BOTH;
-		add(panel, c);
+		addContent(panel);
 	}
 	
 	public void initialize(Match match)

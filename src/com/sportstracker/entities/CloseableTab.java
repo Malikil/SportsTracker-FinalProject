@@ -52,4 +52,13 @@ public abstract class CloseableTab extends JPanel
 	{
 		closeButton.addActionListener(l);
 	}
+	
+	protected void addContent(JPanel panel)
+	{
+		GridBagConstraints c = new GridBagConstraints();
+		c.gridx = 0; c.gridy = 1; c.gridwidth = 2;
+		c.weightx = 1.0; c.weighty = 1.0;
+		c.fill = GridBagConstraints.BOTH;
+		add(panel, c);
+	}
 }
