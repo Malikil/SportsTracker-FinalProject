@@ -194,7 +194,7 @@ public class SportTrackerMain
 			followedGamesPanel.add(card, c);
 		}
 		List<Match> followup = dbcon.getUpcomingMatchesForTeamList(followed);
-		for (int i = 0; i < followpast.size(); i++)
+		for (int i = 0; i < followup.size(); i++)
 		{
 			MatchCard card = new MatchCard(followup.get(i));
 			GridBagConstraints c = new GridBagConstraints();

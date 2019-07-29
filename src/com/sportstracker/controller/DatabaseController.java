@@ -72,22 +72,36 @@ public class DatabaseController
 	
 	public ArrayList<Match> getPastMatchesForTeamList(List<String> teams)
 	{
+		// Just give back an empty set if there are no teams to search
 		if (teams.size() < 1)
 			return new ArrayList<Match>();
 		
+		// Create a list for the matching matches
 		ArrayList<Match> results = new ArrayList<>();
+		// Get a list of the match lists for all needed teams
 		ArrayList<List<Match>> matches = new ArrayList<List<Match>>(teams.size());
 		for (int i = 0; i < teams.size(); i++)
 			matches.add(getPastTeamMatches(teams.get(i)));
 		// Limiting to 5 items atm
 		for (int i = 0; i < 5; i++)
 		{
-			// Find closest date
-			Match closest = matches.get(0).remove(0);
-			for (int j = 1; j < matches.size(); j++)
-				if (matches.get(j).get(0).getTime().after(closest.getTime()))
-					closest = matches.get(j).remove(0);
-			results.add(closest);
+			// Find the most recent match
+			Match closest = null;
+			int list = -1;
+			for (int l = 0; l < matches.size(); l++)
+				if (matches.get(l).size() > 0)
+					if (closest == null
+							|| closest.getTime().before(matches.get(l).get(0).getTime()))
+					{
+						closest = matches.get(l).get(0);
+						list = l;
+					}
+			// Remove the match from the list it was in
+			if (list > -1)
+			{
+				matches.get(list).remove(closest);
+				results.add(closest);
+			}
 		}
 		
 		return results;
@@ -105,11 +119,22 @@ public class DatabaseController
 		for (int i = 0; i < 5; i++)
 		{
 			// Find closest date
-			Match closest = matches.get(0).remove(0);
-			for (int j = 1; j < matches.size(); j++)
-				if (matches.get(j).get(0).getTime().after(closest.getTime()))
-					closest = matches.get(j).remove(0);
-			results.add(closest);
+			Match closest = null;
+			int list = -1;
+			for (int l = 0; l < matches.size(); l++)
+				if (matches.get(l).size() > 0)
+					if (closest == null
+							|| closest.getTime().after(matches.get(l).get(0).getTime()))
+					{
+						closest = matches.get(l).get(0);
+						list = l;
+					}
+			// Remove the match from the list it was in
+			if (list > -1)
+			{
+				matches.get(list).remove(closest);
+				results.add(closest);
+			}
 		}
 		
 		return results;

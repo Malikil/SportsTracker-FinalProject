@@ -159,7 +159,7 @@ public class UserManager
 	{
 		try
 		{
-			return db.updateFavourite(username, teams);
+			return db.updateFavourites(username, teams);
 		}
 		catch (HibernateException ex)
 		{ /* Fail Silent */ }

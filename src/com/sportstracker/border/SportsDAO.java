@@ -449,7 +449,7 @@ public class SportsDAO implements ISportDatabase, IUserDatabase
 		}
 	}
 	
-	public boolean updateFavourite(String username, ArrayList<String> teams)
+	public boolean updateFavourites(String username, ArrayList<String> teams)
 	{
 		SessionFactory fact = getFactory();
 		Session ss = fact.openSession();
