@@ -54,9 +54,6 @@ public class SportTrackerMain
 	private JTextField txtSearch;
 	private JTable table_1;
 	private JTextField txtTeam;
-	private JTextField homeTeamScoreText;
-	private JTextField awayTeamScoreText;
-	private JTextField matchTimeText;
 	private ListSelectionListener teamSelector;
 	private JPanel adminPanel;
 	private JTabbedPane tabbedPane;
@@ -433,6 +430,15 @@ public class SportTrackerMain
 		adminPanel.add(txtTeam);
 		txtTeam.setColumns(10);
 		
+		// ========== Matches ==========
+		homeTeamNameText = new JComboBox<>();
+		homeTeamNameText.setBounds(484, 250, 119, 23);
+		adminPanel.add(homeTeamNameText);
+		
+		awayTeamNameText = new JComboBox<>();
+		awayTeamNameText.setBounds(484, 225, 119, 23);
+		adminPanel.add(awayTeamNameText);
+		
 		JButton btnAddMatch = new JButton("Add Match");
 		btnAddMatch.setBounds(484, 276, 119, 23);
 		btnAddMatch.addActionListener(new ActionListener() {
@@ -454,6 +460,7 @@ public class SportTrackerMain
 		});
 		adminPanel.add(btnAddMatch);
 		
+		// ========== Teams ==========
 		JButton btnAddTeam = new JButton("Add Team");
 		btnAddTeam.setBounds(266, 118, 107, 23);
 		btnAddTeam.addActionListener(new ActionListener() {
@@ -474,6 +481,7 @@ public class SportTrackerMain
 		});
 		adminPanel.add(btnAddTeam);
 		
+		// ========== Players ==========
 		JButton btnAddPlayer = new JButton("Add Player");
 		btnAddPlayer.setBounds(58, 318, 89, 23);
 		btnAddPlayer.addActionListener(new ActionListener() {

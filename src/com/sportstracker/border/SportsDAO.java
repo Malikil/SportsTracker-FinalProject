@@ -118,11 +118,11 @@ public class SportsDAO implements ISportDatabase, IUserDatabase
 		{
 			// TODO is this intentionally left blank?
 		}
-		finally
+		/*finally
 		{
 			ss.close();
 			fact.close();
-		}
+		}*/
 		
 		return players;
 	}
