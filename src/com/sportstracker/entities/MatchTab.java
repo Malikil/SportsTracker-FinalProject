@@ -32,11 +32,14 @@ public class MatchTab extends CloseableTab
 		
 		GridBagConstraints c;
 		
-		JLabel winnerLabel = new JLabel("Winner:" + match.getWinner().getTeamName());
-		c = new GridBagConstraints();
-		c.gridx = 1;
-		c.gridy = 0;
-		panel.add(winnerLabel, c);
+		if (match.getWinner() != null)
+		{
+			JLabel winnerLabel = new JLabel("Winner:" + match.getWinner().getTeamName());
+			c = new GridBagConstraints();
+			c.gridx = 1;
+			c.gridy = 0;
+			panel.add(winnerLabel, c);
+		}
 		
 		//Label for HomeTeam
 		JLabel HomeLabel = new JLabel("Home Team:");
@@ -48,20 +51,20 @@ public class MatchTab extends CloseableTab
 		JLabel HomeScore = new JLabel(Integer.toString(match.getHomeScore()));
 		c = new GridBagConstraints();
 		c.gridx = 0;
-		c.gridy = 4;
+		c.gridy = 3;
 		panel.add(HomeScore, c);
 		
 		JLabel VSLabel = new JLabel("-VS-");
 		c = new GridBagConstraints();
 		c.gridx = 1;
-		c.gridy = 3;
+		c.gridy = 2;
 		panel.add(VSLabel, c);
 		
 		SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyy");
 		JLabel dateLabel = new JLabel(f.format(match.getTime()));
 		c = new GridBagConstraints();
 		c.gridx = 1;
-		c.gridy = 5;
+		c.gridy = 4;
 		panel.add(dateLabel, c);
 		
 		JLabel awayLabel = new JLabel("Away Team:");
@@ -73,7 +76,7 @@ public class MatchTab extends CloseableTab
 		JLabel awayScore = new JLabel(Integer.toString(match.getAwayScore()));
 		c = new GridBagConstraints();
 		c.gridx = 2;
-		c.gridy = 4;
+		c.gridy = 3;
 		panel.add(awayScore, c);
 	}
 	

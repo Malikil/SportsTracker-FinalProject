@@ -24,6 +24,7 @@ import com.sportstracker.controller.DatabaseController;
 import com.sportstracker.controller.LoginManager;
 import com.sportstracker.controller.MatchManager;
 import com.sportstracker.controller.TabController;
+import com.sportstracker.entities.CloseableTab;
 import com.sportstracker.entities.Match;
 import com.sportstracker.entities.MatchCard;
 import com.sportstracker.entities.Player;
@@ -215,6 +216,20 @@ public class SportTrackerMain
 		this.followed.setModel(followedModel);
 		unfollowed.setModel(unfollowedModel);
 	}
+	
+	public void addClosingTab(String name, CloseableTab tab)
+	{
+		tab.addCloseTabListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// Remove the tab from the pane
+				tabbedPane.remove(tab);
+				tabbedPane.setSelectedIndex(0);
+			}
+		});
+		tabbedPane.addTab(name, tab);
+		tabbedPane.setSelectedComponent(tab);
+	}
 
 	/**
 	 * Initialize the contents of the frame.
@@ -247,17 +262,8 @@ public class SportTrackerMain
 				if (e.getValueIsAdjusting())
 				{
 					String teamName = (String)teamTable.getValueAt(teamTable.getSelectedRow(), 0);
-					TeamTab info = new TabController().getNewTeamTab(teamName);
-					info.addCloseTabListener(new ActionListener() {
-						@Override
-						public void actionPerformed(ActionEvent e) {
-							// Remove the tab from the pane
-							tabbedPane.remove(info);
-							tabbedPane.setSelectedIndex(0);
-						}
-					});
-					tabbedPane.addTab(teamName, info);
-					tabbedPane.setSelectedComponent(info);
+					TeamTab info = new TabController(SportTrackerMain.this).getNewTeamTab(teamName);
+					addClosingTab(teamName, info);
 				}
 			}
 		};

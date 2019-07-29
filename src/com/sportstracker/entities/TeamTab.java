@@ -18,6 +18,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
 
+import com.sportstracker.border.SportTrackerMain;
 import com.sportstracker.controller.DatabaseController;
 import com.sportstracker.controller.TabController;
 
@@ -25,18 +26,18 @@ import antlr.debug.ParserTokenListener;
 
 public class TeamTab extends CloseableTab
 {
-	JPanel panel;
-	DatabaseController dbcontrol;
+	private JPanel panel;
+	private DatabaseController dbcontrol;
 	
-	private JTabbedPane tabbedPane;
+	private SportTrackerMain owner;
 	
-	JTable upcomingTable;
-	JTable pastTable;
-	JTable playerTable;
+	private JTable upcomingTable;
+	private JTable pastTable;
+	private JTable playerTable;
 	
-	DefaultTableModel upcomingModel;
-	DefaultTableModel pastModel;
-	DefaultTableModel playerModel;
+	private DefaultTableModel upcomingModel;
+	private DefaultTableModel pastModel;
+	private DefaultTableModel playerModel;
 	
 	private ListSelectionListener upcomingSelector;
 	private ListSelectionListener pastSelector;
@@ -44,12 +45,16 @@ public class TeamTab extends CloseableTab
 	
 	/**
 	 * Create an instance of a closable team tab for the given team
-	 * @param team
+	 * @param team The team to show details of
+	 * @param owner The SportTrackerMain window. There's definitely a better
+	 * way to do this but it's not immediately obvious to me in about 10
+	 * seconds worth of thinking
 	 */
-	public TeamTab(Team team)
+	public TeamTab(SportTrackerMain owner, Team team)
 	{
 		super(team.getTeamName());
 		dbcontrol = new DatabaseController();
+		this.owner = owner;
 		initialize(team);
 		refreshLists();
 		// Add the panel to the GridBagLayout
@@ -123,15 +128,8 @@ public class TeamTab extends CloseableTab
 				if (e.getValueIsAdjusting())
 				{
 					int matchid = Integer.parseInt((String)upcomingModel.getValueAt(upcomingTable.getSelectedRow(), 0));
-					MatchTab info = new TabController().getNewMatchTab(matchid);
-					info.addCloseTabListener(new ActionListener() {
-						@Override
-						public void actionPerformed(ActionEvent e) {
-							// Remove the tab from the pane
-							tabbedPane.remove(info);
-							tabbedPane.setSelectedIndex(0);
-						}
-					});
+					MatchTab info = new TabController(owner).getNewMatchTab(matchid);
+					owner.addClosingTab("Match " + matchid, info);
 				}
 			}
 		};
@@ -141,15 +139,8 @@ public class TeamTab extends CloseableTab
 				if (e.getValueIsAdjusting())
 				{
 					int matchid = Integer.parseInt((String)pastModel.getValueAt(pastTable.getSelectedRow(), 0));
-					MatchTab info = new TabController().getNewMatchTab(matchid);
-					info.addCloseTabListener(new ActionListener() {
-						@Override
-						public void actionPerformed(ActionEvent e) {
-							// Remove the tab from the pane
-							tabbedPane.remove(info);
-							tabbedPane.setSelectedIndex(0);
-						}
-					});
+					MatchTab info = new TabController(owner).getNewMatchTab(matchid);
+					owner.addClosingTab("Match " + matchid, info);
 				}
 			}
 		};

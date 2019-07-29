@@ -1,5 +1,6 @@
 package com.sportstracker.controller;
 
+import com.sportstracker.border.SportTrackerMain;
 import com.sportstracker.border.SportsDAO;
 import com.sportstracker.entities.*;
 /**
@@ -8,8 +9,11 @@ import com.sportstracker.entities.*;
 public class TabController
 {
 	private SportsDAO db;
-	public TabController()
+	private SportTrackerMain context;
+	
+	public TabController(SportTrackerMain context)
 	{
+		this.context = context;
 		db = new SportsDAO();
 	}
 	
@@ -17,7 +21,7 @@ public class TabController
 	{ return getNewTeamTab(db.getTeamByName(team)); }
 	public TeamTab getNewTeamTab(Team team)
 	{
-		return new TeamTab(team);
+		return new TeamTab(context, team);
 	}
 	
 	public MatchTab getNewMatchTab(int matchid)
