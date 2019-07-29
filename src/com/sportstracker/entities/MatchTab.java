@@ -31,6 +31,7 @@ public class MatchTab extends CloseableTab
 		c.fill = GridBagConstraints.BOTH;
 		add(panel, c);
 	}
+	
 	public void initialize(Match match)
 	{
 		panel = new JPanel();

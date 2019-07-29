@@ -11,28 +11,17 @@ class DatabaseTests
 	@Test
 	void addDatabaseItems()
 	{
-		assertTrue(addPlayer() && addTeams() &&
-				addMatches());
+		assertTrue(addTeams());
+		assertTrue(addMatches());
 	}
 	private boolean addPlayer()
-	
-	/*
-	 * public boolean addNewPlayer(
-			String pFirstName,
-			String pLastName,
-			String position,
-			String teamName,
-			int jerseyNumber,
-			int age,
-			int height)
-	 * */
-	
+		
 	{
 		AdminController db = new AdminController();
 		return (db.addNewPlayer("Robert", "Lewandoski", "FW", "Bayern Munich", 9, 29, 187)&&
 			    db.addNewPlayer("Alphonso", "Davies", "MF", "Bayern Munich", 19, 18, 181)&&
 			    db.addNewPlayer("Manuel", "Neuer", "GK", "Bayern Munich", 1, 33, 193)&&
-			    db.addNewPlayer("Jérôme", "Boateng", "DF", "Bayern Munich", 1, 30, 192)&&
+			    db.addNewPlayer("Jï¿½rï¿½me", "Boateng", "DF", "Bayern Munich", 1, 30, 192)&&
 			    db.addNewPlayer("Thomas", "Muller", "FW", "Bayern Munich", 25, 29, 186)&&
 			    db.addNewPlayer("Benjamin", "Pavard", "DF", "Bayern Munich", 5, 23, 186)&&
 			    db.addNewPlayer("Thiago", "Nascimento", "MF","Bayern Munich", 6, 28, 174)&&
@@ -106,7 +95,6 @@ class DatabaseTests
 				db.addNewTeam("Juventus"));
 	}
 	
-	
 	private boolean addMatches()
 	{
 		AdminController db = new AdminController();
@@ -127,14 +115,14 @@ class DatabaseTests
 				db.addNewMatch("Juventus", "Man. City", "0", "2", "31/07/2019"));
 		// Matches on the 1st
 		boolean eighteenth = (
-				db.addNewMatch("Man. City", "Real Madrid", "5", "6", "1/07/2019") &&
-				db.addNewMatch("Liverpool", "Chelsea", "1", "1", "1/07/2019") &&
-				db.addNewMatch("Barcelona", "Juventus", "2", "3", "1/07/2019"));
+				db.addNewMatch("Man. City", "Real Madrid", "5", "6", "1/08/2019") &&
+				db.addNewMatch("Liverpool", "Chelsea", "1", "1", "1/08/2019") &&
+				db.addNewMatch("Barcelona", "Juventus", "2", "3", "1/08/2019"));
 		// Matches on the 2nd
 		boolean ninteenth = (
-				db.addNewMatch("Chelsea", "Man. City", "1", "5", "2/07/2019") &&
-				db.addNewMatch("Juventus", "Real Madrid", "0", "0", "2/07/2019") &&
-				db.addNewMatch("Barcelona", "Liverpool", "2", "4", "2/07/2019"));
+				db.addNewMatch("Chelsea", "Man. City", "1", "5", "2/08/2019") &&
+				db.addNewMatch("Juventus", "Real Madrid", "0", "0", "2/08/2019") &&
+				db.addNewMatch("Barcelona", "Liverpool", "2", "4", "2/08/2019"));
 		return (fifteenth && sixteenth
 				&& seventeenth && eighteenth
 				&& ninteenth);

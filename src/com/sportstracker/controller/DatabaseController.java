@@ -70,9 +70,62 @@ public class DatabaseController
 		return results;
 	}
 	
+	public ArrayList<Match> getPastMatchesForTeamList(List<String> teams)
+	{
+		if (teams.size() < 1)
+			return new ArrayList<Match>();
+		
+		ArrayList<Match> results = new ArrayList<>();
+		ArrayList<List<Match>> matches = new ArrayList<List<Match>>(teams.size());
+		for (int i = 0; i < teams.size(); i++)
+			matches.add(getPastTeamMatches(teams.get(i)));
+		// Limiting to 5 items atm
+		for (int i = 0; i < 5; i++)
+		{
+			// Find closest date
+			Match closest = matches.get(0).remove(0);
+			for (int j = 1; j < matches.size(); j++)
+				if (matches.get(j).get(0).getTime().after(closest.getTime()))
+					closest = matches.get(j).remove(0);
+			results.add(closest);
+		}
+		
+		return results;
+	}
+	public ArrayList<Match> getUpcomingMatchesForTeamList(List<String> teams)
+	{
+		if (teams.size() < 1)
+			return new ArrayList<Match>();
+		
+		ArrayList<Match> results = new ArrayList<>();
+		ArrayList<List<Match>> matches = new ArrayList<List<Match>>(teams.size());
+		for (int i = 0; i < teams.size(); i++)
+			matches.add(getUpcomingTeamMatches(teams.get(i)));
+		// Limiting to 5 items atm
+		for (int i = 0; i < 5; i++)
+		{
+			// Find closest date
+			Match closest = matches.get(0).remove(0);
+			for (int j = 1; j < matches.size(); j++)
+				if (matches.get(j).get(0).getTime().after(closest.getTime()))
+					closest = matches.get(j).remove(0);
+			results.add(closest);
+		}
+		
+		return results;
+	}
+	
 	// ============================== Players ==============================
 	public List<Player> getTeamPlayers(String team)
 	{ return getTeamPlayers(db.getTeamByName(team)); }
 	public List<Player> getTeamPlayers(Team team)
 	{ return team.getPlayers(); }
+	public List<Player> getAllPlayers()
+	{ return db.getAllPlayers(); }
+	
+	// ============================== Users ==============================
+	public List<String> getFollowedTeams(String user)
+	{
+		return db.getUser(user).getFavourites();
+	}
 }

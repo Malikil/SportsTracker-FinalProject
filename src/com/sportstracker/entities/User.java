@@ -44,8 +44,12 @@ public class User
 	{
 		return favourites;
 	}
-	public void setFavourites(ArrayList<String> favourite) {
-		this.favourites = favourite;
+	public void addFavourite(String fav)
+	{
+		favourites.add(fav);
 	}
-	
+	public void removeFavourite(String fav)
+	{
+		favourites.remove(fav);
+	}
 }

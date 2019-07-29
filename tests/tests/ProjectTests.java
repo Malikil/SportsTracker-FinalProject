@@ -60,20 +60,25 @@ class ProjectTests
 	@Test
 	void loginNoUser()
 	{
-		
+		fail("Not implemented");
 	}
 	
 	@Test
 	void loginWrongPass()
 	{
-		
+		fail("Not implemented");
 	}
 	
 	@Test
 	void createDuplicateAccount()
 	{
-		
+		fail("Not implemented");
 	}
 	
-	
+	@Test
+	void getPlayerByName()
+	{
+		SportsDAO db = new SportsDAO();
+		assertNotNull(db.getPlayerByName("Boris Johnston"));
+	}
 }

@@ -1,12 +1,15 @@
 package com.sportstracker.controller;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.hibernate.HibernateException;
+
 import com.sportstracker.border.SportsDAO;
+import com.sportstracker.border.adminwin.*;
 import com.sportstracker.entities.Match;
 import com.sportstracker.entities.Player;
 import com.sportstracker.entities.Team;
@@ -14,6 +17,166 @@ import com.sportstracker.entities.Team;
 public class AdminController
 {
 	SportsDAO db;
+	
+	public Boolean createNewPlayer()
+	{
+		ArrayList<String> teamNames = new ArrayList<>();
+		for (Team t : db.getAllTeams())
+			teamNames.add(t.getTeamName());
+		AdminPlayerDiag diag = new AdminPlayerDiag(teamNames);
+		if (diag.showDialog())
+		{
+			// Add player
+			try
+			{
+				Player p = new Player();
+				p.setTeam(db.getTeamByName(diag.getTeam()));
+				p.setAge(diag.getAge());
+				p.setHeight(diag.getHeight());
+				p.setJerseyNumber(diag.getJersey());
+				p.setFirstName(diag.getFirstName());
+				p.setLastName(diag.getLastName());
+				p.setPosition(diag.getPosition());
+				return db.createPlayer(p) != null;
+			}
+			catch (HibernateException |
+					NumberFormatException ex)
+			{
+				return false;
+			}
+		}
+		return null;
+	}
+	
+	public Boolean updatePlayer(String playerFirstLast)
+	{
+		ArrayList<String> teamNames = new ArrayList<>();
+		for (Team t : db.getAllTeams())
+			teamNames.add(t.getTeamName());
+		Player p = db.getPlayerByName(playerFirstLast);
+		AdminPlayerDiag diag = new AdminPlayerDiag(teamNames, p);
+		if (diag.showDialog())
+		{
+			// Update player
+			try
+			{
+				p.setTeam(db.getTeamByName(diag.getTeam()));
+				p.setAge(diag.getAge());
+				p.setHeight(diag.getHeight());
+				p.setJerseyNumber(diag.getJersey());
+				p.setFirstName(diag.getFirstName());
+				p.setLastName(diag.getLastName());
+				p.setPosition(diag.getPosition());
+				return db.updatePlayer(p);
+			}
+			catch (HibernateException |
+					NumberFormatException ex)
+			{
+				return false;
+			}
+		}
+		return null;
+	}
+	
+	public Boolean createNewMatch()
+	{
+		ArrayList<String> teamNames = new ArrayList<>();
+		ArrayList<Team> teams = db.getAllTeams();
+		for (Team t : teams)
+			teamNames.add(t.getTeamName());
+		AdminMatchDiag diag = new AdminMatchDiag(teamNames);
+		if (diag.showDialog())
+		{
+			// Add match
+			try
+			{
+				Match m = new Match();
+				Team t = null;
+				for (Team search : teams)
+					if (search.getTeamName().equals(diag.getHomeTeam()))
+						{
+							t = search;
+							break;
+						}
+				m.setHomeTeam(t);
+				for (Team search : teams)
+					if (search.getTeamName().equals(diag.getAwayTeam()))
+						{
+							t = search;
+							break;
+						}
+				m.setAwayTeam(t);
+				m.setHomeScore(diag.getHomeScore());
+				m.setAwayScore(diag.getAwayScore());
+				m.setTime(diag.getDate());
+				
+				return db.createMatch(m) != null;
+			}
+			catch (ParseException
+					| NumberFormatException
+					| HibernateException ex)
+			{
+				return false;
+			}
+		}
+		return null;
+	}
+	
+	public Boolean updateMatch(String homeTeamName, String awayTeamName, String date)
+	{
+		// Get match
+		Match m;
+		try
+		{
+			m = db.findMatch(
+					homeTeamName,
+					awayTeamName,
+					new SimpleDateFormat("dd/MM/yyyy").parse(date));
+		}
+		catch (ParseException ex)
+		{
+			// Still show the dialog, just don't preload fields
+			m = new Match();
+		}
+		// Get team list
+		ArrayList<String> teamNames = new ArrayList<>();
+		ArrayList<Team> teams = db.getAllTeams();
+		for (Team t : teams)
+			teamNames.add(t.getTeamName());
+		
+		AdminMatchDiag diag = new AdminMatchDiag(teamNames, m);
+		if (diag.showDialog())
+		{
+			try
+			{
+				Team t = null;
+				for (Team search : teams)
+					if (search.getTeamName().equals(diag.getHomeTeam()))
+						{
+							t = search;
+							break;
+						}
+				m.setHomeTeam(t);
+				for (Team search : teams)
+					if (search.getTeamName().equals(diag.getAwayTeam()))
+						{
+							t = search;
+							break;
+						}
+				m.setAwayTeam(t);
+				m.setHomeScore(diag.getHomeScore());
+				m.setAwayScore(diag.getAwayScore());
+				m.setTime(diag.getDate());
+				
+				return db.updateMatch(m);
+			}
+			catch (ParseException ex)
+			{
+				return false;
+			}
+		}
+		return null;
+	}
 	
 	/**
 	 * Defines DAO Object for use
@@ -40,6 +203,7 @@ public class AdminController
 	 * @param height player height
 	 * @param activePlayer Indicates if a player is still actively playing or not
 	 * @return reutrn's if add was successful or not
+	 * @deprecated Use createNewPlayer() instead to show a dialog box which will gather info
 	 */
 	public boolean addNewPlayer(
 			String pFirstName,
@@ -50,12 +214,12 @@ public class AdminController
 			int age,
 			int height)
 	{
-		if(db.getPlayerByName(pFirstName) == null)
+		if(db.getPlayerByName(pFirstName + " " +pLastName) == null)
 		{
 			Player play = new Player();
 			
-			play.setPFirstName(pFirstName);
-			play.setPLastName(pLastName);
+			play.setFirstName(pFirstName);
+			play.setLastName(pLastName);
 			play.setPosition(position);
 			play.setTeam(db.getTeamByName(teamName));
 			play.setJerseyNumber(jerseyNumber);
@@ -95,6 +259,7 @@ public class AdminController
 	 * @param away Score Score of away tea,
 	 * @param time Time of the game
 	 * @return reutrn's if add was successful or not
+	 * @deprecated Use createNewMatch() instead to show a dialog box which will gather info
 	 */
 	public boolean addNewMatch(
 			String homeTeamName,
