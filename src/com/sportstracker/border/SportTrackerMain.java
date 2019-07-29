@@ -21,7 +21,7 @@ import javax.swing.table.DefaultTableModel;
 
 import com.sportstracker.controller.AdminController;
 import com.sportstracker.controller.DatabaseController;
-import com.sportstracker.controller.LoginManager;
+import com.sportstracker.controller.UserManager;
 import com.sportstracker.controller.MatchManager;
 import com.sportstracker.controller.TabController;
 import com.sportstracker.entities.CloseableTab;
@@ -412,7 +412,7 @@ public class SportTrackerMain
 						JOptionPane.OK_CANCEL_OPTION,
 						JOptionPane.PLAIN_MESSAGE, null,
 						buttons, buttons[0]) == 0)
-					if (new LoginManager().changePassword(
+					if (new UserManager().changePassword(
 							currentUser,
 							newpw.getOldPassword(),
 							newpw.getOldPassword()))
@@ -438,7 +438,7 @@ public class SportTrackerMain
 				ArrayList<String> teamlist = new ArrayList<>();
 				for (Object team : followedModel.toArray())
 					teamlist.add((String)team);
-				new LoginManager().updateFavourites(currentUser, teamlist);
+				new UserManager().updateFavourites(currentUser, teamlist);
 				refreshLists();
 			}
 		});

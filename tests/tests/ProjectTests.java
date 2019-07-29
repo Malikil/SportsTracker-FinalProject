@@ -1,7 +1,7 @@
 package tests;
 
 import com.sportstracker.border.SportsDAO;
-import com.sportstracker.controller.LoginManager;
+import com.sportstracker.controller.UserManager;
 import com.sportstracker.entities.User;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -14,7 +14,7 @@ class ProjectTests
 	@Test
 	void createUser()
 	{
-		LoginManager lm = new LoginManager();
+		UserManager lm = new UserManager();
 		
 		String username = "GabeNewell";
 		String password = "Steam";
@@ -28,7 +28,7 @@ class ProjectTests
 	void passwordChange()
 	{
 		SportsDAO sd = new SportsDAO();
-		LoginManager lm = new LoginManager();
+		UserManager lm = new UserManager();
 		String username = "GabeNewell";
 		String oldPassword = "Steam";
 		String newPassword = "Sales";
@@ -45,7 +45,7 @@ class ProjectTests
 	@Test
 	void loginAdmin()
 	{
-		LoginManager lm = new LoginManager();
+		UserManager lm = new UserManager();
 		User user = lm.tryLogin("User", "Pass");
 		assertTrue(user != null && user.isAdmin());
 	}
@@ -53,7 +53,7 @@ class ProjectTests
 	@Test
 	void loginBasic()
 	{
-		LoginManager lm = new LoginManager();
+		UserManager lm = new UserManager();
 		User user = lm.tryLogin("Basic", "Pass");
 	}
 

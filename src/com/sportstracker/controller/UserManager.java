@@ -14,7 +14,7 @@ import com.sportstracker.entities.User;
  * This class will handle user accounts and logging in.
  * This is also the main entry point for the application.
  */
-public class LoginManager
+public class UserManager
 {
 	/**
 	 * Used to indicate state of the current login attempt
@@ -129,7 +129,7 @@ public class LoginManager
 	}
 	
 	private SportsDAO db;
-	public LoginManager()
+	public UserManager()
 	{
 		db = new SportsDAO();
 	}
