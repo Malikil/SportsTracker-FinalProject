@@ -432,6 +432,16 @@ public class SportTrackerMain
 		userPanel.add(changePassButton,c);
 		
 		JButton applyButton = new JButton("Apply Follow");
+		applyButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ArrayList<String> teamlist = new ArrayList<>();
+				for (Object team : followedModel.toArray())
+					teamlist.add((String)team);
+				new LoginManager().updateFavourites(currentUser, teamlist);
+				refreshLists();
+			}
+		});
 		c = new GridBagConstraints();
 		c.gridx = 3; c.gridy = 2; c.weightx = 0.3; c.weighty = 0.25;
 		c.anchor = GridBagConstraints.PAGE_END;
@@ -439,6 +449,13 @@ public class SportTrackerMain
 		userPanel.add(applyButton,c);
 		
 		JButton resetButton = new JButton("Reset Follow");
+		resetButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				refreshLists();
+				// Because I'm lazy uwu
+			}
+		});
 		c = new GridBagConstraints();
 		c.gridx = 3; c.gridy = 3; c.weightx = 0.3; c.weighty = 0.25;
 		c.anchor = GridBagConstraints.PAGE_START;

@@ -155,14 +155,11 @@ public class LoginManager
 		}
 	}
 	
-	public Boolean updateFavourites(String username, String[] teams)
+	public Boolean updateFavourites(String username, ArrayList<String> teams)
 	{
-		ArrayList<String> teamlist = new ArrayList<>();
-		for (String t : teams)
-			teamlist.add(t);
 		try
 		{
-			return db.updateFavourite(username, teamlist);
+			return db.updateFavourite(username, teams);
 		}
 		catch (HibernateException ex)
 		{ /* Fail Silent */ }
