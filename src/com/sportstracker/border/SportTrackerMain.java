@@ -39,6 +39,8 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.awt.event.ActionEvent;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
@@ -438,6 +440,35 @@ public class SportTrackerMain
 		awayTeamNameText = new JComboBox<>();
 		awayTeamNameText.setBounds(484, 225, 119, 23);
 		adminPanel.add(awayTeamNameText);
+		
+		JTextField dateSelectBox = new JTextField();
+		dateSelectBox.setBounds(484, 200, 119, 23);
+		adminPanel.add(dateSelectBox);
+		
+		JButton updateMatchButton = new JButton("Update Match");
+		updateMatchButton.setBounds(484, 175, 119, 23);
+		updateMatchButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Boolean updated = adcont.updateMatch(
+						(String)homeTeamNameText.getSelectedItem(),
+						(String)awayTeamNameText.getSelectedItem(),
+						dateSelectBox.getText());
+				if (updated != null)
+				{
+					if (updated)
+						JOptionPane.showMessageDialog(null,
+								"Match updated successfully", "Update Match",
+								JOptionPane.INFORMATION_MESSAGE);
+					else
+						JOptionPane.showMessageDialog(null,
+								"Match wasn't updated", "Update Match",
+								JOptionPane.WARNING_MESSAGE);
+					refreshLists();
+				}
+			}
+		});
+		adminPanel.add(updateMatchButton);
 		
 		JButton btnAddMatch = new JButton("Add Match");
 		btnAddMatch.setBounds(484, 276, 119, 23);

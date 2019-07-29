@@ -34,14 +34,18 @@ public class AdminMatchDiag
 	public AdminMatchDiag(List<String> teamList, Match m)
 	{
 		this(teamList);
-		homeTeamList.setSelectedItem(m.getHomeTeam().getTeamName());
-		awayTeamList.setSelectedItem(m.getAwayTeam().getTeamName());
-		if (m.getHomeScore() != null)
-			homeScoreEntry.setText(m.getHomeScore().toString());
-		if (m.getAwayScore() != null)
-			awayScoreEntry.setText(m.getAwayScore().toString());
-		SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyy");
-		timeEntry.setText(f.format(m.getTime()));
+		// Only use the match if it's valid
+		if (m.getHomeTeam() != null)
+		{
+			homeTeamList.setSelectedItem(m.getHomeTeam().getTeamName());
+			awayTeamList.setSelectedItem(m.getAwayTeam().getTeamName());
+			if (m.getHomeScore() != null)
+				homeScoreEntry.setText(m.getHomeScore().toString());
+			if (m.getAwayScore() != null)
+				awayScoreEntry.setText(m.getAwayScore().toString());
+			SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyy");
+			timeEntry.setText(f.format(m.getTime()));
+		}
 	}
 	/**
 	 * @wbp.parser.constructor
