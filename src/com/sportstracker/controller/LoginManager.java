@@ -1,6 +1,8 @@
 package com.sportstracker.controller;
 
 import java.awt.EventQueue;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JOptionPane;
 
@@ -125,12 +127,18 @@ public class LoginManager
 		catch (HibernateException hx)
 		{ return null; }
 	}
+	
+	private SportsDAO db;
+	public LoginManager()
+	{
+		db = new SportsDAO();
+	}
+	
 	//change password
 	public Boolean changePassword(String username, String oldPassword, String newPassword)
 	{
 		try
 		{
-			SportsDAO db = new SportsDAO();
 			User user = db.getUser(username);
 			if(user != null && user.getPassword().equals(oldPassword))
 			{
@@ -147,4 +155,18 @@ public class LoginManager
 		}
 	}
 	
+	public Boolean updateFavourites(String username, String[] teams)
+	{
+		ArrayList<String> teamlist = new ArrayList<>();
+		for (String t : teams)
+			teamlist.add(t);
+		try
+		{
+			return db.updateFavourite(username, teamlist);
+		}
+		catch (HibernateException ex)
+		{ /* Fail Silent */ }
+		
+		return false;
+	}
 }

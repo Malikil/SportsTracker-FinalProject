@@ -449,7 +449,7 @@ public class SportsDAO implements ISportDatabase, IUserDatabase
 		}
 	}
 	
-	public boolean addFavourite(String username, String team)
+	public boolean updateFavourite(String username, ArrayList<String> teams)
 	{
 		SessionFactory fact = getFactory();
 		Session ss = fact.openSession();
@@ -461,40 +461,13 @@ public class SportsDAO implements ISportDatabase, IUserDatabase
 			
 			tran = ss.beginTransaction();
 			
-			user.addFavourite(team);
+			user.setFavourite(teams);
 				
 			ss.update(user);
 			tran.commit();
 			return true;
 			
 		} catch(HibernateException e)
-		{
-			if(tran != null)
-			{
-				tran.rollback();
-			}
-			
-			return false;
-		}
-	}
-	public boolean removeFavourite(String username, String team)
-	{
-		SessionFactory fact = getFactory();
-		Session ss = fact.openSession();
-		Transaction tran = null;
-		
-		try
-		{
-			User user = getUser(username);
-			tran = ss.beginTransaction();
-			
-			user.removeFavourite(team);
-				
-			ss.update(user);
-			tran.commit();
-			return true;
-		}
-		catch(HibernateException e)
 		{
 			if(tran != null)
 			{
