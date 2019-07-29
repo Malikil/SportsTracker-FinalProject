@@ -212,9 +212,7 @@ public class AdminController
 			String teamName,
 			int jerseyNumber,
 			int age,
-			int weight,
-			int height,
-			boolean activePlayer)
+			int height)
 	{
 		if(db.getPlayerByName(pFirstName + " " +pLastName) == null)
 		{
@@ -309,4 +307,5 @@ public class AdminController
 		else
 			return false;
 	}
+
 }
