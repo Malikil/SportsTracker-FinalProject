@@ -367,6 +367,21 @@ public class SportTrackerMain
 		userPanel.add(rightArrow, c);
 		
 		JButton leftArrow = new JButton("<--");
+		leftArrow.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// If a team is selected in the right list,
+				// move it to the left list
+				int[] selected = followed.getSelectedIndices();
+				for (int i = 0; i < selected.length; i++)
+				{
+					// Add to right list
+					unfollowedModel.addElement(followedModel.get(selected[i] - i));
+					// Remove from left list
+					followedModel.remove(selected[i] - i);
+				}
+			}
+		});
 		c = new GridBagConstraints();
 		c.gridx = 1; c.gridy = 2; c.gridheight= 2;
 		c.anchor = GridBagConstraints.PAGE_START;c.weighty = 0.5;
