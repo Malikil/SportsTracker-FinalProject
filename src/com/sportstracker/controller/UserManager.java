@@ -1,6 +1,8 @@
 package com.sportstracker.controller;
 
 import java.awt.EventQueue;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JOptionPane;
 
@@ -12,7 +14,7 @@ import com.sportstracker.entities.User;
  * This class will handle user accounts and logging in.
  * This is also the main entry point for the application.
  */
-public class LoginManager
+public class UserManager
 {
 	/**
 	 * Used to indicate state of the current login attempt
@@ -125,12 +127,18 @@ public class LoginManager
 		catch (HibernateException hx)
 		{ return null; }
 	}
+	
+	private SportsDAO db;
+	public UserManager()
+	{
+		db = new SportsDAO();
+	}
+	
 	//change password
 	public Boolean changePassword(String username, String oldPassword, String newPassword)
 	{
 		try
 		{
-			SportsDAO db = new SportsDAO();
 			User user = db.getUser(username);
 			if(user != null && user.getPassword().equals(oldPassword))
 			{
@@ -147,4 +155,15 @@ public class LoginManager
 		}
 	}
 	
+	public Boolean updateFavourites(String username, ArrayList<String> teams)
+	{
+		try
+		{
+			return db.updateFavourites(username, teams);
+		}
+		catch (HibernateException ex)
+		{ /* Fail Silent */ }
+		
+		return false;
+	}
 }

@@ -21,7 +21,7 @@ import javax.swing.table.DefaultTableModel;
 
 import com.sportstracker.controller.AdminController;
 import com.sportstracker.controller.DatabaseController;
-import com.sportstracker.controller.LoginManager;
+import com.sportstracker.controller.UserManager;
 import com.sportstracker.controller.MatchManager;
 import com.sportstracker.controller.TabController;
 import com.sportstracker.entities.CloseableTab;
@@ -194,7 +194,7 @@ public class SportTrackerMain
 			followedGamesPanel.add(card, c);
 		}
 		List<Match> followup = dbcon.getUpcomingMatchesForTeamList(followed);
-		for (int i = 0; i < followpast.size(); i++)
+		for (int i = 0; i < followup.size(); i++)
 		{
 			MatchCard card = new MatchCard(followup.get(i));
 			GridBagConstraints c = new GridBagConstraints();
@@ -352,7 +352,14 @@ public class SportTrackerMain
 			public void actionPerformed(ActionEvent e) {
 				// If a team is selected in the left list,
 				// move it to the right list
-				// TODO
+				int[] selected = unfollowed.getSelectedIndices();
+				for (int i = 0; i < selected.length; i++)
+				{
+					// Add to right list
+					followedModel.addElement(unfollowedModel.get(selected[i] - i));
+					// Remove from left list
+					unfollowedModel.remove(selected[i] - i);
+				}
 			}
 		});
 		c = new GridBagConstraints();
@@ -360,8 +367,24 @@ public class SportTrackerMain
 		userPanel.add(rightArrow, c);
 		
 		JButton leftArrow = new JButton("<--");
+		leftArrow.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// If a team is selected in the right list,
+				// move it to the left list
+				int[] selected = followed.getSelectedIndices();
+				for (int i = 0; i < selected.length; i++)
+				{
+					// Add to right list
+					unfollowedModel.addElement(followedModel.get(selected[i] - i));
+					// Remove from left list
+					followedModel.remove(selected[i] - i);
+				}
+			}
+		});
 		c = new GridBagConstraints();
-		c.gridx = 1; c.gridy = 2; c.gridheight= 2; c.anchor = GridBagConstraints.PAGE_START;c.weighty = 0.5;
+		c.gridx = 1; c.gridy = 2; c.gridheight= 2;
+		c.anchor = GridBagConstraints.PAGE_START;c.weighty = 0.5;
 		userPanel.add(leftArrow, c);
 		
 		
@@ -389,7 +412,7 @@ public class SportTrackerMain
 						JOptionPane.OK_CANCEL_OPTION,
 						JOptionPane.PLAIN_MESSAGE, null,
 						buttons, buttons[0]) == 0)
-					if (new LoginManager().changePassword(
+					if (new UserManager().changePassword(
 							currentUser,
 							newpw.getOldPassword(),
 							newpw.getOldPassword()))
@@ -409,6 +432,16 @@ public class SportTrackerMain
 		userPanel.add(changePassButton,c);
 		
 		JButton applyButton = new JButton("Apply Follow");
+		applyButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ArrayList<String> teamlist = new ArrayList<>();
+				for (Object team : followedModel.toArray())
+					teamlist.add((String)team);
+				new UserManager().updateFavourites(currentUser, teamlist);
+				refreshLists();
+			}
+		});
 		c = new GridBagConstraints();
 		c.gridx = 3; c.gridy = 2; c.weightx = 0.3; c.weighty = 0.25;
 		c.anchor = GridBagConstraints.PAGE_END;
@@ -416,6 +449,13 @@ public class SportTrackerMain
 		userPanel.add(applyButton,c);
 		
 		JButton resetButton = new JButton("Reset Follow");
+		resetButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				refreshLists();
+				// Because I'm lazy uwu
+			}
+		});
 		c = new GridBagConstraints();
 		c.gridx = 3; c.gridy = 3; c.weightx = 0.3; c.weighty = 0.25;
 		c.anchor = GridBagConstraints.PAGE_START;

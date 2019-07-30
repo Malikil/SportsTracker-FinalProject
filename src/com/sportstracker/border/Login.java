@@ -8,7 +8,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import javax.swing.JTextField;
 
-import com.sportstracker.controller.LoginManager;
+import com.sportstracker.controller.UserManager;
 
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
@@ -102,7 +102,7 @@ public class Login
 					else
 					{
 						// Try to create an account using LoginManager
-						Boolean result = LoginManager.createAccount(getUsername(), getPassword()); 
+						Boolean result = UserManager.createAccount(getUsername(), getPassword()); 
 						if (result == null)
 							JOptionPane.showMessageDialog(null,
 									"An unknown error occured.", "Register",
