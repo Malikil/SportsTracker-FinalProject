@@ -427,32 +427,72 @@ public class SportTrackerMain
 		// =========================== Admin Panel ===========================
 		AdminController adcont = new AdminController(); 
 		adminPanel = new JPanel();
-		adminPanel.setLayout(null);
+		adminPanel.setLayout(new GridBagLayout());
+		
+		//====================================Team=========================================
 		
 		JLabel lblTeam = new JLabel("Add a Team:");
-		lblTeam.setBounds(231, 38, 61, 14);
-		adminPanel.add(lblTeam);
+		c = new GridBagConstraints();
+		c.gridx = 2; c.gridy = 0; 
+		c.fill = GridBagConstraints.HORIZONTAL;
+		adminPanel.add(lblTeam, c);
 		
 		txtTeam = new JTextField();
-		txtTeam.setBounds(302, 35, 86, 20);
-		adminPanel.add(txtTeam);
-		txtTeam.setColumns(10);
+		c = new GridBagConstraints();
+		c.gridx = 2; c.gridy = 1;
+		c.fill = GridBagConstraints.HORIZONTAL;
+		adminPanel.add(txtTeam, c);
 		
-		// ========== Matches ==========
+		JButton btnAddTeam = new JButton("Add Team");
+		c = new GridBagConstraints();
+		c.gridx = 2; c.gridy = 3;
+		c.fill = GridBagConstraints.HORIZONTAL;
+		adminPanel.add(btnAddTeam, c);
+		
+		JButton btnRemoveTeam = new JButton("Remove Team");
+		c = new GridBagConstraints();
+		c.gridx = 3; c.gridy = 3;
+		c.fill = GridBagConstraints.HORIZONTAL;
+		adminPanel.add(btnRemoveTeam, c);
+		
+		// ================================ Matches ===================================
+		
+		JLabel lblMatch = new JLabel("Add Match");
+		c = new GridBagConstraints();
+		c.gridx = 4; c.gridy = 0;
+		c.fill = GridBagConstraints.HORIZONTAL;
+		adminPanel.add(lblMatch,c);
+		
+		JButton btnAddMatch = new JButton("Add Match");
+		c = new GridBagConstraints();
+		c.gridx = 4; c.gridy = 1;
+		c.fill = GridBagConstraints.HORIZONTAL;
+		adminPanel.add(btnRemoveTeam, c);
+		
 		homeTeamNameText = new JComboBox<>();
-		homeTeamNameText.setBounds(484, 250, 119, 23);
-		adminPanel.add(homeTeamNameText);
+		c = new GridBagConstraints();
+		c.gridx = 4; c.gridy = 2;
+		c.fill = GridBagConstraints.HORIZONTAL;
+		adminPanel.add(homeTeamNameText, c);
 		
 		awayTeamNameText = new JComboBox<>();
-		awayTeamNameText.setBounds(484, 225, 119, 23);
+		c = new GridBagConstraints();
+		c = new GridBagConstraints();
+		c.gridx = 4; c.gridy = 3;
+		c.fill = GridBagConstraints.HORIZONTAL;
 		adminPanel.add(awayTeamNameText);
 		
 		JTextField dateSelectBox = new JTextField();
-		dateSelectBox.setBounds(484, 200, 119, 23);
-		adminPanel.add(dateSelectBox);
+		c = new GridBagConstraints();
+		c.gridx = 4; c.gridy = 4;
+		c.fill = GridBagConstraints.HORIZONTAL;
+		adminPanel.add(dateSelectBox, c);
 		
 		JButton updateMatchButton = new JButton("Update Match");
-		updateMatchButton.setBounds(484, 175, 119, 23);
+		c = new GridBagConstraints();
+		c.gridx = 4; c.gridy = 5;
+		c.fill = GridBagConstraints.HORIZONTAL;
+		adminPanel.add(updateMatchButton,c);
 		updateMatchButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -476,8 +516,8 @@ public class SportTrackerMain
 		});
 		adminPanel.add(updateMatchButton);
 		
-		JButton btnAddMatch = new JButton("Add Match");
-		btnAddMatch.setBounds(484, 276, 119, 23);
+		 btnAddMatch = new JButton("Add Match");
+		c = new GridBagConstraints();
 		btnAddMatch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Boolean created = adcont.createNewMatch();
@@ -498,8 +538,8 @@ public class SportTrackerMain
 		adminPanel.add(btnAddMatch);
 		
 		// ========== Teams ==========
-		JButton btnAddTeam = new JButton("Add Team");
-		btnAddTeam.setBounds(266, 118, 107, 23);
+		 btnAddTeam = new JButton("Add Team");
+		 c = new GridBagConstraints();
 		btnAddTeam.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				// Collect the player information and use the controller to add it
@@ -518,9 +558,39 @@ public class SportTrackerMain
 		});
 		adminPanel.add(btnAddTeam);
 		
-		// ========== Players ==========
+		// ========================== Players ===========================
+		JLabel lblPlayer = new JLabel("Add a New Player");
+		c = new GridBagConstraints();
+		c.gridx = 1; c.gridy = 0;
+		c.fill = GridBagConstraints.HORIZONTAL;
+		adminPanel.add(lblPlayer, c);
+		
 		JButton btnAddPlayer = new JButton("Add Player");
-		btnAddPlayer.setBounds(58, 318, 89, 23);
+		c = new GridBagConstraints();
+		c.gridx = 1; c.gridy = 1;
+		c.fill = GridBagConstraints.HORIZONTAL;
+		adminPanel.add(btnAddPlayer, c);
+		
+		JComboBox playerNameList = new JComboBox();
+		c = new GridBagConstraints();
+		c.gridx = 1; c.gridy = 2;
+		c.fill = GridBagConstraints.HORIZONTAL;
+		adminPanel.add(playerNameList,c);
+		
+		JButton btnUpdatePlayer = new JButton("Update Player");
+		c = new GridBagConstraints();
+		c.gridx = 1; c.gridy = 3;
+		c.fill = GridBagConstraints.HORIZONTAL;
+		adminPanel.add(btnUpdatePlayer, c);
+		
+		JButton btnRemovePlayer = new JButton("Remove Player");
+		c = new GridBagConstraints();
+		c.gridx = 1; c.gridy = 5;
+		c.fill = GridBagConstraints.HORIZONTAL;
+		adminPanel.add(btnRemovePlayer, c);
+		
+		btnAddPlayer = new JButton("Add Player");
+		c = new GridBagConstraints();
 		btnAddPlayer.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -538,10 +608,10 @@ public class SportTrackerMain
 		adminPanel.add(btnAddPlayer);
 		
 		playerNamesList = new JComboBox<>();
-		playerNamesList.setBounds(58, 200, 100, 25);
+		c = new GridBagConstraints();
 		adminPanel.add(playerNamesList);
 		
-		JButton btnUpdatePlayer = new JButton("Update Player");
+		btnUpdatePlayer = new JButton("Update Player");
 		btnUpdatePlayer.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -556,7 +626,7 @@ public class SportTrackerMain
 				}
 			}
 		});
-		btnUpdatePlayer.setBounds(58, 250, 89, 23);
+		c = new GridBagConstraints();
 		adminPanel.add(btnUpdatePlayer);
 	}
 }
