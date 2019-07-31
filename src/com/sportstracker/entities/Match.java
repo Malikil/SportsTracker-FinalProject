@@ -70,7 +70,9 @@ public class Match
 
 	public Team getWinner()
 	{
-		if (homeScore > awayScore)
+		if (homeScore == null || awayScore == null)
+			return null;
+		else if (homeScore > awayScore)
 			return homeTeam;
 		else if (awayScore > homeScore)
 			return awayTeam;
@@ -79,7 +81,9 @@ public class Match
 	}
 	public Team getLoser()
 	{
-		if (homeScore < awayScore)
+		if (homeScore == null || awayScore == null)
+			return null;
+		else if (homeScore < awayScore)
 			return homeTeam;
 		else if (awayScore < homeScore)
 			return awayTeam;

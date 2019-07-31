@@ -67,31 +67,32 @@ public class SportsDAO implements ISportDatabase, IUserDatabase
 		return matches;
 	}
 	
+	/**
+	 * Retrieves matches before current date
+	 */
 	public List<Match> getMatchesBeforeDate(Date date)
 	{
 		SessionFactory fact = getFactory();
 		Session ss = fact.openSession();
 		
-		Query<Match> query = (Query<Match>)ss.createQuery("select m from Match m where m.time < :date", Match.class);
+		Query<Match> query = (Query<Match>)ss.createQuery("select m from Match m where m.time < :date order by m.time desc", Match.class);
 		query.setParameter("date", date);
 		List<Match> results = query.list();
 		
-		ss.close();
-		fact.close();
-		
 		return results;
 	}
+	
+	/**
+	 * Retrieves matches after current date
+	 */
 	public List<Match> getMatchesAfterDate(Date date)
 	{
 		SessionFactory fact = getFactory();
 		Session ss = fact.openSession();
 		
-		Query<Match> query = (Query<Match>)ss.createQuery("select m from Match m where m.time > :date", Match.class);
+		Query<Match> query = (Query<Match>)ss.createQuery("select m from Match m where m.time > :date order by m.time asc", Match.class);
 		query.setParameter("date", date);
 		List<Match> results = query.list();
-		
-		ss.close();
-		fact.close();
 		
 		return results;
 	}
@@ -102,8 +103,108 @@ public class SportsDAO implements ISportDatabase, IUserDatabase
 	 */
 	@Override
 	public ArrayList<Player> getAllPlayers() {
-		// TODO Auto-generated method stub
-		return null;
+		SessionFactory fact = null;
+		Session ss = null;
+		ArrayList<Player> players = null;
+		
+		try
+		{
+			fact = getFactory();
+			ss = fact.openSession();
+			
+			players = (ArrayList<Player>)ss.createQuery("select p from Player p").list();
+		}
+		catch (HibernateException hx)
+		{
+			// TODO is this intentionally left blank?
+		}
+		/*finally
+		{
+			ss.close();
+			fact.close();
+		}*/
+		
+		return players;
+	}
+	
+	/**
+	 * 
+	 * @param name Name of the player you are trying to find
+	 * @return returns existing player or null if no player by that name exists
+	 */
+	public Player getPlayerByName(String name)
+	{
+		SessionFactory fact = getFactory();
+		Session ss = fact.openSession();
+		
+		Query<Player> query = (Query<Player>)ss.createQuery("select p from Player p where p.firstName||' '||p.lastName = :name", Player.class);
+		query.setParameter("name", name);
+		List<Player> results = query.list();
+		
+		if (results.size() > 0)
+			return results.get(0);
+		else
+			return null;
+	}
+	
+	/**
+	 * 
+	 * @param player Creates player by player name
+	 * @return returns player id
+	 */
+	public Integer createPlayer(Player player)
+	{
+		SessionFactory fact = null;
+		Session ss = null;
+		Transaction tran = null;
+		int nid;
+		
+		try
+		{
+			fact = getFactory();
+			ss = fact.openSession();
+			tran = ss.beginTransaction();
+			
+			nid = (int)ss.save(player);
+			
+			tran.commit();
+		}
+		catch (HibernateException e)
+		{
+			tran.rollback();
+			throw e;
+		}
+		finally
+		{
+			ss.close();
+			fact.close();
+		}
+		
+		return nid;
+	}
+	
+	public Boolean updatePlayer(Player player)
+	{
+		SessionFactory fact = null;
+		Session ss = null;
+		Transaction tran = null;
+		
+		try
+		{
+			fact = getFactory();
+			ss = fact.openSession();
+			tran = ss.beginTransaction();
+			
+			ss.update(player);
+			
+			tran.commit();
+		}
+		catch (HibernateException ex)
+		{
+			tran.rollback();
+			return false;
+		}
+		return true;
 	}
 
 	/**
@@ -111,11 +212,19 @@ public class SportsDAO implements ISportDatabase, IUserDatabase
 	 * @return Returns an ArrayList with all teams in it
 	 */
 	@Override
-	public ArrayList<Team> getAllTeams() {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<Team> getAllTeams()
+	{
+		SessionFactory fact = getFactory();
+		Session ss = fact.openSession();
+		ArrayList<Team> results = (ArrayList<Team>)ss.createQuery("select t from Team t", Team.class).list();
+		return results;
 	}
 	
+	/**
+	 * 
+	 * @param teamName Name of the team you are trying to add
+	 * @return returns name of existing team or null if no team exists
+	 */
 	public Team getTeamByName(String teamName)
 	{
 		SessionFactory fact = getFactory();
@@ -125,15 +234,17 @@ public class SportsDAO implements ISportDatabase, IUserDatabase
 		query.setParameter("name", teamName);
 		List<Team> results = query.list();
 		
-		ss.close();
-		fact.close();
-		
 		if (results.size() > 0)
 			return results.get(0);
 		else
 			return null;
 	}
 	
+	/**
+	 * 
+	 * @param team Creates team by team name
+	 * @return Returns team id
+	 */
 	public Integer createTeam(Team team)
 	{
 		SessionFactory fact = null;
@@ -172,12 +283,12 @@ public class SportsDAO implements ISportDatabase, IUserDatabase
 	 * @return Returns the id of the match that was added
 	 */
 	@Override
-	public int createMatch(Match match)
+	public Integer createMatch(Match match)
 	{
 		SessionFactory fact = null;
 		Session ss = null;
 		Transaction tran = null;
-		int nid;
+		Integer nid = null;
 		
 		try
 		{
@@ -201,6 +312,51 @@ public class SportsDAO implements ISportDatabase, IUserDatabase
 		}
 		
 		return nid;
+	}
+	
+	public Boolean updateMatch(Match match)
+	{
+		SessionFactory fact = null;
+		Session ss = null;
+		Transaction tran = null;
+		
+		try
+		{
+			fact = getFactory();
+			ss = fact.openSession();
+			tran = ss.beginTransaction();
+			
+			ss.saveOrUpdate(match);
+			
+			tran.commit();
+		}
+		catch (HibernateException ex)
+		{
+			tran.rollback();
+			return false;
+		}
+		return true;
+	}
+	
+	public Match findMatch(String homeTeam, String awayTeam, Date date)
+	{
+		SessionFactory fact = getFactory();
+		Session ss = fact.openSession();
+		
+		Query<Match> query = (Query<Match>)ss.createQuery(
+				"select m from Match m "
+				+ "where m.homeTeam.teamName = :homeTeam "
+				+ "and m.awayTeam.teamName = :awayTeam "
+				+ "and m.time = :date", Match.class);
+		query.setParameter("homeTeam", homeTeam);
+		query.setParameter("awayTeam", awayTeam);
+		query.setParameter("date", date);
+		List<Match> results = query.list();
+		
+		if (results.size() > 0)
+			return results.get(0);
+		else
+			return null;
 	}
 
 	/**
@@ -226,9 +382,6 @@ public class SportsDAO implements ISportDatabase, IUserDatabase
 			throw new RuntimeException("This should never, ever happen");
 		else
 			user = results.get(0);
-		
-		ss.close();
-		fact.close();
 		
 		return user;
 	}
@@ -267,5 +420,79 @@ public class SportsDAO implements ISportDatabase, IUserDatabase
 		}
 		
 		return inserted;
+	}
+	
+	public Boolean changePassword(String username, String password)
+	{
+		SessionFactory fact = getFactory();
+		Session ss = fact.openSession();
+		Transaction tran = null;
+		
+		try
+		{
+			User user = getUser(username);
+			tran = ss.beginTransaction();
+			
+			user.setPassword(password);
+			ss.update(user);
+			tran.commit();
+			return true;
+		}
+		catch(HibernateException e)
+		{
+			if(tran != null)
+			{
+				tran.rollback();
+			}
+			
+			return false;
+		}
+	}
+	
+	public boolean updateFavourites(String username, ArrayList<String> teams)
+	{
+		SessionFactory fact = getFactory();
+		Session ss = fact.openSession();
+		Transaction tran = null;
+		
+		try
+		{
+			User user = getUser(username);
+			
+			tran = ss.beginTransaction();
+			
+			user.setFavourite(teams);
+				
+			ss.update(user);
+			tran.commit();
+			return true;
+			
+		} catch(HibernateException e)
+		{
+			if(tran != null)
+			{
+				tran.rollback();
+			}
+			
+			return false;
+		}
+	}
+
+	public Match getMatchByID(int matchid)
+	{
+		SessionFactory fact = getFactory();
+		Session ss = fact.openSession();
+		
+		Query<Match> query = (Query<Match>)ss.createQuery("select m from Match m where m.id = :id", Match.class);
+		query.setParameter("id", matchid);
+		List<Match> results = query.list();
+		
+		// TODO ss.close();
+		// TODO fact.close();
+		
+		if (results.size() > 0)
+			return results.get(0);
+		else
+			return null;
 	}
 }

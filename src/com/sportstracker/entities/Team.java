@@ -17,10 +17,10 @@ public class Team
 	@OneToMany(mappedBy="team")
 	private List<Player> players;
 	
-	@OneToMany(mappedBy="homeTeam")
+	@OneToMany(mappedBy="homeTeam")//, fetch=FetchType.EAGER)
 	private List<Match> homeMatches;
 	
-	@OneToMany(mappedBy="awayTeam")
+	@OneToMany(mappedBy="awayTeam")//, fetch=FetchType.EAGER)
 	private List<Match> awayMatches;
 	
 	@Transient
@@ -62,21 +62,7 @@ public class Team
 	public void setTeamMVP(String teamMVP) {
 		this.teamMVP = teamMVP;
 	}*/
-	public void setId(int id) {
-		this.id = id;
-	}
-	public void setPlayers(List<Player> players) {
-		this.players = players;
-	}
-	public void setHomeMatches(List<Match> homeMatches) {
-		this.homeMatches = homeMatches;
-	}
-	public void setAwayMatches(List<Match> awayMatches) {
-		this.awayMatches = awayMatches;
-	}
-	public void setMatches(ArrayList<Match> matches) {
-		this.matches = matches;
-	}
+	
 	public int getWinCount()
 	{
 		int wins = 0;
@@ -84,6 +70,15 @@ public class Team
 			if (match.getWinner() == this)
 				wins++;
 		return wins;
+	}
+	
+	public int getLossCount()
+	{
+		int losses = 0;
+		for (Match match : getMatches())
+			if (match.getLoser() == this)
+				losses++;
+		return losses;
 	}
 	
 	public int getMatchCount()

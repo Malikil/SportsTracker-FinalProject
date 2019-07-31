@@ -6,6 +6,9 @@ import java.util.List;
 
 import com.sportstracker.entities.*;
 
+/**
+ * @deprecated Abandoned after iteration 1. Use SportsDAO on its own instead
+ */
 public interface ISportDatabase
 {
 	/**
@@ -20,7 +23,7 @@ public interface ISportDatabase
 	 * @param match The match to add
 	 * @return Returns the id of the match that was added
 	 */
-	public int createMatch(Match match);
+	public Integer createMatch(Match match);
 	
 	public List<Match> getMatchesBeforeDate(Date date);
 	public List<Match> getMatchesAfterDate(Date date);
