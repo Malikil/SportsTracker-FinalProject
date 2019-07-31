@@ -48,11 +48,13 @@ public class MatchTab extends CloseableTab
 		c.gridy = 1;
 		panel.add(HomeLabel, c);
 		
-		JLabel HomeScore = new JLabel(Integer.toString(match.getHomeScore()));
+		JLabel homeScore = new JLabel();
+		if (match.getHomeScore() != null)
+			homeScore = new JLabel(Integer.toString(match.getHomeScore()));
 		c = new GridBagConstraints();
 		c.gridx = 0;
 		c.gridy = 3;
-		panel.add(HomeScore, c);
+		panel.add(homeScore, c);
 		
 		JLabel VSLabel = new JLabel("-VS-");
 		c = new GridBagConstraints();
@@ -73,7 +75,9 @@ public class MatchTab extends CloseableTab
 		c.gridy = 1;
 		panel.add(awayLabel, c);
 		
-		JLabel awayScore = new JLabel(Integer.toString(match.getAwayScore()));
+		JLabel awayScore = new JLabel();
+		if (match.getAwayScore() != null)
+			awayScore = new JLabel(Integer.toString(match.getAwayScore()));
 		c = new GridBagConstraints();
 		c.gridx = 2;
 		c.gridy = 3;
