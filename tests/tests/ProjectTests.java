@@ -1,6 +1,8 @@
 package tests;
 
 import com.sportstracker.border.SportsDAO;
+import com.sportstracker.controller.AdminController;
+import com.sportstracker.controller.DatabaseController;
 import com.sportstracker.controller.UserManager;
 import com.sportstracker.entities.User;
 
@@ -55,24 +57,34 @@ class ProjectTests
 	{
 		UserManager lm = new UserManager();
 		User user = lm.tryLogin("Basic", "Pass");
+		assertTrue(user != null && !user.isAdmin());
 	}
 
 	@Test
 	void loginNoUser()
 	{
-		fail("Not implemented");
+		UserManager lm = new UserManager();
+		User user = lm.tryLogin("NoUserExists", "RandomPass");
+		assertNull(user);
 	}
 	
 	@Test
 	void loginWrongPass()
 	{
-		fail("Not implemented");
+		UserManager lm = new UserManager();
+		User user = lm.tryLogin("User", "RandomPass");
+		assertNull(user);
 	}
 	
 	@Test
 	void createDuplicateAccount()
 	{
-		fail("Not implemented");
+		UserManager lm = new UserManager();
+		
+		String username = "User";
+		String password = "Pass";
+		assertFalse(lm.createAccount(username, password));
+		
 	}
 	
 	@Test
@@ -80,5 +92,47 @@ class ProjectTests
 	{
 		SportsDAO db = new SportsDAO();
 		assertNotNull(db.getPlayerByName("Boris Johnston"));
+	}
+	
+	@Test
+	void addNewTeam()
+	{
+		AdminController ac = new AdminController();
+		assertTrue(ac.addNewTeam("WhiteCaps"));
+	}
+	
+	@Test
+	void getTeamNameList()
+	{
+		DatabaseController dc = new DatabaseController();
+		assertNotNull(dc.getTeamnameList());
+	}
+	
+	@Test
+	void getPastTeamMatches()
+	{
+		DatabaseController dc = new DatabaseController();
+		assertNotNull(dc.getPastTeamMatches("Chelsea"));
+	}
+	
+	@Test
+	void getUpcomingTeamMatches()
+	{
+		DatabaseController dc = new DatabaseController();
+		assertNotNull(dc.getUpcomingTeamMatches("Chelsea"));
+	}
+	
+	@Test
+	void getTeamPlayers()
+	{
+		DatabaseController dc = new DatabaseController();
+		assertNotNull(dc.getTeamPlayers("Chelsea"));
+	}
+	
+	@Test
+	void getAllPlayers()
+	{
+		DatabaseController dc = new DatabaseController();
+		assertNotNull(dc.getAllPlayers());
 	}
 }

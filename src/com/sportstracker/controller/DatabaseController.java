@@ -106,6 +106,11 @@ public class DatabaseController
 		
 		return results;
 	}
+	
+	/**
+	 * @param teams Name of team which upcoming matches will be shown
+	 * @return Returns List of upcoming matches for specific team(s)
+	 */
 	public ArrayList<Match> getUpcomingMatchesForTeamList(List<String> teams)
 	{
 		if (teams.size() < 1)
@@ -136,7 +141,6 @@ public class DatabaseController
 				results.add(closest);
 			}
 		}
-		
 		return results;
 	}
 	
