@@ -11,14 +11,18 @@ class DatabaseTests
 	@Test
 	void addDatabaseItems()
 	{
-		assertTrue(addTeams());
-		assertTrue(addMatches());
-	}
-	private boolean addPlayer()
+		boolean teams, matches, players;
+		//teams = addTeams();
+		//matches = addMatches();
+		players = addPlayer();
 		
+		assertTrue(/*teams && matches &&*/ players);
+	}
+	
+	private boolean addPlayer()
 	{
 		AdminController db = new AdminController();
-		return (db.addNewPlayer("Robert", "Lewandoski", "FW", "Bayern Munich", 9, 29, 187)&&
+		return (/*db.addNewPlayer("Robert", "Lewandoski", "FW", "Bayern Munich", 9, 29, 187)&&
 			    db.addNewPlayer("Alphonso", "Davies", "MF", "Bayern Munich", 19, 18, 181)&&
 			    db.addNewPlayer("Manuel", "Neuer", "GK", "Bayern Munich", 1, 33, 193)&&
 			    db.addNewPlayer("J�r�me", "Boateng", "DF", "Bayern Munich", 1, 30, 192)&&
@@ -31,18 +35,18 @@ class DatabaseTests
 			    db.addNewPlayer("Sven", "Ulreich", "GK", "Bayern Munich", 26, 30, 192)&&
 			    db.addNewPlayer("David", "Alaba", "DF", "Bayern Munich", 27, 27, 180)&&
 			    db.addNewPlayer("Christian", "Fruchtl", "GK", "Bayern Munich", 36, 19, 193)&&
-			    db.addNewPlayer("David", "Silva", "MF", "Manchester City" , 21, 33, 170)&&
-			    db.addNewPlayer("Claudio", "Bravo", "GK", "Manchester City", 1, 36, 184)&&
-			    db.addNewPlayer("Kyle", "Walker", "DF", "Manchester City" , 2, 29, 178)&&
-			    db.addNewPlayer("Sergio","Aguero", "FW", "Manchester City", 10, 31, 173)&&
-			    db.addNewPlayer("George", "Woods", "GK", "Manchester City", 37, 29, 175)&&
-			    db.addNewPlayer("John", "Stone", "DF", "Manchester City", 5, 25, 188)&&
-			    db.addNewPlayer("Raheem", "Sterling", "FW", "Manchester City", 7, 24, 170)&&
-			    db.addNewPlayer("Gabriel", "Jesus", "FW", "Manchester City", 9, 22, 175)&&
-			    db.addNewPlayer("Kevin", "De Bruyne", "MF", "Manchester City", 17, 28, 181)&&
-			    db.addNewPlayer("Leroy", "Sane", "MF", "Manchester City", 19, 23, 183)&&
-			    db.addNewPlayer("Nicolas", "Otamendi", "DF", "Manchester City", 30, 31, 183)&&
-			    db.addNewPlayer("Daniel", "Grimshaw", "GK", "Manchester City", 32, 20, 180)&&
+			    db.addNewPlayer("David", "Silva", "MF", "Man. City" , 21, 33, 170)&&
+			    db.addNewPlayer("Claudio", "Bravo", "GK", "Man. City", 1, 36, 184)&&
+			    db.addNewPlayer("Kyle", "Walker", "DF", "Man. City" , 2, 29, 178)&&
+			    db.addNewPlayer("Sergio","Aguero", "FW", "Man. City", 10, 31, 173)&&
+			    db.addNewPlayer("George", "Woods", "GK", "Man. City", 37, 29, 175)&&
+			    db.addNewPlayer("John", "Stone", "DF", "Man. City", 5, 25, 188)&&
+			    db.addNewPlayer("Raheem", "Sterling", "FW", "Man. City", 7, 24, 170)&&
+			    db.addNewPlayer("Gabriel", "Jesus", "FW", "Man. City", 9, 22, 175)&&
+			    db.addNewPlayer("Kevin", "De Bruyne", "MF", "Man. City", 17, 28, 181)&&
+			    db.addNewPlayer("Leroy", "Sane", "MF", "Man. City", 19, 23, 183)&&
+			    db.addNewPlayer("Nicolas", "Otamendi", "DF", "Man. City", 30, 31, 183)&&
+			    db.addNewPlayer("Daniel", "Grimshaw", "GK", "Man. City", 32, 20, 180)&&
 			    db.addNewPlayer("Lionel","Messi", "FW", "Barcelona", 10, 32, 170)&&
 			    db.addNewPlayer("Marc-Andre", "ter Stegen", "GF", "Barcelona", 1, 27, 187)&&
 			    db.addNewPlayer("Nelson", "Semedo", "DF", "Barcelona", 2, 25, 177)&&
@@ -73,7 +77,7 @@ class DatabaseTests
 			    db.addNewPlayer("Nathaniel", "Clyne", "DF", "Liverpool", 2, 28, 175)&&
 			    db.addNewPlayer("Fabinho", "Tavares", "MF", "Liverpool", 3,25,188)&&
 			    db.addNewPlayer("Roberto", "Firmino", "FW", "Liverpool", 9, 27,181)&&
-			    db.addNewPlayer("Keyler", "Navas", "GK", "Real Madrid", 1, 32, 185)&&
+			    db.addNewPlayer("Keyler", "Navas", "GK", "Real Madrid", 1, 32, 185)&&*/
 			    db.addNewPlayer("Sergio", "Ramos", "DF", "Real Madrid", 4, 33, 184)&&
 			    db.addNewPlayer("Luka", "Mordric", "MF", "Real Madrid", 10, 33, 172)&&
 			    db.addNewPlayer("Gareth", "Bale", "FW", "Real Madrid", 11, 30, 185)&&
@@ -92,7 +96,8 @@ class DatabaseTests
 				db.addNewTeam("Real Madrid") &&
 				db.addNewTeam("Chelsea") &&
 				db.addNewTeam("Barcelona") &&
-				db.addNewTeam("Juventus"));
+				db.addNewTeam("Juventus") &&
+				db.addNewTeam("Bayern Munich"));
 	}
 	
 	private boolean addMatches()
@@ -115,14 +120,14 @@ class DatabaseTests
 				db.addNewMatch("Juventus", "Man. City", "0", "2", "31/07/2019"));
 		// Matches on the 1st
 		boolean eighteenth = (
-				db.addNewMatch("Man. City", "Real Madrid", "5", "6", "1/08/2019") &&
-				db.addNewMatch("Liverpool", "Chelsea", "1", "1", "1/08/2019") &&
-				db.addNewMatch("Barcelona", "Juventus", "2", "3", "1/08/2019"));
+				db.addNewMatch("Man. City", "Real Madrid", "", "", "1/08/2019") &&
+				db.addNewMatch("Liverpool", "Chelsea", "", "", "1/08/2019") &&
+				db.addNewMatch("Barcelona", "Juventus", "", "", "1/08/2019"));
 		// Matches on the 2nd
 		boolean ninteenth = (
-				db.addNewMatch("Chelsea", "Man. City", "1", "5", "2/08/2019") &&
-				db.addNewMatch("Juventus", "Real Madrid", "0", "0", "2/08/2019") &&
-				db.addNewMatch("Barcelona", "Liverpool", "2", "4", "2/08/2019"));
+				db.addNewMatch("Chelsea", "Man. City", "", "", "2/08/2019") &&
+				db.addNewMatch("Juventus", "Real Madrid", "", "", "2/08/2019") &&
+				db.addNewMatch("Barcelona", "Liverpool", "", "", "2/08/2019"));
 		return (fifteenth && sixteenth
 				&& seventeenth && eighteenth
 				&& ninteenth);

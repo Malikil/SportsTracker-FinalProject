@@ -29,7 +29,6 @@ class ProjectTests
 	@Test
 	void passwordChange()
 	{
-		SportsDAO sd = new SportsDAO();
 		UserManager lm = new UserManager();
 		String username = "GabeNewell";
 		String oldPassword = "Steam";
@@ -37,11 +36,9 @@ class ProjectTests
 		
 		lm.changePassword(username, oldPassword, newPassword);
 		
-		assertTrue(lm.tryLogin(username, newPassword) != null);
+		assertNotNull(lm.tryLogin(username, newPassword));
 		
 		lm.changePassword(username, newPassword, oldPassword);
-		
-		assertTrue(lm.tryLogin(username, oldPassword) != null);
 	}
 	
 	@Test
@@ -91,7 +88,7 @@ class ProjectTests
 	void getPlayerByName()
 	{
 		SportsDAO db = new SportsDAO();
-		assertNotNull(db.getPlayerByName("Boris Johnston"));
+		assertNotNull(db.getPlayerByName("Alphonso Davies"));
 	}
 	
 	@Test

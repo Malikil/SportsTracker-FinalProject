@@ -6,6 +6,9 @@ import java.util.List;
 
 import com.sportstracker.entities.*;
 
+/**
+ * @deprecated Abandoned after iteration 1. Use SportsDAO on its own instead
+ */
 public interface ISportDatabase
 {
 	/**

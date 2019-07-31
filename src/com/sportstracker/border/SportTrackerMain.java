@@ -163,8 +163,7 @@ public class SportTrackerMain
 			MatchCard card = new MatchCard(upcoming.get(i));
 			card.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
 			GridBagConstraints c = new GridBagConstraints();
-			c.gridx = i;
-			c.gridy = 0;
+			c.gridx = i; c.gridy = 0;
 			c.fill = GridBagConstraints.VERTICAL;
 			c.insets = new Insets(10, 10, 10, 10);
 			gameSchedulePanel.add(card, c);
@@ -175,8 +174,7 @@ public class SportTrackerMain
 			MatchCard card = new MatchCard(past.get(i));
 			card.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
 			GridBagConstraints c = new GridBagConstraints();
-			c.gridx = i;
-			c.gridy = 0;
+			c.gridx = i; c.gridy = 0;
 			c.fill = GridBagConstraints.VERTICAL;
 			c.insets = new Insets(5, 5, 5, 5);
 			recentGamesPanel.add(card, c);
@@ -186,9 +184,9 @@ public class SportTrackerMain
 		for (int i = 0; i < followpast.size(); i++)
 		{
 			MatchCard card = new MatchCard(followpast.get(i));
+			card.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
 			GridBagConstraints c = new GridBagConstraints();
-			c.gridx = i;
-			c.gridy = 0;
+			c.gridx = i; c.gridy = 0;
 			c.fill = GridBagConstraints.VERTICAL;
 			c.insets = new Insets(5, 5, 5, 5);
 			followedGamesPanel.add(card, c);
@@ -236,7 +234,7 @@ public class SportTrackerMain
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 720, 480);
+		frame.setBounds(100, 100, 720, 500);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(new BorderLayout(0, 0));
 		
