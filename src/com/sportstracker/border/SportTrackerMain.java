@@ -247,12 +247,7 @@ public class SportTrackerMain
 		
 		JPanel teamPanel = new JPanel();
 		tabbedPane.addTab("Team", null, teamPanel, null);
-		teamPanel.setLayout(null);
-		
-		txtSearch = new JTextField();
-		txtSearch.setBounds(570, 11, 86, 20);
-		teamPanel.add(txtSearch);
-		txtSearch.setColumns(10);
+		teamPanel.setLayout(new BorderLayout(0,0));
 		
 		teamSelector = new ListSelectionListener() {	
 			@Override
@@ -272,8 +267,7 @@ public class SportTrackerMain
 		teamTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		teamTable.getSelectionModel().addListSelectionListener(teamSelector);
 		JScrollPane tablePane = new JScrollPane(teamTable);
-		tablePane.setBounds(10, 42, 679, 360);
-		teamPanel.add(tablePane);
+		teamPanel.add(tablePane, BorderLayout.CENTER);
 		
 		GridBagConstraints c = new GridBagConstraints();
 		c.anchor = GridBagConstraints.FIRST_LINE_START;
